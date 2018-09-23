@@ -1,0 +1,4 @@
+<!--components/page/page.wxml-->
+<view>
+    <slot class="page"></slot>
+</view>

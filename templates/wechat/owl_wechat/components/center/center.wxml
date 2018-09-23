@@ -1,0 +1,4 @@
+<!--components/center/center.wxml-->
+<view>
+  <slot class="center"></slot>
+</view>

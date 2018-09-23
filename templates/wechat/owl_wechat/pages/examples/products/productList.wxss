@@ -1,0 +1,25 @@
+/* pages/examples/products/productList.wxss */
+.searchBar{
+  height:60rpx;
+  padding-left:12rpx;
+  padding-right:12rpx;
+}
+
+
+.searchInputBox{
+  background-color: #f7f7f7;
+  border-radius: 30rpx;
+  padding-left:50rpx;
+}
+
+
+.searchButton{
+  background-color: #ee3333;
+  border-radius: 18rpx;
+  text-align: center;
+  height: 48rpx;
+  line-height:48rpx;
+  margin-left:12rpx;
+  color:#ffffff;
+  width:100rpx;
+}

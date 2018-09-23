@@ -1,0 +1,50 @@
+/**index.wxss**/
+
+.banner-pic{
+  height:350rpx;
+  width: 100%;
+}
+.title{
+  margin: 32rpx;
+}
+.title .tix{
+  margin-bottom: 20rpx;
+  font-weight: bold;
+}
+.title .row1{
+  float: left;
+}
+.title .star{
+  float: left;
+  margin-left: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  color: red;
+}
+.title .num{
+  float: left;
+  margin-left: 20rpx;
+  line-height: 100rpx;
+  text-align: center;
+}
+.text{
+  font-size: 25rpx;
+  margin: 0 auto;
+}
+.button .call{
+  float: left;
+  margin: 50rpx;
+}
+.button .route{
+  float: left;
+  margin: 50rpx;
+}
+.button .share{
+  float: left;
+  margin: 50rpx;
+}
+.button{
+  margin: 0 auto;
+  font-size: 30rpx;
+  color: blue;
+}

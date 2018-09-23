@@ -1,0 +1,17 @@
+<!--pages/examples/products/productList.wxml-->
+<view>
+  <view class='searchBar'>
+      <form class='searchForm'>
+        <center>
+        <row>
+          <view class='searchInputBox' style='width:550rpx'>
+            <input value="中秋大礼" type='text' class='searchInput'></input>
+          </view>
+          <expanded>
+            <view class='searchButton'>搜索</view>
+          </expanded>
+        </row>
+        </center>
+      </form>
+  </view>
+</view>

@@ -1,0 +1,11 @@
+{
+  "view":{
+    "children":[
+      {
+        "image": {
+          "src":"../../images/index.png"
+        }
+      }
+    ]
+  }
+}

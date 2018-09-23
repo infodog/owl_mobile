@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "column": "/components/column/column",
+    "row": "/components/row/row",
+    "expanded": "/components/expanded/expanded",
+    "center": "/components/center/center"
+  }
+}

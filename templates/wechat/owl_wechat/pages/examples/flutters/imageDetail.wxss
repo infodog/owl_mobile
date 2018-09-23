@@ -1,0 +1,33 @@
+/* pages/examples/flutters/imageDetail.wxss */
+.title{
+  padding:32rpx;
+}
+
+.title_layout{
+  justify-items: center;
+  font-size: 32rpx;
+}
+
+
+.title_main{
+  font-weight: bold;
+}
+
+.title_sub{
+  color:gray;
+}
+
+.title_star{
+  height: 100rpx;
+  font-size:32rpx;
+  line-height: 100rpx;
+}
+
+.title_num{
+  height: 100rpx;
+  font-size:32rpx;
+  line-height: 100rpx;
+  margin-left:12rpx;ww
+}
+
+                       

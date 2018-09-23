@@ -1,0 +1,34 @@
+{
+  "pages": [
+    "pages/examples/products/productList",
+    "pages/examples/products/productDetail",
+    "pages/examples/flutters/imageDetail",
+    "pages/examples/examples",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/examples/customComponents"
+
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/examples/flutters/imageDetail",
+        "text": "flutterLayout例子"
+      },
+      {
+        "pagePath": "pages/examples/examples",
+        "text": "例子列表"
+      }
+    ]
+  }
+}

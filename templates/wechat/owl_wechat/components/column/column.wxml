@@ -1,0 +1,4 @@
+<!--Column.wxml-->
+<view>
+    <slot classs="column"></slot>
+</view>

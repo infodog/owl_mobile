@@ -1,0 +1,17 @@
+/* components/center/center.wxss */
+
+.center {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  height:100%;
+  width:100%;
+}
+
+:host{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  height:100%;
+  width:100%;
+}

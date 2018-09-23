@@ -1,0 +1,37 @@
+{
+  "name": "owlmobile-cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "preferGlobal": true,
+  "bin": {
+    "owlmobile": "bin/owlmobile.js"
+  },
+  "dependencies": {
+    "art-template": "^4.12.2",
+    "css": "^2.2.4",
+    "js-yaml": "^3.12.0",
+    "xmldom": "^0.1.27"
+  },
+  "devDependencies": {
+    "eslint": "^5.2.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0"
+  },
+  "description": "owlmobile command line tools",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/infodog/owlmobile-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/infodog/owlmobile-cli/issues"
+  },
+  "homepage": "https://github.com/infodog/owlmobile-cli#readme"
+}

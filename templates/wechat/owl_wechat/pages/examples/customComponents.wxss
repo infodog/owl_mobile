@@ -1,0 +1,20 @@
+/* pages/examples/customComponents.wxss */
+.half {
+  width:100rpx;
+}
+.right{
+  background-color: greenyellow;
+}
+
+
+.box{
+  height:500rpx;
+  width:500rpx;
+  background-color: blue
+}
+
+.inner{
+  height:100rpx;
+  width:100rpx;
+  background-color: green
+}

@@ -1,0 +1,4 @@
+<!--index.wxml-->
+<view>
+<image class='img' src='../../images/index.png' mode="widthFix"></image>
+</view>

@@ -1,0 +1,8 @@
+/* components/expanded/expanded.wxss */
+.expanded{
+  flex:1;
+}
+
+:host{
+  flex:1;
+}

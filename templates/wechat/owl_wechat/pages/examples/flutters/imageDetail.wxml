@@ -1,0 +1,17 @@
+<!--pages/examples/flutters/imageDetail.wxml-->
+<page>
+    <image src="../../../images/lake.jpg" style="width:100%" mode="widthFix"></image>
+    <view class="title">
+    <row class="title_layout">
+      <expanded>
+        <column>
+          <view class='title_main'>Oeschinen Lake Campground</view>
+          <text class='title_sub'>Kandersteg, Switzerland</text>
+        </column>
+      </expanded>
+      <icon color="green" size='24' class='flutterIcon icon-star title_star' style='color:red;height:100rpx;line-height:100rpx'></icon>
+      <view style='height:100rpx;line-height:100rpx' class='title_num' >43</view>
+    </row>
+  </view>
+  
+</page>

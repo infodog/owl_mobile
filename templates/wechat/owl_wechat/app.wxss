@@ -1,0 +1,23 @@
+/**app.wxss**/
+@font-face {
+  font-family: 'iconfont';  /* project id 843422 */
+  src: url('//at.alicdn.com/t/font_843422_i7rp5n077bq.eot');
+  src: url('//at.alicdn.com/t/font_843422_i7rp5n077bq.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_843422_i7rp5n077bq.woff') format('woff'),
+  url('//at.alicdn.com/t/font_843422_i7rp5n077bq.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_843422_i7rp5n077bq.svg#iconfont') format('svg');
+}
+
+.flutterIcon {
+  font-family:"iconfont" !important;
+  font-size:60rpx;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/*本项目使用的18个图标  */
+.icon-star:before { content: "\e637"; }
+
+view {
+  font-size: 24rpx;
+}
