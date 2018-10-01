@@ -1,8 +1,13 @@
 import 'package:flutter/widgets.dart';
+import 'package:owl_flutter/components/owl_center.dart';
 import 'package:owl_flutter/components/owl_column.dart';
+import 'package:owl_flutter/components/owl_expanded.dart';
+import 'package:owl_flutter/components/owl_form.dart';
+import 'package:owl_flutter/components/owl_input.dart';
 import 'package:owl_flutter/components/owl_page.dart';
 import 'package:owl_flutter/components/owl_row.dart';
 import 'package:owl_flutter/components/owl_scroll_view.dart';
+import 'package:owl_flutter/components/owl_text.dart';
 import 'package:owl_flutter/components/owl_view.dart';
 
 class OwlComponentBuilder {
@@ -25,6 +30,15 @@ class OwlComponentBuilder {
         return new OwlColumn(node: childNode, pageCss: pageCss, appCss: appCss);
       case "row":
         return new OwlRow(node: childNode, pageCss: pageCss, appCss: appCss);
+      case "form":
+        return new OwlForm(node: childNode, pageCss: pageCss, appCss: appCss);
+      case "input":
+        return new OwlInput(node: childNode, pageCss: pageCss, appCss: appCss);
+      case "center":
+        return new OwlCenter(node: childNode, pageCss: pageCss, appCss: appCss);
+      case "expanded":
+        return new OwlExpanded(
+            node: childNode, pageCss: pageCss, appCss: appCss);
       case "swipper":
         break;
       case "scroll_view":
@@ -35,8 +49,7 @@ class OwlComponentBuilder {
       case "bottom_navigator_bar":
         break;
       case "_text":
-        String textContent = childNode;
-        return Text(textContent);
+        return OwlText(node: node, pageCss: pageCss, appCss: appCss);
     }
   }
 }

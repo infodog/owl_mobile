@@ -4,12 +4,15 @@
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
-    "owlmobile": "bin/owlmobile.js"
+    "owlmobile": "bin/owlmobile.js",
+    "owlmobile-build":"bin/owlmobile-build.js",
+    "owlmobile-init":"bin/owlmobile-init.js"
   },
   "dependencies": {
     "art-template": "^4.12.2",
     "css": "^2.2.4",
     "js-yaml": "^3.12.0",
+    "ncp": "^2.0.0",
     "xmldom": "^0.1.27"
   },
   "devDependencies": {

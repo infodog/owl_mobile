@@ -26,7 +26,8 @@ abstract class OwlComponent extends StatelessWidget {
     "max-lines"
   ];
 
-  static void setScreenWidth(w) {
+  static void setScreenWidth(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
     screenWidth = w;
     if (px_rpx_ratio == 0.0) {
       px_rpx_ratio = w / rpx_width;
@@ -35,19 +36,31 @@ abstract class OwlComponent extends StatelessWidget {
 
   bool isRuleEffective(List<String> selectors, List<String> classes) {
     bool isEffective = false;
-    selectors.forEach((selector) {
-      if (classes.contains(selector)) {
+    if (selectors == null || classes == null) {
+      return false;
+    }
+    for (int i = 0; i < classes.length; i++) {
+      String className = classes[i];
+      String selector = '.' + className;
+      if (selectors.contains(selector) == true) {
         isEffective = true;
       }
-    });
+    }
     return isEffective;
   }
 
   void addOrReplaceRule(List rules, rule) {
-    rule.property = rule.property.toLowerCase();
-    rule.value = rule.value.toLowerCase();
+    if (rule['property'] != null) {
+      rule['property'] = rule['property'].toLowerCase();
+    }
+    if (rule['value'] != null && rule['value'] is String) {
+      rule['value'] = rule['value'].toLowerCase();
+    } else {
+      print("error.....");
+    }
+
     for (int i = 0; i < rules.length; i++) {
-      if (rules[i].property == rule.property) {
+      if (rules[i]['property'] == rule['property']) {
         rules[i] = rule;
         return;
       }
@@ -55,32 +68,40 @@ abstract class OwlComponent extends StatelessWidget {
     rules.add(rule);
   }
 
-  List<dynamic> getEffectiveCssRules(String classString, String style) {
-    classString = classString.toLowerCase();
-    style = style.toLowerCase();
-
-    List<String> classes = classString.split("\\s");
-    var pageRules = pageCss["stylesheet"]["rules"];
-
-    List rules = [];
-    pageRules.forEach((rule) {
-      if (rule['type'] == 'rule') {
-        List<String> selectors = rule.selectors;
-        if (isRuleEffective(selectors, classes)) {
-          List newRules = rule["declarations"];
-          newRules.forEach((r) {
-            addOrReplaceRule(rules, r);
-          });
+  List getEffectiveCssRules(String classString, String style) {
+    List<Map<dynamic, dynamic>> rules = [];
+    if (classString != null) {
+      List<String> classes = classString.split("\\s");
+      var pageRules = pageCss["stylesheet"]["rules"];
+      for (int i = 0; i < pageRules.length; i++) {
+        var rule = pageRules[i];
+        String type = rule['type'];
+        if (type == 'rule') {
+          List<String> selectors = rule['selectors'];
+          if (isRuleEffective(selectors, classes)) {
+            List newRules = rule["declarations"];
+            newRules.forEach((r) {
+              addOrReplaceRule(rules, r);
+            });
+          }
         }
       }
-    });
+    }
 
-    List<String> styleRules = style.split(";");
-    styleRules.forEach((s) {
-      List<String> pair = s.split(":");
-      var rule = {"type": "declaration", "property": pair[0], "value": pair[1]};
-      rules.add(rule);
-    });
+    if (style != null) {
+      style = style.toLowerCase();
+      List<String> styleRules = style.split(";");
+      for (int i = 0; i < styleRules.length; i++) {
+        String s = styleRules[i];
+        List<String> pair = s.split(":");
+        var rule = {
+          "type": "declaration",
+          "property": pair[0],
+          "value": pair[1]
+        };
+        rules.add(rule);
+      }
+    }
 
     return rules;
   }
@@ -88,7 +109,8 @@ abstract class OwlComponent extends StatelessWidget {
   bool hasTextStyles(List rules) {
     for (int i = 0; i < rules.length; i++) {
       var rule = rules[i];
-      if (text_styles.contains(rule.property)) {
+      String property = rule['property'];
+      if (text_styles.contains(property)) {
         return true;
       }
     }
@@ -130,9 +152,13 @@ abstract class OwlComponent extends StatelessWidget {
   }
 
   Color fromCssColor(String cssColor) {
+    if (cssColor == null) {
+      return null;
+    }
     if (cssColor.startsWith("#")) {
-      cssColor = cssColor.replaceFirst("#", "0x");
-      return Color(int.parse(cssColor));
+      cssColor = cssColor.replaceFirst("#", "");
+      int inColor = int.parse(cssColor, radix: 16);
+      return Color(inColor).withAlpha(0xff);
     } else {
       return null;
     }
@@ -140,6 +166,9 @@ abstract class OwlComponent extends StatelessWidget {
 
   FontWeight getFontWeight(String fontWeight) {
     //TODO:补充完整FontWeight的定义
+    if (fontWeight == null) {
+      return FontWeight.normal;
+    }
     fontWeight = fontWeight.toLowerCase();
     switch (fontWeight) {
       case 'bold':
@@ -162,7 +191,29 @@ abstract class OwlComponent extends StatelessWidget {
       case 'fade':
         return TextOverflow.fade;
       default:
-        return null;
+        return TextOverflow.clip;
+    }
+  }
+
+  TextAlign getTextAlign(String textAlign) {
+    if (textAlign != null) {
+      textAlign = textAlign.toLowerCase();
+    }
+    switch (textAlign) {
+      case 'left':
+        return TextAlign.left;
+      case 'right':
+        return TextAlign.right;
+      case 'center':
+        return TextAlign.center;
+      case 'justify':
+        return TextAlign.justify;
+      case 'start':
+        return TextAlign.start;
+      case 'end':
+        return TextAlign.end;
+      default:
+        return TextAlign.left;
     }
   }
 }

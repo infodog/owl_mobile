@@ -66,7 +66,7 @@ class OwlColumn extends OwlComponent {
         crossAxisAlignment = CrossAxisAlignment.stretch;
         break;
     }
-    List columnChildren = [];
+    List<Widget> columnChildren = [];
     List nodeChildren = node["children"];
     for (int i = 0; i < nodeChildren.length; i++) {
       var childNode = nodeChildren[i];

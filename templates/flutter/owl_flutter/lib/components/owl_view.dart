@@ -8,11 +8,13 @@ class OwlView extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
+    OwlComponent.setScreenWidth(context);
     List rules = getNodeCssRules();
     //搜索width和height
     String width = getRuleValue(rules, "width");
     String height = getRuleValue(rules, "height");
     String color = getRuleValue(rules, "color");
+    String backgroundColor = getRuleValue(rules, 'background-color');
 
     String marginLeft = getRuleValue(rules, "margin-left");
     String marginRight = getRuleValue(rules, "margin-right");
@@ -28,6 +30,7 @@ class OwlView extends OwlComponent {
     String maxWidth = getRuleValue(rules, "max-width");
     String minHeight = getRuleValue(rules, "min-height");
     String maxHeight = getRuleValue(rules, "max-height");
+    String borderRadius = getRuleValue(rules, "border-radius");
 
     List children = node['children'];
     assert(children != null);
@@ -45,7 +48,9 @@ class OwlView extends OwlComponent {
       containerChild = new ListBody(children: listChildren);
     }
 
-    Container container = new Container(
+    Color bColor = fromCssColor(backgroundColor);
+
+    Widget container = Container(
         child: containerChild,
         width: lp(width, null),
         height: lp(height, null),
@@ -59,14 +64,17 @@ class OwlView extends OwlComponent {
             right: lp(marginRight, 0.0),
             top: lp(marginTop, 0.0),
             bottom: lp(marginBottom, 0.0)),
-        color: fromCssColor(color),
+        decoration: BoxDecoration(
+            color: bColor,
+            borderRadius: BorderRadius.circular(lp(borderRadius, 0.0))),
         constraints: BoxConstraints(
-            minWidth: lp(minWidth, null),
-            minHeight: lp(minHeight, null),
-            maxWidth: lp(maxWidth, null),
-            maxHeight: lp(maxHeight, null)));
+            minWidth: lp(minWidth, 0.0),
+            minHeight: lp(minHeight, 0.0),
+            maxWidth: lp(maxWidth, double.infinity),
+            maxHeight: lp(maxHeight, double.infinity)));
 
     if (hasTextStyles(rules)) {
+      Color textcolor = fromCssColor(color);
       var fontWeight = getRuleValue(rules, "font-weight");
       var fontSize = getRuleValue(rules, "font-size");
       var fontFamily = getRuleValue(rules, "font-family");
@@ -77,17 +85,17 @@ class OwlView extends OwlComponent {
       var lineHeight = getRuleValue(rules, 'line-height');
 
       TextStyle style = TextStyle(
+          color: textcolor,
           fontWeight: getFontWeight(fontWeight),
           fontSize: lp(fontSize, null),
           fontFamily: fontFamily,
           letterSpacing: lp(letterSpacing, null),
           fontStyle:
-              fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal,
-          height: lp(lineHeight, null));
+              fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
 
       return DefaultTextStyle(
           child: container,
-          style: style,
+          style: DefaultTextStyle.of(context).style.merge(style),
           overflow: getTextOverflow(textOverflow),
           maxLines: maxLines == null ? null : int.parse(maxLines));
     } else {

@@ -66,7 +66,7 @@ class OwlRow extends OwlComponent {
         crossAxisAlignment = CrossAxisAlignment.stretch;
         break;
     }
-    List widgetChildren = [];
+    List<Widget> widgetChildren = [];
     List nodeChildren = node["children"];
     for (int i = 0; i < nodeChildren.length; i++) {
       var childNode = nodeChildren[i];

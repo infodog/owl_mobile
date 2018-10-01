@@ -10,21 +10,18 @@ class OwlPage extends OwlComponent {
 
   AppBar buildAppBar() {
     String title = getAttr(node, "title");
+    if (title == null) {
+      title = 'owlmobile2333';
+    }
     return AppBar(title: new Text(title));
   }
 
   Widget buildBody() {
-    List children = node["children"];
-    if (children.length == 1) {
-      var childNode = children[0];
-      return OwlComponentBuilder.build(
-          node: childNode, pageCss: pageCss, appCss: appCss);
-    } else {
-      List<Widget> listChildren = children.map((child) =>
-          OwlComponentBuilder.build(
-              node: child, pageCss: pageCss, appCss: appCss));
-      return ListView(children: listChildren);
-    }
+    return OwlComponentBuilder.build(
+        node: node, pageCss: pageCss, appCss: appCss);
+    /*return Center(
+      child: Text('Hello World'),
+    );*/
   }
 
   @override
