@@ -68,7 +68,9 @@ class OwlView extends OwlComponent {
         decoration: BoxDecoration(
             color: bColor,
             border: border,
-            borderRadius: BorderRadius.circular(lp(borderRadius, 0.0))),
+            borderRadius: borderRadius == null
+                ? null
+                : BorderRadius.circular(lp(borderRadius, 0.0))),
         constraints: BoxConstraints(
             minWidth: lp(minWidth, 0.0),
             minHeight: lp(minHeight, 0.0),

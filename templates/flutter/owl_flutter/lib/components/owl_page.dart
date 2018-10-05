@@ -15,20 +15,22 @@ class OwlPage extends OwlComponent {
             pageJson: pageJson);
 
   AppBar buildAppBar() {
+    OwlApp app = owl.getApplication();
     String title = null;
 
     if (pageJson != null) {
-      pageJson['navigationBarTitleText'];
+      title = pageJson['navigationBarTitleText'];
+    }
+
+    if (title == null) {
+      if (app.appJson['window'] != null &&
+          app.appJson['window']['navigationBarTitleText'] != null) {
+        title = app.appJson['window']['navigationBarTitleText'];
+      }
     }
 
     if (title == null) {
       title = 'owlmobile';
-    }
-
-    OwlApp app = owl.getApplication();
-    if (app.appJson['window'] != null &&
-        app.appJson['window']['navigationBarTitleText'] != null) {
-      title = app.appJson['window']['navigationBarTitleText'];
     }
 
     String backgroundColor;
