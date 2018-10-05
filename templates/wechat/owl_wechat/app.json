@@ -1,14 +1,15 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/examples/products/productList"
+    "pages/examples/products/productList",
+    "pages/index/index"
+
 
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#44dd44",
+    "navigationBarTitleText": "owl application",
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "list": [

@@ -2,16 +2,71 @@
 <view>
   <view class='searchBar'>
       <form class='searchForm'>
-        <center>
         <row>
           <view class='searchInputBox' style='width:550rpx'>
-            <input value="中秋大礼" type='text' class='searchInput'></input>
+            <middle>
+              <input value="中秋" type='text' class='searchInput'></input>
+            </middle>
           </view>
           <expanded>
-            <view class='searchButton'>搜索</view>
+            <view class='searchButton'><center>搜索</center></view>
           </expanded>
         </row>
-        </center>
-      </form>
+        </form>
+      <view class='divider'></view>
   </view>
+    <column>
+    <view class='recentSearch'>
+      <column>
+        <row>
+          <view class='recentSearchTitle'>最近搜索</view>
+          <expanded>
+            <view class='deleteButton'><center>删除</center></view>
+          </expanded>
+        </row>
+        <wrap>
+          <view class='searchItem'>星巴克月饼券</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>星巴克月饼券</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>星巴克月饼券</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>星巴克月饼券</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>星巴克月饼券</view>
+          <view class='searchItem'>月饼</view>
+        </wrap>
+      </column>
+    </view>
+
+    <view class='hotSearch'>
+      <column>
+        <row>
+          <view class='hotSearchTitle'>热门搜索</view>
+        </row>
+        <wrap>
+          <view class='searchItem'>星巴克月饼券</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>星巴克月饼券</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>固态硬盘</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>内存</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>一体机</view>
+          <view class='searchItem'>电视柜</view>
+          <view class='searchItem'>星巴克月饼券</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>星巴克月饼券</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>固态硬盘</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>内存</view>
+          <view class='searchItem'>月饼</view>
+          <view class='searchItem'>一体机</view>
+          <view class='searchItem'>电视柜</view>
+        </wrap>
+      </column>
+    </view>
+  </column>
 </view>

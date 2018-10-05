@@ -2,6 +2,11 @@
     "column": "/components/column/column",
     "row": "/components/row/row",
     "expanded": "/components/expanded/expanded",
-    "center": "/components/center/center"
-  }
+    "middle": "/components/center/center",
+    "wrap": "/components/wrap/wrap"
+  },
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#44dd44",
+  "navigationBarTitleText": "product search form",
+  "navigationBarTextStyle": "white"
 }

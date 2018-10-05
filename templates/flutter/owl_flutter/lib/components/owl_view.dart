@@ -45,10 +45,11 @@ class OwlView extends OwlComponent {
         listChildren.add(OwlComponentBuilder.build(
             node: children[i], pageCss: pageCss, appCss: appCss));
       }
-      containerChild = new ListBody(children: listChildren);
+      containerChild = new Column(children: listChildren);
     }
 
     Color bColor = fromCssColor(backgroundColor);
+    Border border = getBorder(rules);
 
     Widget container = Container(
         child: containerChild,
@@ -66,6 +67,7 @@ class OwlView extends OwlComponent {
             bottom: lp(marginBottom, 0.0)),
         decoration: BoxDecoration(
             color: bColor,
+            border: border,
             borderRadius: BorderRadius.circular(lp(borderRadius, 0.0))),
         constraints: BoxConstraints(
             minWidth: lp(minWidth, 0.0),

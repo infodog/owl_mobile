@@ -12,6 +12,7 @@ class __pageName extends StatelessWidget {
 
   var pageNode = __pageNode;
   var pageCss = __pageCss;
+  var pageJson = __pageConfig;
   var appCss;
   Map<String, String> params;
 
@@ -24,6 +25,7 @@ class __pageName extends StatelessWidget {
           return new OwlPage(
               node: pageNode,
               key: Key('__pageName'),
+              pageJson: pageJson,
               pageCss: pageCss,
               appCss: appCss);
         },
@@ -33,7 +35,7 @@ class __pageName extends StatelessWidget {
 }
 
 class __ScreenModel extends Model {
-  static dynamic Page(modelConfig) {
+  static dynamic Page(var modelConfig) {
     return modelConfig;
   }
 

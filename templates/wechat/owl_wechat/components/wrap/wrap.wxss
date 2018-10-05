@@ -1,0 +1,12 @@
+/* components/wrap/wrap.wxss *//* components/row/row.wxss */
+:host{
+  display:flex;
+  flex-direction: row;
+  width:100%
+}
+.wrap{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width:100%
+}

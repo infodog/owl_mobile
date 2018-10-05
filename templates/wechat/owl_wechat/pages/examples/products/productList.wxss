@@ -1,15 +1,21 @@
 /* pages/examples/products/productList.wxss */
 .searchBar{
-  height:60rpx;
+  margin-top:6px;
+  height:76rpx;
   padding-left:12rpx;
   padding-right:12rpx;
 }
-
 
 .searchInputBox{
   background-color: #f7f7f7;
   border-radius: 30rpx;
   padding-left:50rpx;
+  height:48rpx;
+  width:600rpx;
+}
+
+.searchInput{
+  width:550rpx;
 }
 
 
@@ -22,4 +28,45 @@
   margin-left:12rpx;
   color:#ffffff;
   width:100rpx;
+  font-weight: bold;
+}
+
+.divider{
+  border-bottom: #eeeeee 1px solid;
+  height:8px;
+  width:720rpx;
+}
+
+.recentSearch{
+  margin-left:10rpx;
+  margin-right:10rpx;
+  margin-top:10px;
+}
+
+.recentSearchTitle{
+  font-size:16px;
+  font-weight: bold;
+  width:680rpx;
+}
+
+.searchItem{
+  background-color:#f0f0f0;
+  padding-left:12rpx;
+  padding-right:12rpx;
+  padding-top:8rpx;
+  padding-bottom:8rpx;
+  margin-left:16rpx;
+  margin-top:16rpx;
+}
+
+.hotSearch{
+  margin-left:10rpx;
+  margin-right:10rpx;
+  margin-top:30px;
+}
+
+.hotSearchTitle{
+  font-size:16px;
+  font-weight: bold;
+  width:680rpx;
 }

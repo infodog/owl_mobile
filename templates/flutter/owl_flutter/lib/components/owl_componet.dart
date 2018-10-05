@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import '../utils/json_util.dart';
 
 abstract class OwlComponent extends StatelessWidget {
-  OwlComponent({Key key, this.node, this.pageCss, this.appCss})
+  OwlComponent({Key key, this.node, this.pageCss, this.appCss, this.pageJson})
       : super(key: key);
 
   final Map<String, dynamic> node;
   final Map<String, dynamic> pageCss;
   final Map<String, dynamic> appCss;
+  final Map<String, dynamic> pageJson;
 
   static double screenWidth;
   static double px_rpx_ratio = 0.0;
@@ -215,5 +216,98 @@ abstract class OwlComponent extends StatelessWidget {
       default:
         return TextAlign.left;
     }
+  }
+
+  BorderStyle getBorderStyle(String styleString) {
+    switch (styleString) {
+      case 'none':
+        return BorderStyle.none;
+      case 'solid':
+        return BorderStyle.solid;
+      default:
+        return BorderStyle.none;
+    }
+  }
+
+  BorderSide parseBorderSide(String borderSideString) {
+    if (borderSideString == null) {
+      return null;
+    }
+    Color color;
+    double width;
+    BorderStyle style;
+    List<String> parts = borderSideString.split(new RegExp("[ \t]+"));
+    for (int i = 0; i < parts.length; i++) {
+      String part = parts[i];
+      int codeUnit = part.codeUnitAt(0);
+      if (part.startsWith("#")) {
+        //this is color
+        color = fromCssColor(part);
+      } else if (codeUnit >= '0'.codeUnitAt(0) &&
+          codeUnit <= '9'.codeUnitAt(0)) {
+        //width
+        width = lp(part, null);
+      } else {
+        //style
+        style = getBorderStyle(part);
+      }
+    }
+    return BorderSide(color: color, width: width, style: style);
+  }
+
+  Border getBorder(List rules) {
+    String borderAll = getRuleValue(rules, "border");
+    String borderBottom = getRuleValue(rules, "border-bottom");
+    String borderTop = getRuleValue(rules, "border-top");
+    String borderLeft = getRuleValue(rules, "border-left");
+    String borderRight = getRuleValue(rules, "border-right");
+
+    BorderSide borderSide = parseBorderSide(borderAll);
+
+    Border border = null;
+    if (borderSide != null) {
+      border = Border.all(
+          color: borderSide.color,
+          width: borderSide.width,
+          style: borderSide.style);
+    }
+
+    BorderSide borderSideBottom = parseBorderSide(borderBottom);
+    BorderSide borderSideTop = parseBorderSide(borderTop);
+    BorderSide borderSideLeft = parseBorderSide(borderLeft);
+    BorderSide borderSideRight = parseBorderSide(borderRight);
+    if (borderSideBottom != null) {
+      if (border != null) {
+        border = Border.merge(border, Border(bottom: borderSideBottom));
+      } else {
+        border = Border(bottom: borderSideBottom);
+      }
+    }
+
+    if (borderSideTop != null) {
+      if (border != null) {
+        border = Border.merge(border, Border(top: borderSideTop));
+      } else {
+        border = Border(top: borderSideTop);
+      }
+    }
+
+    if (borderSideLeft != null) {
+      if (border != null) {
+        border = Border.merge(border, Border(left: borderSideLeft));
+      } else {
+        border = Border(left: borderSideLeft);
+      }
+    }
+
+    if (borderSideRight != null) {
+      if (border != null) {
+        border = Border.merge(border, Border(right: borderSideRight));
+      } else {
+        border = Border(right: borderSideRight);
+      }
+    }
+
+    return border;
   }
 }

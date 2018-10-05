@@ -9,7 +9,7 @@ void main() {
   debugPaintSizeEnabled = true;
   Widget homeScreen = getScreen(homeUrl, {}, owl.getApplication().appCss);
   runApp(MaterialApp(
-    title: 'Navigation Basics',
+    title: 'Owl Applications',
     home: homeScreen,
   ));
 }

@@ -1,19 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
+import 'package:owl_flutter/owl_generated/owl_app.dart';
 
-import '../utils/json_util.dart';
+import '../utils/owl.dart';
 
 class OwlPage extends OwlComponent {
-  OwlPage({Key key, node, pageCss, appCss})
-      : super(key: key, node: node, pageCss: pageCss, appCss: appCss);
+  OwlPage({Key key, node, pageCss, appCss, pageJson})
+      : super(
+            key: key,
+            node: node,
+            pageCss: pageCss,
+            appCss: appCss,
+            pageJson: pageJson);
 
   AppBar buildAppBar() {
-    String title = getAttr(node, "title");
-    if (title == null) {
-      title = 'owlmobile2333';
+    String title = null;
+
+    if (pageJson != null) {
+      pageJson['navigationBarTitleText'];
     }
-    return AppBar(title: new Text(title));
+
+    if (title == null) {
+      title = 'owlmobile';
+    }
+
+    OwlApp app = owl.getApplication();
+    if (app.appJson['window'] != null &&
+        app.appJson['window']['navigationBarTitleText'] != null) {
+      title = app.appJson['window']['navigationBarTitleText'];
+    }
+
+    String backgroundColor;
+    if (app.appJson['window'] != null) {
+      backgroundColor = app.appJson['window']['navigationBarBackgroundColor'];
+    }
+    if (pageJson['backgroundColor'] != null) {
+      backgroundColor = pageJson['backgroundColor'];
+    }
+
+    String navigationBarTextStyle =
+        app.appJson['window']['navigationBarTextStyle'];
+    if (pageJson['navigationBarTextStyle'] != null) {
+      navigationBarTextStyle = pageJson['navigationBarTextStyle'];
+    }
+
+    Color titleColor = fromCssColor("#000000");
+    if (navigationBarTextStyle == 'white') {
+      titleColor = fromCssColor("#ffffff");
+    }
+
+    return AppBar(
+      title: new Text(title),
+      backgroundColor: fromCssColor(backgroundColor),
+      elevation: 0.0,
+      textTheme: TextTheme(
+          title: TextStyle(
+              color: titleColor, fontSize: 18.0, fontWeight: FontWeight.bold)),
+    );
   }
 
   Widget buildBody() {
@@ -26,6 +70,10 @@ class OwlPage extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(appBar: buildAppBar(), body: buildBody());
+    return new Scaffold(
+      appBar: buildAppBar(),
+      body: buildBody(),
+      backgroundColor: Color(0xffffffff),
+    );
   }
 }

@@ -9,6 +9,7 @@ import 'package:owl_flutter/components/owl_row.dart';
 import 'package:owl_flutter/components/owl_scroll_view.dart';
 import 'package:owl_flutter/components/owl_text.dart';
 import 'package:owl_flutter/components/owl_view.dart';
+import 'package:owl_flutter/components/owl_wrap.dart';
 
 class OwlComponentBuilder {
   static Widget build(
@@ -30,11 +31,15 @@ class OwlComponentBuilder {
         return new OwlColumn(node: childNode, pageCss: pageCss, appCss: appCss);
       case "row":
         return new OwlRow(node: childNode, pageCss: pageCss, appCss: appCss);
+      case "wrap":
+        return new OwlWrap(node: childNode, pageCss: pageCss, appCss: appCss);
       case "form":
         return new OwlForm(node: childNode, pageCss: pageCss, appCss: appCss);
       case "input":
         return new OwlInput(node: childNode, pageCss: pageCss, appCss: appCss);
       case "center":
+        return new OwlCenter(node: childNode, pageCss: pageCss, appCss: appCss);
+      case "middle":
         return new OwlCenter(node: childNode, pageCss: pageCss, appCss: appCss);
       case "expanded":
         return new OwlExpanded(

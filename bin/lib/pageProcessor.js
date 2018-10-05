@@ -19,7 +19,7 @@ var pageProcessor = {
         console.log(pageJsFile);
         var beginPos = pageJsContent.indexOf("//dartbegin");
         if(beginPos>-1){
-            pageJsContent = pageJsContent.substring(beginPos);
+            pageJsContent = pageJsContent.substring(beginPos+"//dartbegin".length);
         }
 
         pageJsContent = pageJsContent.replace(/function/g,"");
@@ -27,7 +27,7 @@ var pageProcessor = {
         var pageNode = xmlutil.parseFile(pageWxmlFile);
         var pageCss = cssutil.parseFile(pageWxssFile);
 
-        var appCssFile = path.resolve(wxAppPath,"app.wxss");
+        var pageJsonContent = fs.readFileSync(pageJsonFile,{encoding: 'utf-8'});
 
         var pageClassTemplateContent = fs.readFileSync(pageClassTemplateFile, {encoding: 'utf-8'});
 
@@ -35,6 +35,7 @@ var pageProcessor = {
         pageClassSource = pageClassSource.replace(/__pageNode/g,JSON.stringify(pageNode));
         pageClassSource = pageClassSource.replace(/__pageCss/g,JSON.stringify(pageCss));
         pageClassSource = pageClassSource.replace(/__pageJs/g,pageJsContent);
+        pageClassSource = pageClassSource.replace(/__pageConfig/g,pageJsonContent);
 
         fs.writeFileSync(pageClassFile,pageClassSource,{flag:'w'});
     }
