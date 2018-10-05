@@ -3,8 +3,13 @@ import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
 
 class OwlWrap extends OwlComponent {
-  OwlWrap({Key key, node, pageCss, appCss})
-      : super(key: key, node: node, pageCss: pageCss, appCss: appCss);
+  OwlWrap({Key key, node, pageCss, appCss, model})
+      : super(
+            key: key,
+            node: node,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model);
 
   @override
   Widget build(BuildContext context) {

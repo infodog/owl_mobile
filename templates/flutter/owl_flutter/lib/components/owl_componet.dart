@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:mustache4dart/mustache4dart.dart';
 
 import '../utils/json_util.dart';
 
 abstract class OwlComponent extends StatelessWidget {
-  OwlComponent({Key key, this.node, this.pageCss, this.appCss, this.pageJson})
+  OwlComponent(
+      {Key key,
+      this.node,
+      this.pageCss,
+      this.appCss,
+      this.pageJson,
+      this.model})
       : super(key: key);
 
   final Map<String, dynamic> node;
   final Map<String, dynamic> pageCss;
   final Map<String, dynamic> appCss;
   final Map<String, dynamic> pageJson;
+  final Map<String, dynamic> model;
 
   static double screenWidth;
   static double px_rpx_ratio = 0.0;
@@ -309,5 +317,9 @@ abstract class OwlComponent extends StatelessWidget {
     }
 
     return border;
+  }
+
+  String renderText(String text) {
+    return render(text, model);
   }
 }

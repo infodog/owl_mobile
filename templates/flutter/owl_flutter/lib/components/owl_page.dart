@@ -6,13 +6,14 @@ import 'package:owl_flutter/owl_generated/owl_app.dart';
 import '../utils/owl.dart';
 
 class OwlPage extends OwlComponent {
-  OwlPage({Key key, node, pageCss, appCss, pageJson})
+  OwlPage({Key key, node, pageCss, appCss, pageJson, model})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
-            pageJson: pageJson);
+            pageJson: pageJson,
+            model: model);
 
   AppBar buildAppBar() {
     OwlApp app = owl.getApplication();
