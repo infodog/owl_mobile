@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mustache4dart/mustache4dart.dart';
+import 'package:owl_flutter/model/ScreenModel.dart';
+import 'package:reflected_mustache/mustache.dart';
 
 import '../utils/json_util.dart';
 
@@ -10,14 +11,16 @@ abstract class OwlComponent extends StatelessWidget {
       this.pageCss,
       this.appCss,
       this.pageJson,
-      this.model})
+      this.model,
+      this.componentModel})
       : super(key: key);
 
   final Map<String, dynamic> node;
   final Map<String, dynamic> pageCss;
   final Map<String, dynamic> appCss;
   final Map<String, dynamic> pageJson;
-  final Map<String, dynamic> model;
+  final ScreenModel model;
+  final Map componentModel;
 
   static double screenWidth;
   static double px_rpx_ratio = 0.0;
@@ -320,6 +323,23 @@ abstract class OwlComponent extends StatelessWidget {
   }
 
   String renderText(String text) {
-    return render(text, model);
+    Template template = new Template(text);
+    if (componentModel != null) {
+      if (componentModel['includedScreenModel'] == true) {
+        //do nothing
+      } else {
+        var screenModel = model.pageJs['data'];
+        screenModel.forEach((k, v) {
+          if (!componentModel.containsKey(k)) {
+            componentModel[k] = v;
+          }
+        });
+        componentModel['includedScreenModel'] = true;
+      }
+      return template.renderString(componentModel);
+    } else {
+      var pageJs = model.pageJs;
+      return template.renderString(pageJs['data']);
+    }
   }
 }

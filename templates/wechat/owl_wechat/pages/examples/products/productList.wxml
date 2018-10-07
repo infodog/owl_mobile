@@ -1,21 +1,21 @@
 <!--pages/examples/products/productList.wxml-->
 <view>
   <view class='searchBar'>
-      <form class='searchForm'>
-        <row>
-          <view class='searchInputBox' style='width:550rpx'>
-            <middle>
-              <input value="中秋" type='text' class='searchInput'></input>
-            </middle>
-          </view>
-          <expanded>
-            <view class='searchButton'><center>搜索</center></view>
-          </expanded>
-        </row>
-        </form>
-      <view class='divider'></view>
+    <form class='searchForm'>
+      <row>
+        <view class='searchInputBox' style='width:550rpx'>
+          <middle>
+            <input value="{{searchText}}" type='text' bindinput='onInput' class='searchInput'></input>
+          </middle>
+        </view>
+        <expanded>
+          <view class='searchButton'><center>搜索</center></view>
+        </expanded>
+      </row>
+    </form>
+    <view class='divider'></view>
   </view>
-    <column>
+  <column wx:if="{{dirty==false}}">
     <view class='recentSearch'>
       <column>
         <row>
@@ -68,5 +68,9 @@
         </wrap>
       </column>
     </view>
+  </column>
+
+  <column wx:if="{{dirty}}">
+    <view class='recommendItem' wx:for="{{recommend}}">{{item}}</view>
   </column>
 </view>

@@ -3,13 +3,14 @@ import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
 
 class OwlView extends OwlComponent {
-  OwlView({Key key, node, pageCss, appCss, model})
+  OwlView({Key key, node, pageCss, appCss, model, componentModel})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
-            model: model);
+            model: model,
+            componentModel: componentModel);
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +43,27 @@ class OwlView extends OwlComponent {
 
     Widget containerChild = null;
     if (children.length == 1) {
-      containerChild = OwlComponentBuilder.build(
-          node: children[0], pageCss: pageCss, appCss: appCss);
+      List<Widget> childWidgets = OwlComponentBuilder.buildList(
+          node: children[0],
+          pageCss: pageCss,
+          appCss: appCss,
+          model: model,
+          componentModel: componentModel);
+      if (childWidgets.length == 1) {
+        containerChild = childWidgets[0];
+      } else {
+        containerChild = new Column(children: childWidgets);
+      }
     } else {
       List<Widget> listChildren = [];
       for (int i = 0; i < children.length; i++) {
-        listChildren.add(OwlComponentBuilder.build(
-            node: children[i], pageCss: pageCss, appCss: appCss));
+        List<Widget> childWidgets = OwlComponentBuilder.buildList(
+            node: children[i],
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel);
+        listChildren.addAll(childWidgets);
       }
       containerChild = new Column(children: listChildren);
     }

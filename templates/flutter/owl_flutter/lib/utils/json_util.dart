@@ -11,3 +11,17 @@ dynamic getAttr(node, attrName) {
   }
   return null;
 }
+
+String getMiddle(String s, String beginTag, String endTag) {
+  int beginPos = s.indexOf(beginTag);
+  if (beginPos < 0) {
+    return null;
+  }
+  beginPos = beginPos + beginTag.length;
+
+  int endPos = s.indexOf(endTag);
+  if (endPos < 0) {
+    return null;
+  }
+  return s.substring(beginPos, endPos);
+}

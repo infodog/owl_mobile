@@ -3,13 +3,14 @@ import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
 
 class OwlRow extends OwlComponent {
-  OwlRow({Key key, node, pageCss, appCss, model})
+  OwlRow({Key key, node, pageCss, appCss, model, componentModel})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
-            model: model);
+            model: model,
+            componentModel: componentModel);
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +76,13 @@ class OwlRow extends OwlComponent {
     List nodeChildren = node["children"];
     for (int i = 0; i < nodeChildren.length; i++) {
       var childNode = nodeChildren[i];
-      var childWidget = OwlComponentBuilder.build(
-          node: childNode, pageCss: pageCss, appCss: appCss);
-      widgetChildren.add(childWidget);
+      var childWidgets = OwlComponentBuilder.buildList(
+          node: childNode,
+          pageCss: pageCss,
+          appCss: appCss,
+          model: model,
+          componentModel: componentModel);
+      widgetChildren.addAll(childWidgets);
     }
 
     return Row(

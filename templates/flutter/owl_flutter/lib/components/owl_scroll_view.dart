@@ -3,13 +3,14 @@ import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
 
 class OwlScrollView extends OwlComponent {
-  OwlScrollView({Key key, node, pageCss, appCss, model})
+  OwlScrollView({Key key, node, pageCss, appCss, model, componentModel})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
-            model: model);
+            model: model,
+            componentModel: componentModel);
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +29,13 @@ class OwlScrollView extends OwlComponent {
 
     List<Widget> listChildren = [];
     for (int i = 0; i < children.length; i++) {
-      listChildren.add(OwlComponentBuilder.build(
-          node: children[i], pageCss: pageCss, appCss: appCss));
+      List<Widget> childWidgets = OwlComponentBuilder.buildList(
+          node: children[i],
+          pageCss: pageCss,
+          appCss: appCss,
+          model: model,
+          componentModel: componentModel);
+      listChildren.addAll(childWidgets);
     }
     Axis scrollDirection = Axis.vertical;
     if (scrollX == 'true') {

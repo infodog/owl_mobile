@@ -6,14 +6,15 @@ import 'package:owl_flutter/owl_generated/owl_app.dart';
 import '../utils/owl.dart';
 
 class OwlPage extends OwlComponent {
-  OwlPage({Key key, node, pageCss, appCss, pageJson, model})
+  OwlPage({Key key, node, pageCss, appCss, pageJson, model, componentModel})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
             pageJson: pageJson,
-            model: model);
+            model: model,
+            componentModel: componentModel);
 
   AppBar buildAppBar() {
     OwlApp app = owl.getApplication();
@@ -65,7 +66,11 @@ class OwlPage extends OwlComponent {
 
   Widget buildBody() {
     return OwlComponentBuilder.build(
-        node: node, pageCss: pageCss, appCss: appCss);
+        node: node,
+        pageCss: pageCss,
+        appCss: appCss,
+        model: model,
+        componentModel: null);
     /*return Center(
       child: Text('Hello World'),
     );*/

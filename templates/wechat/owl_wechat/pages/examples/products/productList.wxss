@@ -70,3 +70,11 @@
   font-weight: bold;
   width:680rpx;
 }
+
+.recommendItem{
+  height:30px;
+  width:750rpx;
+  border-bottom: #eeeeee 1px solid;
+  padding-left:20rpx;
+  padding-top:5px;
+}

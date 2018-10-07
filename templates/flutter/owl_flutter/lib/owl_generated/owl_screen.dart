@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:owl_flutter/components/owl_page.dart';
+import 'package:owl_flutter/model/ScreenModel.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../utils/owl.dart';
@@ -27,30 +28,20 @@ class __pageName extends StatelessWidget {
               key: Key('__pageName'),
               pageJson: pageJson,
               pageCss: pageCss,
-              appCss: appCss);
+              appCss: appCss,
+              model: model);
         },
       ),
     );
   }
 }
 
-class __ScreenModel extends Model {
+class __ScreenModel extends ScreenModel {
   static dynamic Page(var modelConfig) {
     return modelConfig;
   }
 
-  __ScreenModel(this.params) {
+  __ScreenModel(params) : super(params) {
     this.pageJs = __pageJs;
-  }
-  var pageModel;
-  Map<String, String> params;
-  var pageJs;
-
-  @override
-  void addListener(VoidCallback listener) {
-    super.addListener(listener);
-    // update data for every subscriber, especially for the first one
-    Function(dynamic) f = this.pageJs['onLoad'];
-    f({});
   }
 }
