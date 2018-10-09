@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -15,7 +17,7 @@ class ScreenModel extends Model {
     var o = this.pageJs["data"];
     data.forEach((String key, dynamic value) {
       List parts = key.split(".");
-      for (int i = 0; i < parts.length - 1; i++) {
+      for (int i = 0; i < parts.length; i++) {
         var part = parts[i];
         int begin = part.indexOf('[');
         int end = part.indexOf(']');
@@ -63,7 +65,7 @@ class ScreenModel extends Model {
   dynamic getData(String objPath) {
     var o = this.pageJs["data"];
     List parts = objPath.split(".");
-    for (int i = 0; i < parts.length - 1; i++) {
+    for (int i = 0; i < parts.length; i++) {
       var part = parts[i];
       int begin = part.indexOf('[');
       int end = part.indexOf(']');
@@ -108,5 +110,14 @@ class ScreenModel extends Model {
     // update data for every subscriber, especially for the first one
     Function(dynamic) f = this.pageJs['onLoad'];
     f({});
+  }
+
+  Map<String, Widget> cachedWidgets = {};
+  void setWidget(String key, Widget w) {
+    cachedWidgets[key] = w;
+  }
+
+  Widget getWidget(String key) {
+    return cachedWidgets[key];
   }
 }

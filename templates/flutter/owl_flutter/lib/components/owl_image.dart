@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
+import 'package:owl_flutter/utils/uitools.dart';
 
 import '../utils/json_util.dart';
 
@@ -12,7 +13,7 @@ class OwlImage extends OwlComponent {
   Widget build(BuildContext context) {
     var src = getAttr(node, "src");
     var mode = getAttr(node, "mode");
-    List rules = getNodeCssRules();
+    List rules = getNodeCssRules(node, pageCss);
     //搜索width和height
     String width = getRuleValue(rules, "width");
     String height = getRuleValue(rules, "height");

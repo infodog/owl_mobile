@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
+import 'package:owl_flutter/utils/uitools.dart';
 
 class OwlColumn extends OwlComponent {
   OwlColumn({Key key, node, pageCss, appCss, model, componentModel})
@@ -14,7 +15,7 @@ class OwlColumn extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
-    List rules = getNodeCssRules();
+    List rules = getNodeCssRules(node, pageCss);
     //搜索width和height
     String flexDirection = getRuleValue(rules, "flex-direction");
     String justifyContent = getRuleValue(rules, "justify-content");

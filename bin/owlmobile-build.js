@@ -23,7 +23,4 @@ for(var i=0; i<pages.length; i++){
     pageProcessor.processPage(wxappPath,flutterPath,page);
 }
 
-
-
-
 console.log("build finished.");

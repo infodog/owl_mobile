@@ -132,14 +132,38 @@ class OwlComponentBuilder {
       return null;
     }
     nodeName = node.keys.first;
+    if (nodeName == '_text') {
+      result.add(OwlText(
+          node: node,
+          pageCss: pageCss,
+          appCss: appCss,
+          model: model,
+          componentModel: componentModel));
+      return result;
+    }
     var childNode = node[nodeName];
 
     var wxif = getAttr(childNode, 'wx:if');
-    //获取 {{ xxx }} 中间的xxx部分
-    String wxifExpr = getMiddle(wxif, "{{", "}}");
-    var r = model.getData(wxifExpr);
-    if (r == false || r == 'false') {
-      return result;
+    if (wxif != null) {
+      //获取 {{ xxx }} 中间的xxx部分
+      String wxifExpr = getMiddle(wxif, "{{", "}}");
+      bool brevert = false;
+      if (wxifExpr.startsWith("!")) {
+        wxifExpr = wxifExpr.substring(1);
+        brevert = true;
+      }
+      var r = model.getData(wxifExpr);
+      if (r == false || r == 'false') {
+        r = false;
+      } else {
+        r = true;
+      }
+      if (brevert) {
+        r = !r;
+      }
+      if (r == false) {
+        return result;
+      }
     }
 
     var wxfor = getAttr(childNode, 'wx:for');
@@ -155,11 +179,15 @@ class OwlComponentBuilder {
         wxforIndex = 'index';
       }
 
+      wxfor = getMiddle(wxfor, '{{', '}}');
       var array = model.getData(wxfor);
       if (array != null && array is List) {
         for (int i = 0; i < array.length; i++) {
           var item = array[i];
-          var newComponentModel = Map.from(componentModel);
+          var newComponentModel = {};
+          if (componentModel != null) {
+            newComponentModel = Map.from(componentModel);
+          }
           newComponentModel[wxforItem] = item;
           newComponentModel[wxforIndex] = i;
           Widget widget = OwlComponentBuilder.build(

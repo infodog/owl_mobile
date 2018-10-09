@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
+import 'package:owl_flutter/utils/uitools.dart';
 
 class OwlView extends OwlComponent {
   OwlView({Key key, node, pageCss, appCss, model, componentModel})
@@ -14,8 +15,8 @@ class OwlView extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
-    OwlComponent.setScreenWidth(context);
-    List rules = getNodeCssRules();
+    setScreenWidth(context);
+    List rules = getNodeCssRules(node, pageCss);
     //搜索width和height
     String width = getRuleValue(rules, "width");
     String height = getRuleValue(rules, "height");

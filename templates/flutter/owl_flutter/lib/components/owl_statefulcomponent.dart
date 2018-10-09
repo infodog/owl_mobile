@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:owl_flutter/model/ScreenModel.dart';
 import 'package:reflected_mustache/mustache.dart';
 
-abstract class OwlComponent extends StatelessWidget {
-  OwlComponent(
+abstract class OwlStatefulComponent extends StatefulWidget {
+  OwlStatefulComponent(
       {Key key,
       this.node,
       this.pageCss,

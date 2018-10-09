@@ -29,12 +29,8 @@ ncp(path.resolve(flutterTemplatePath,),path.resolve(cwd,config.flutter));
 var wxAppTemplatePath = path.resolve(__dirname, '../templates/wechat/owl_wechat');
 ncp(wxAppTemplatePath,path.resolve(cwd,config.wxapp));
 
-try{
-    fs.unlinkSync(path.resolve(cwd,config.flutter,'lib/owl_generated/owl_screen.dart'));
-}
-catch(e){
+fs.unlinkSync(path.resolve(cwd,config.flutter,'lib/owl_generated/owl_screen.dart'));
 
-}
 
 
 
