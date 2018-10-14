@@ -15,7 +15,8 @@ const text_styles = [
   "font-style",
   "text-overflow",
   "line-height",
-  "max-lines"
+  "max-lines",
+  "text-align"
 ];
 
 void setScreenWidth(BuildContext context) {
@@ -48,7 +49,7 @@ void addOrReplaceRule(List rules, rule) {
   if (rule['value'] != null && rule['value'] is String) {
     rule['value'] = rule['value'].toLowerCase();
   } else {
-    print("error.....");
+    print("error....." + rule.toString());
   }
 
   for (int i = 0; i < rules.length; i++) {
@@ -86,8 +87,14 @@ List getEffectiveCssRules(String classString, String style, dynamic pageCss) {
     for (int i = 0; i < styleRules.length; i++) {
       String s = styleRules[i];
       List<String> pair = s.split(":");
-      var rule = {"type": "declaration", "property": pair[0], "value": pair[1]};
-      rules.add(rule);
+      if (pair.length == 2) {
+        var rule = {
+          "type": "declaration",
+          "property": pair[0],
+          "value": pair[1]
+        };
+        rules.add(rule);
+      }
     }
   }
 
@@ -155,18 +162,18 @@ Color fromCssColor(String cssColor) {
 FontWeight getFontWeight(String fontWeight) {
   //TODO:补充完整FontWeight的定义
   if (fontWeight == null) {
-    return FontWeight.normal;
+    return null;
   }
   fontWeight = fontWeight.toLowerCase();
   switch (fontWeight) {
     case 'bold':
       return FontWeight.w700;
     case 'normal':
-      return FontWeight.w400;
+      return FontWeight.normal;
     case 'light':
       return FontWeight.w300;
     default:
-      return FontWeight.normal;
+      return null;
   }
 }
 
@@ -186,6 +193,8 @@ TextOverflow getTextOverflow(String textoverflow) {
 TextAlign getTextAlign(String textAlign) {
   if (textAlign != null) {
     textAlign = textAlign.toLowerCase();
+  } else {
+    return null;
   }
   switch (textAlign) {
     case 'left':
@@ -295,4 +304,149 @@ Border getBorder(List rules) {
   }
 
   return border;
+}
+
+Flex wrapFlex(
+    {String flexDirection,
+    String justifyContent,
+    String alignItems,
+    List<Widget> children}) {
+  VerticalDirection verticalDirection = VerticalDirection.down;
+  Axis direction;
+  MainAxisAlignment mainAxisAlignment;
+  switch (flexDirection) {
+    case 'row':
+      verticalDirection = VerticalDirection.down;
+      direction = Axis.horizontal;
+      mainAxisAlignment = MainAxisAlignment.start;
+      break;
+    case 'column':
+      verticalDirection = VerticalDirection.down;
+      direction = Axis.vertical;
+      mainAxisAlignment = MainAxisAlignment.start;
+      break;
+    default:
+      verticalDirection = VerticalDirection.down;
+      direction = Axis.vertical;
+      mainAxisAlignment = MainAxisAlignment.start;
+      break;
+  }
+
+  switch (justifyContent) {
+    case 'flex-start':
+      mainAxisAlignment = MainAxisAlignment.start;
+      break;
+    case 'flex-end':
+      mainAxisAlignment = MainAxisAlignment.end;
+      break;
+    case 'center':
+      mainAxisAlignment = MainAxisAlignment.center;
+      break;
+    case 'space-between':
+      mainAxisAlignment = MainAxisAlignment.spaceBetween;
+      break;
+    case 'space-around':
+      mainAxisAlignment = MainAxisAlignment.spaceAround;
+      break;
+    case 'space-evenly':
+      mainAxisAlignment = MainAxisAlignment.spaceEvenly;
+      break;
+  }
+
+  CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.start;
+  switch (alignItems) {
+    case 'flex-start':
+      crossAxisAlignment = CrossAxisAlignment.start;
+      break;
+    case 'flex-end':
+      crossAxisAlignment = CrossAxisAlignment.end;
+      break;
+    case 'center':
+      crossAxisAlignment = CrossAxisAlignment.center;
+      break;
+    case 'baseline':
+      crossAxisAlignment = CrossAxisAlignment.baseline;
+      break;
+    case 'stretch':
+      crossAxisAlignment = CrossAxisAlignment.stretch;
+      break;
+  }
+
+  return Flex(
+    mainAxisAlignment: mainAxisAlignment,
+    crossAxisAlignment: crossAxisAlignment,
+    verticalDirection: verticalDirection,
+    direction: direction,
+    children: children,
+  );
+}
+
+EdgeInsetsGeometry getPadding(rules) {
+  String padding = getRuleValue(rules, 'padding');
+  String paddingBottom = getRuleValue(rules, "padding-bottom");
+  String paddingTop = getRuleValue(rules, "padding-top");
+  String paddingLeft = getRuleValue(rules, "padding-left");
+  String paddingRight = getRuleValue(rules, "padding-right");
+  if (padding != null) {
+    List<String> parts = padding.split(new RegExp("[ \t]+"));
+    if (parts.length == 1) {
+      return EdgeInsets.all(lp(padding, 0.0));
+    } else if (parts.length == 2) {
+      return EdgeInsets.symmetric(
+          vertical: lp(parts[0], 0.0), horizontal: lp(parts[1], 0.0));
+    } else if (parts.length == 3) {
+      return EdgeInsets.only(
+          top: lp(parts[0], 0.0),
+          right: lp(parts[1], 0.0),
+          left: lp(parts[1], 0.0),
+          bottom: lp(parts[2], 0.0));
+    } else if (parts.length == 4) {
+      return EdgeInsets.only(
+          top: lp(parts[0], 0.0),
+          right: lp(parts[1], 0.0),
+          left: lp(parts[3], 0.0),
+          bottom: lp(parts[2], 0.0));
+    }
+  } else {
+    return EdgeInsets.only(
+        top: lp(paddingTop, 0.0),
+        right: lp(paddingRight, 0.0),
+        left: lp(paddingLeft, 0.0),
+        bottom: lp(paddingBottom, 0.0));
+  }
+}
+
+EdgeInsetsGeometry getMargin(rules) {
+  String margin = getRuleValue(rules, 'margin');
+  String marginBottom = getRuleValue(rules, "margin-bottom");
+  String marginTop = getRuleValue(rules, "margin-top");
+  String marginLeft = getRuleValue(rules, "margin-left");
+  String marginRight = getRuleValue(rules, "margin-right");
+  if (margin != null) {
+    List<String> parts = margin.split(new RegExp("[ \t]+"));
+    if (parts.length == 1) {
+      return EdgeInsets.all(lp(margin, 0.0));
+    } else if (parts.length == 2) {
+      return EdgeInsets.symmetric(
+          vertical: lp(parts[0], 0.0), horizontal: lp(parts[1], 0.0));
+    } else if (parts.length == 3) {
+      return EdgeInsets.only(
+          top: lp(parts[0], 0.0),
+          right: lp(parts[1], 0.0),
+          left: lp(parts[1], 0.0),
+          bottom: lp(parts[2], 0.0));
+    } else if (parts.length == 4) {
+      return EdgeInsets.only(
+          top: lp(parts[0], 0.0),
+          right: lp(parts[1], 0.0),
+          left: lp(parts[3], 0.0),
+          bottom: lp(parts[2], 0.0));
+    }
+  } else {
+    return EdgeInsets.only(
+        top: lp(marginTop, 0.0),
+        right: lp(marginRight, 0.0),
+        left: lp(marginLeft, 0.0),
+        bottom: lp(marginBottom, 0.0));
+  }
 }

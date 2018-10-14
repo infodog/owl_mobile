@@ -1,31 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
+import 'package:owl_flutter/utils/json_util.dart';
 import 'package:owl_flutter/utils/uitools.dart';
 
 class OwlScrollView extends OwlComponent {
-  OwlScrollView({Key key, node, pageCss, appCss, model, componentModel})
+  OwlScrollView(
+      {Key key,
+      node,
+      pageCss,
+      appCss,
+      model,
+      componentModel,
+      parentNode,
+      parentWidget})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
 
   @override
   Widget build(BuildContext context) {
     List rules = getNodeCssRules(node, pageCss);
     //搜索width和height
 
-    String paddingLeft = getRuleValue(rules, "padding-left");
-    String paddingRight = getRuleValue(rules, "padding-right");
-    String paddingTop = getRuleValue(rules, "padding-top");
-    String paddingBottom = getRuleValue(rules, "padding-bottom");
+    //搜索width和height
+    String width = getRuleValue(rules, "width");
+    String height = getRuleValue(rules, "height");
 
     List children = node['children'];
-    String scrollX = node['scroll-x'];
-    String scrollY = node['scroll-y'];
+    String scrollX = getAttr(node, 'scroll-x');
+    String scrollY = getAttr(node, 'scroll-y');
     assert(children != null);
 
     List<Widget> listChildren = [];
@@ -35,7 +45,9 @@ class OwlScrollView extends OwlComponent {
           pageCss: pageCss,
           appCss: appCss,
           model: model,
-          componentModel: componentModel);
+          componentModel: componentModel,
+          parentNode: node,
+          parentWidget: this);
       listChildren.addAll(childWidgets);
     }
     Axis scrollDirection = Axis.vertical;
@@ -45,15 +57,15 @@ class OwlScrollView extends OwlComponent {
       scrollDirection = Axis.vertical;
     }
     ListView listView = new ListView(
-      padding: EdgeInsets.only(
-          left: lp(paddingLeft, 0.0),
-          right: lp(paddingRight, 0.0),
-          top: lp(paddingTop, 0.0),
-          bottom: lp(paddingBottom, 0.0)),
-      shrinkWrap: true,
+      padding: getPadding(rules),
+//      shrinkWrap: true,
       children: listChildren,
       scrollDirection: scrollDirection,
     );
-    return listView;
+    return Container(
+        child: listView,
+        height: lp(height, null),
+        width: lp(width, null),
+        key: ValueKey('scroll-view'));
   }
 }

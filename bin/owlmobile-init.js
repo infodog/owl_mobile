@@ -24,12 +24,23 @@ fs.writeFileSync(path.resolve(cwd,'owlmobile.json'),JSON.stringify(config),{flag
 
 //将main复制到 flutter目录
 var flutterTemplatePath = path.resolve(__dirname,'../templates/flutter/owl_flutter');
-ncp(path.resolve(flutterTemplatePath,),path.resolve(cwd,config.flutter));
+ncp(path.resolve(flutterTemplatePath,),path.resolve(cwd,config.flutter),function(err){
+    if (err) {
+        return console.error(err);
+    }
+    fs.unlinkSync(path.resolve(cwd,config.flutter,'lib/owl_generated/owl_screen.dart'));
+
+});
 
 var wxAppTemplatePath = path.resolve(__dirname, '../templates/wechat/owl_wechat');
-ncp(wxAppTemplatePath,path.resolve(cwd,config.wxapp));
+ncp(wxAppTemplatePath,path.resolve(cwd,config.wxapp),function(err){
+    if(err){
+        return console.err(err);
+    }
+    console.log('done');
+});
 
-fs.unlinkSync(path.resolve(cwd,config.flutter,'lib/owl_generated/owl_screen.dart'));
+
 
 
 

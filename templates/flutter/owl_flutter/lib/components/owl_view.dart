@@ -1,21 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
+import 'package:owl_flutter/utils/json_util.dart';
 import 'package:owl_flutter/utils/uitools.dart';
 
 class OwlView extends OwlComponent {
-  OwlView({Key key, node, pageCss, appCss, model, componentModel})
+  OwlView(
+      {Key key,
+      node,
+      pageCss,
+      appCss,
+      model,
+      componentModel,
+      parentNode,
+      parentWidget})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+
+  bool isStack;
 
   @override
   Widget build(BuildContext context) {
     setScreenWidth(context);
+    String alignment = getAttr(node, 'alignment');
+    var children = node['children'];
+
+    var fixednodes = [];
+    var nonFixedNodes = [];
+    for (var i = 0; i < children.length; i++) {
+      Map<String, dynamic> child = children[i];
+      var nodeName = child.keys.first;
+//      print(child.toString());
+      var position = getAttr(child[nodeName], 'position');
+
+      if (position == 'absolute') {
+        fixednodes.add(child);
+      } else {
+        nonFixedNodes.add(child);
+      }
+    }
+
+    List<Widget> childWidgets = [];
+    List<Widget> fixedWidgets = [];
+    for (var i = 0; i < nonFixedNodes.length; i++) {
+      var childNode = nonFixedNodes[i];
+      childWidgets.addAll(OwlComponentBuilder.buildList(
+          node: childNode,
+          pageCss: pageCss,
+          appCss: appCss,
+          model: model,
+          componentModel: componentModel,
+          parentNode: node,
+          parentWidget: this));
+    }
+
+    for (var i = 0; i < fixednodes.length; i++) {
+      var childNode = fixednodes[i];
+      fixedWidgets.addAll(OwlComponentBuilder.buildList(
+          node: childNode,
+          pageCss: pageCss,
+          appCss: appCss,
+          model: model,
+          componentModel: componentModel,
+          parentNode: node,
+          parentWidget: this));
+    }
+
     List rules = getNodeCssRules(node, pageCss);
     //搜索width和height
     String width = getRuleValue(rules, "width");
@@ -23,69 +80,37 @@ class OwlView extends OwlComponent {
     String color = getRuleValue(rules, "color");
     String backgroundColor = getRuleValue(rules, 'background-color');
 
-    String marginLeft = getRuleValue(rules, "margin-left");
-    String marginRight = getRuleValue(rules, "margin-right");
-    String marginTop = getRuleValue(rules, "margin-top");
-    String marginBottom = getRuleValue(rules, "margin-bottom");
-
-    String paddingLeft = getRuleValue(rules, "padding-left");
-    String paddingRight = getRuleValue(rules, "padding-right");
-    String paddingTop = getRuleValue(rules, "padding-top");
-    String paddingBottom = getRuleValue(rules, "padding-bottom");
-
     String minWidth = getRuleValue(rules, "min-width");
     String maxWidth = getRuleValue(rules, "max-width");
     String minHeight = getRuleValue(rules, "min-height");
     String maxHeight = getRuleValue(rules, "max-height");
     String borderRadius = getRuleValue(rules, "border-radius");
 
-    List children = node['children'];
-    assert(children != null);
+    String backgroundImage = getRuleValue(rules, "background-image");
 
-    Widget containerChild = null;
-    if (children.length == 1) {
-      List<Widget> childWidgets = OwlComponentBuilder.buildList(
-          node: children[0],
-          pageCss: pageCss,
-          appCss: appCss,
-          model: model,
-          componentModel: componentModel);
-      if (childWidgets.length == 1) {
-        containerChild = childWidgets[0];
-      } else {
-        containerChild = new Column(children: childWidgets);
-      }
-    } else {
-      List<Widget> listChildren = [];
-      for (int i = 0; i < children.length; i++) {
-        List<Widget> childWidgets = OwlComponentBuilder.buildList(
-            node: children[i],
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel);
-        listChildren.addAll(childWidgets);
-      }
-      containerChild = new Column(children: listChildren);
-    }
+    String position = getRuleValue(rules, "position");
 
     Color bColor = fromCssColor(backgroundColor);
     Border border = getBorder(rules);
+    String className = getAttr(node, 'class');
+
+    String flexDirection = getRuleValue(rules, "flex-direction");
+    String justifyContent = getRuleValue(rules, "justify-content");
+    String alignItems = getRuleValue(rules, "align-items");
 
     Widget container = Container(
-        child: containerChild,
+        key: ValueKey(className),
+        child: ClipRect(
+            child: wrapFlex(
+                children: childWidgets,
+                flexDirection: flexDirection,
+                justifyContent: justifyContent,
+                alignItems: alignItems)),
         width: lp(width, null),
         height: lp(height, null),
-        padding: EdgeInsets.only(
-            left: lp(paddingLeft, 0.0),
-            right: lp(paddingRight, 0.0),
-            top: lp(paddingTop, 0.0),
-            bottom: lp(paddingBottom, 0.0)),
-        margin: EdgeInsets.only(
-            left: lp(marginLeft, 0.0),
-            right: lp(marginRight, 0.0),
-            top: lp(marginTop, 0.0),
-            bottom: lp(marginBottom, 0.0)),
+        alignment: Alignment.topLeft,
+        padding: getPadding(rules),
+        margin: getMargin(rules),
         decoration: BoxDecoration(
             color: bColor,
             border: border,
@@ -98,6 +123,7 @@ class OwlView extends OwlComponent {
             maxWidth: lp(maxWidth, double.infinity),
             maxHeight: lp(maxHeight, double.infinity)));
 
+    Widget realView = null;
     if (hasTextStyles(rules)) {
       Color textcolor = fromCssColor(color);
       var fontWeight = getRuleValue(rules, "font-weight");
@@ -108,6 +134,7 @@ class OwlView extends OwlComponent {
       var textOverflow = getRuleValue(rules, "text-overflow");
       var maxLines = getRuleValue(rules, "max-lines");
       var lineHeight = getRuleValue(rules, 'line-height');
+      var textAlign = getRuleValue(rules, 'text-align');
 
       TextStyle style = TextStyle(
           color: textcolor,
@@ -118,13 +145,40 @@ class OwlView extends OwlComponent {
           fontStyle:
               fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
 
-      return DefaultTextStyle(
+      realView = DefaultTextStyle(
           child: container,
+          textAlign: getTextAlign(textAlign) == null
+              ? DefaultTextStyle.of(context).textAlign
+              : getTextAlign(textAlign),
           style: DefaultTextStyle.of(context).style.merge(style),
           overflow: getTextOverflow(textOverflow),
           maxLines: maxLines == null ? null : int.parse(maxLines));
     } else {
-      return container;
+      realView = container;
     }
+
+    if (position == 'absolute' || position == 'fixed') {
+      String left = getRuleValue(rules, 'left');
+      String top = getRuleValue(rules, 'top');
+      String right = getRuleValue(rules, 'right');
+      String bottom = getRuleValue(rules, 'bottom');
+
+      return Positioned(
+          child: realView,
+          top: lp(top, null),
+          left: lp(left, null),
+          right: lp(right, null),
+          bottom: lp(bottom, null));
+    } else {
+      //检查下面的子元素是否有position=absolute
+      if (fixedWidgets.length > 0) {
+        List<Widget> stackChildren = [realView];
+        stackChildren.addAll(fixedWidgets);
+        return Stack(children: stackChildren);
+      } else {
+        return realView;
+      }
+    }
+//    return realView;
   }
 }

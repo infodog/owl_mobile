@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const appProcessor = require('./lib/appProcessor.js')
 const pageProcessor = require('./lib/pageProcessor.js')
+var ncp = require('ncp').ncp;
 
 //读取owlmoobile.json
 var cwd = process.cwd();
@@ -22,5 +23,8 @@ for(var i=0; i<pages.length; i++){
     var page = pages[i];
     pageProcessor.processPage(wxappPath,flutterPath,page);
 }
+
+
+ncp(path.resolve(wxappPath,'img'),path.resolve(flutterPath,'assets/img'));
 
 console.log("build finished.");

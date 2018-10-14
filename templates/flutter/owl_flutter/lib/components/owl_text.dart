@@ -4,14 +4,24 @@ import 'package:owl_flutter/components/owl_componet.dart';
 import 'package:owl_flutter/utils/uitools.dart';
 
 class OwlText extends OwlComponent {
-  OwlText({Key key, node, pageCss, appCss, model, componentModel})
+  OwlText(
+      {Key key,
+      node,
+      pageCss,
+      appCss,
+      model,
+      componentModel,
+      parentNode,
+      parentWidget})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +45,7 @@ class OwlText extends OwlComponent {
     TextStyle style = TextStyle(
         color: textcolor,
         fontWeight: getFontWeight(fontWeight),
-        fontSize: lp('30rpx', null),
+        fontSize: lp(fontSize, null),
         fontFamily: fontFamily,
         letterSpacing: lp(letterSpacing, null),
         fontStyle: fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);

@@ -10,7 +10,9 @@ abstract class OwlComponent extends StatelessWidget {
       this.appCss,
       this.pageJson,
       this.model,
-      this.componentModel})
+      this.componentModel,
+      this.parentNode,
+      this.parentWidget})
       : super(key: key);
 
   final Map<String, dynamic> node;
@@ -19,8 +21,16 @@ abstract class OwlComponent extends StatelessWidget {
   final Map<String, dynamic> pageJson;
   final ScreenModel model;
   final Map componentModel;
+  final Map<String, dynamic> parentNode;
+  final Widget parentWidget;
 
-  String renderText(String text) {
+  String renderText(String text, {bool escape = true}) {
+    if (text == null) {
+      return null;
+    }
+    if (!escape) {
+      text = "{" + text + "}";
+    }
     Template template = new Template(text);
     if (componentModel != null) {
       if (componentModel['includedScreenModel'] == true) {

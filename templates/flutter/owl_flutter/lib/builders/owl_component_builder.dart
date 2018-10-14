@@ -3,10 +3,13 @@ import 'package:owl_flutter/components/owl_center.dart';
 import 'package:owl_flutter/components/owl_column.dart';
 import 'package:owl_flutter/components/owl_expanded.dart';
 import 'package:owl_flutter/components/owl_form.dart';
+import 'package:owl_flutter/components/owl_image.dart';
 import 'package:owl_flutter/components/owl_input.dart';
 import 'package:owl_flutter/components/owl_page.dart';
 import 'package:owl_flutter/components/owl_row.dart';
 import 'package:owl_flutter/components/owl_scroll_view.dart';
+import 'package:owl_flutter/components/owl_swiper.dart';
+import 'package:owl_flutter/components/owl_swiper_item.dart';
 import 'package:owl_flutter/components/owl_text.dart';
 import 'package:owl_flutter/components/owl_view.dart';
 import 'package:owl_flutter/components/owl_wrap.dart';
@@ -19,7 +22,9 @@ class OwlComponentBuilder {
       Map<String, dynamic> pageCss,
       Map<String, dynamic> appCss,
       ScreenModel model,
-      Map componentModel}) {
+      Map componentModel,
+      Map<String, dynamic> parentNode,
+      Widget parentWidget}) {
     String nodeName = "";
     if (node.keys.length == 0) {
       return null;
@@ -33,90 +38,141 @@ class OwlComponentBuilder {
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "view":
         return new OwlView(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "column":
         return new OwlColumn(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "row":
         return new OwlRow(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "wrap":
         return new OwlWrap(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "form":
         return new OwlForm(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "input":
         return new OwlInput(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "center":
         return new OwlCenter(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "middle":
         return new OwlCenter(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "expanded":
         return new OwlExpanded(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "swipper":
         break;
-      case "scroll_view":
+      case "scroll-view":
         return new OwlScrollView(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "cover_view":
         break;
       case "bottom_navigator_bar":
         break;
+      case "image":
+        return new OwlImage(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+      case "swiper":
+        return OwlSwiper(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+      case "swiper-item":
+        return OwlSwiperItem(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
       case "_text":
         return OwlText(
             node: node,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
     }
   }
 
@@ -125,7 +181,9 @@ class OwlComponentBuilder {
       Map<String, dynamic> pageCss,
       Map<String, dynamic> appCss,
       ScreenModel model,
-      componentModel}) {
+      componentModel,
+      parentNode,
+      parentWidget}) {
     List<Widget> result = [];
     String nodeName = "";
     if (node.keys.length == 0) {
@@ -138,7 +196,9 @@ class OwlComponentBuilder {
           pageCss: pageCss,
           appCss: appCss,
           model: model,
-          componentModel: componentModel));
+          componentModel: componentModel,
+          parentNode: parentNode,
+          parentWidget: parentWidget));
       return result;
     }
     var childNode = node[nodeName];
@@ -195,7 +255,9 @@ class OwlComponentBuilder {
               pageCss: pageCss,
               appCss: appCss,
               model: model,
-              componentModel: newComponentModel);
+              componentModel: newComponentModel,
+              parentNode: parentNode,
+              parentWidget: parentWidget);
           if (widget != null) {
             result.add(widget);
           }
@@ -210,7 +272,9 @@ class OwlComponentBuilder {
           pageCss: pageCss,
           appCss: appCss,
           model: model,
-          componentModel: componentModel);
+          componentModel: componentModel,
+          parentNode: parentNode,
+          parentWidget: parentWidget);
       if (widget != null) {
         result.add(widget);
       }

@@ -4,14 +4,24 @@ import 'package:owl_flutter/components/owl_componet.dart';
 import 'package:owl_flutter/utils/uitools.dart';
 
 class OwlWrap extends OwlComponent {
-  OwlWrap({Key key, node, pageCss, appCss, model, componentModel})
+  OwlWrap(
+      {Key key,
+      node,
+      pageCss,
+      appCss,
+      model,
+      componentModel,
+      parentNode,
+      parentWidget})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +94,9 @@ class OwlWrap extends OwlComponent {
           pageCss: pageCss,
           appCss: appCss,
           model: model,
-          componentModel: componentModel);
+          componentModel: componentModel,
+          parentNode: node,
+          parentWidget: this);
       widgetChildren.addAll(childWidgets);
     }
 

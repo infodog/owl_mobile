@@ -1,4 +1,7 @@
 dynamic getAttr(node, attrName) {
+  if (node is String) {
+    return null;
+  }
   List attrs = node['attrs'];
   if (attrs == null) {
     return null;

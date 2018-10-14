@@ -109,7 +109,9 @@ class ScreenModel extends Model {
     super.addListener(listener);
     // update data for every subscriber, especially for the first one
     Function(dynamic) f = this.pageJs['onLoad'];
-    f({});
+    if (f != null) {
+      f({});
+    }
   }
 
   Map<String, Widget> cachedWidgets = {};

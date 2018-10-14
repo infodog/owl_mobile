@@ -1,0 +1,399 @@
+/* pages/home/home2.wxss */
+.container {
+  position:  relative;
+}
+
+
+.home{
+  width: 750rpx;
+}
+
+.home-top{
+  height: 880rpx;
+  width: 750rpx;
+  background-color: #ffffff;
+  position:relative;
+}
+
+.top-bg{
+  height: 750rpx;
+  width: 750rpx;
+}
+
+.home-seach{
+  /* margin-top: 24rpx;
+  margin-bottom:24rpx;
+  margin-left: 30rpx;
+  margin-right:30rpx; */
+  position: fixed;
+  top: 20rpx;
+  left: 34rpx;
+  z-index: 100;
+  height:64rpx;
+}
+
+.import{
+  height: 64rpx;
+  width: 590rpx;
+  border-radius: 32rpx;
+  padding-top: 0rpx;
+  padding-left: 10rpx;
+  padding-bottom:0rpx;
+  padding-right:10rpx;
+  background-color: #ffffff;
+  font-size: 28rpx;
+}
+
+.search_ico{
+  width: 34rpx;
+  height: 34rpx;
+  margin-top:15rpx;
+  margin-bottom:15rpx;
+  margin-right:15rpx;
+  margin-left:15rpx;
+}
+
+.search_input{
+  height: 64rpx;
+  width: 320rpx;
+}
+
+.news{
+  width: 50rpx;
+  height: 50rpx;
+  margin-top:5rpx;
+  margin-bottom:0;
+  margin-left:26rpx; 
+  margin-right:0;
+  position: relative;
+}
+.news_spot{
+ position: absolute;
+ top: 0rpx;
+ right: 0rpx;
+ width: 12rpx;
+ height: 12rpx;
+ border-radius: 6rpx;
+ background-color: #FE7594;
+}
+
+
+.banner{
+  position: absolute;
+  top: 120rpx;
+  left:10rpx;
+  width: 730rpx;
+  height: 358rpx;
+  margin-left:0rpx;
+  margin-right:0rpx;
+}
+
+.banner-swiper{
+  position: relative;
+  width:730rpx;
+  height: 358rpx;
+
+}
+
+.slide-image{
+  height: 358rpx;
+  width:730rpx;
+}
+
+
+.ytquick-nav{
+  width: 750rpx;
+  margin-top: 30rpx;
+  margin-left:0rpx;
+  margin-right:0rpx;
+  position: absolute;
+  height:380rpx;
+  top:460rpx;
+}
+.ytquick-nav-tit{
+  text-align: center;
+  font-size: 36rpx;
+  color: #333333;
+  font-weight: bold;
+}
+.ytquick-nav-tab{
+  font-size:28rpx; 
+  color:#999999;
+  text-align: center;
+  margin-top: 20rpx;
+}
+
+.ytquick-nav-cont{
+  margin-top:30rpx;
+  margin-left:20rpx;
+  margin-bottom:45rpx;
+  margin-right:20rpx;
+  height: 165rpx
+}
+.ytquick-nav-cont-item{
+  width: 175rpx;
+  text-align: center;
+  height: 160rpx;
+}
+.ytquick-nav-cont-item-ico{
+  width: 100rpx;
+  height: 100rpx;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.ytquick-nav-cont-item-name{
+  margin-top:10rpx;
+  margin-bottom:0rpx;
+  font-size: 24rpx; 
+  height:45rpx;
+}
+
+
+.recommend{
+  margin-top: 0rpx;
+  padding-top:0rpx;
+  padding-left:30rpx;
+  padding-right:30rpx;
+  padding-bottom:10rpx;
+  background-color: #ffffff;
+  /* height: 670rpx; */
+}
+
+.recommend-l{
+  margin-right: 15rpx;
+}
+.recommend-l-item{
+  width: 335rpx;
+  height: 210rpx;
+  margin-bottom: 15rpx;
+}
+.recommend-l-item-1{
+  width: 335rpx;
+  height: 435rpx;
+}
+.recommend-r-item{
+  width: 340rpx;
+  height: 210rpx;
+  margin-bottom: 15rpx;
+}
+
+.recommend-r{
+  margin-right: 0rpx;
+}
+
+.consult{
+  /* height: 66rpx; */
+  margin-top:20rpx; 
+  background-color: #ffffff;
+  padding-left: 30rpx;
+  padding-right:30rpx;
+  padding-top:30rpx;
+  padding-bottom:30rpx;
+}
+
+.consult-c-item{
+  width: 335rpx;
+  height: 66rpx;
+  /* line-height: 66rpx; */
+  background-color: #F7F7F7;
+  /* text-align: center; */
+  font-size: 22rpx;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.consult-c-item-image{
+  width: 30rpx;
+  height: 35rpx;
+ 
+}
+
+.consult-c-item-text{
+  margin-left:10rpx;
+}
+
+
+.home-md{
+  margin-top: 20rpx;
+  background-color: #ffffff;
+  padding: 30rpx 0rpx 10rpx;
+
+}
+.home-md-home-tit-wrapper{
+  display:flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.home-md-home-tit{
+  font-size: 36rpx;
+  color: #222222;
+  font-weight:bold ;
+  
+}
+.home-md-home-tit-image{
+  width: 35rpx;
+  height: 40rpx;
+  margin-left: 5rpx;
+}
+
+.home-md-home-tit-image-wrapper{
+  margin-left: 5rpx;
+}
+
+.home-md-tit-tab{
+  font-size: 24rpx;
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
+  color: #999999;
+  margin: 10rpx 0rpx 50rpx;
+}
+
+.filter-cont{
+    margin-top: 50rpx;
+    height: 480rpx;
+}
+
+.filter-cont-hot-cont{
+ display:flex; 
+  flex-direction: row;
+  width:1380rpx;
+}
+
+
+.filter-cont-hot-cont-item{
+    width: 270rpx;
+    height: 480rpx;
+    display:inline-block;
+    margin-left:30rpx;
+    margin-bottom:30rpx;
+
+
+}
+
+.filter-cont-hot-cont-item-image{
+    width: 270rpx;
+    height: 446rpx;
+
+}
+
+
+.brand-cont-home-tit{
+ display:flex;
+ flex-direction: row;
+ justify-content: center;
+ font-size: 36rpx;
+  color: #222;
+  font-weight:bold ;
+}
+
+.brand-cont-tit-tab{
+  font-size: 24rpx;
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
+  color: #999999;
+  margin: 10rpx 0rpx 30rpx;
+}
+
+.brand-cont-brand-list{
+  margin-left:15rpx;
+  margin-right:15rpx;
+}
+.brand-cont-brand-list-item{
+  width: 240rpx;
+  height: 180rpx;
+}
+.brand-cont-brand-list-item-pic{
+   padding:0rpx 5rpx 15rpx 5rpx; 
+   height: 180rpx;
+   width:240rpx;
+}
+
+.brand-cont-brand-list-item-pic-img{
+   height: 165rpx;
+   width:230rpx;
+}
+
+.brand-cont .toolBox{
+  width: 100%;
+  text-align: center;
+  height: 10rpx;
+  padding-bottom: 40rpx;
+  margin-top: -20rpx;
+
+}
+.brand-cont .toolBox .spot{
+  width: 10rpx;
+  height: 10rpx;
+  display: inline-block;
+  border-radius: 10rpx;
+  background: #7F7F7F;
+  margin: 0 5rpx;
+}
+
+.brand-cont .toolBox .cur{
+  width: 36rpx;
+  height: 10rpx;
+  background: #222;
+}
+
+.home_recommend_list{
+ padding-left:30rpx;
+}
+
+.recommend_item{
+  padding: 15rpx 0rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+  display: flex;
+  flex-direction: row;
+  width:720rpx;
+  height:350rpx;
+}
+.recommend_item-pic{
+  width: 300rpx;
+  height: 340rpx;
+ /* flex: auto; */
+ 
+}
+
+.recommend_item-pic-img{
+  width: 300rpx;
+  height: 310rpx;
+}
+.recommend_item-text{
+  width:400rpx;
+  padding-top: 50rpx;
+  font-size: 24rpx;
+  color: #888888;
+  display:flex;
+  flex-direction:column;
+}
+
+.recommend_item_text-1{
+  background: #F7F7F7;
+  padding: 0 15rpx;
+  margin-bottom:20rpx; 
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.recommend_item_text-2{
+  font-size: 32rpx;
+  color: #222222;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.recommend_item_text-3{
+  margin-top:20rpx; 
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

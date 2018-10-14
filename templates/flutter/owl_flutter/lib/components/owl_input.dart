@@ -5,14 +5,24 @@ import 'package:owl_flutter/utils/json_util.dart';
 import 'package:owl_flutter/utils/uitools.dart';
 
 class OwlInput extends OwlStatefulComponent {
-  OwlInput({Key key, node, pageCss, appCss, model, componentModel})
+  OwlInput(
+      {Key key,
+      node,
+      pageCss,
+      appCss,
+      model,
+      componentModel,
+      parentNode,
+      parentWidget})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
 
   @override
   OwlInputState createState() {

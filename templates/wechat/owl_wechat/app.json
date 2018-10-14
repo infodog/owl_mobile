@@ -1,9 +1,7 @@
 {
   "pages": [
-    "pages/examples/products/productList",
+    "pages/home/home2","pages/examples/products/productList",
     "pages/index/index"
-
-
   ],
   "window": {
     "backgroundTextStyle": "light",

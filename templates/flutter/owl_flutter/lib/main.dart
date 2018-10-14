@@ -6,7 +6,7 @@ import 'utils/owl.dart';
 
 void main() {
   var homeUrl = home_route;
-  debugPaintSizeEnabled = true;
+  debugPaintSizeEnabled = false;
   Widget homeScreen = getScreen(homeUrl, {}, owl.getApplication().appCss);
   runApp(MaterialApp(
     title: 'Owl Applications',

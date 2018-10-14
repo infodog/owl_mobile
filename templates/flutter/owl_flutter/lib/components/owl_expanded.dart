@@ -4,14 +4,24 @@ import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
 
 class OwlExpanded extends OwlComponent {
-  OwlExpanded({Key key, node, pageCss, appCss, model, componentModel})
+  OwlExpanded(
+      {Key key,
+      node,
+      pageCss,
+      appCss,
+      model,
+      componentModel,
+      parentNode,
+      parentWidget})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +33,9 @@ class OwlExpanded extends OwlComponent {
         pageCss: pageCss,
         appCss: appCss,
         model: model,
-        componentModel: componentModel);
+        componentModel: componentModel,
+        parentNode: node,
+        parentWidget: this);
     if (childWidgets.length > 0) {
       return Expanded(child: childWidgets[0]);
     }

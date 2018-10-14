@@ -3,14 +3,24 @@ import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
 
 class OwlForm extends OwlComponent {
-  OwlForm({Key key, node, pageCss, appCss, model, componentModel})
+  OwlForm(
+      {Key key,
+      node,
+      pageCss,
+      appCss,
+      model,
+      componentModel,
+      parentNode,
+      parentWidget})
       : super(
             key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
-            componentModel: componentModel);
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +36,9 @@ class OwlForm extends OwlComponent {
           pageCss: pageCss,
           appCss: appCss,
           model: model,
-          componentModel: componentModel);
+          componentModel: componentModel,
+          parentNode: node,
+          parentWidget: this);
       listChildren.addAll(childWidgets);
     }
     if (listChildren.length > 1) {
