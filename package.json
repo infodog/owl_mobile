@@ -1,12 +1,12 @@
 {
   "name": "owlmobile-cli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
     "owlmobile": "bin/owlmobile.js",
-    "owlmobile-build":"bin/owlmobile-build.js",
-    "owlmobile-init":"bin/owlmobile-init.js"
+    "owlmobile-build": "bin/owlmobile-build.js",
+    "owlmobile-init": "bin/owlmobile-init.js"
   },
   "dependencies": {
     "art-template": "^4.12.2",
