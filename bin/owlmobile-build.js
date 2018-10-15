@@ -24,7 +24,21 @@ for(var i=0; i<pages.length; i++){
     pageProcessor.processPage(wxappPath,flutterPath,page);
 }
 
+mkdir(path.resolve(flutterPath,'assets','img'));
 
-ncp(path.resolve(wxappPath,'img'),path.resolve(flutterPath,'assets/img'));
+ncp(path.resolve(wxappPath,'img'),path.resolve(flutterPath,'assets','img'),function(err){
+    if(err){
+        return console.err(err);
+    }
+    console.log('build finished.')
+});
 
-console.log("build finished.");
+
+
+
+function mkdir(path) {
+    try {
+        fs.mkdirSync(path)
+    } catch (e) {
+    }
+}
