@@ -4,11 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class ScreenModel extends Model {
-  dynamic Page(var modelConfig) {
-    this.data = modelConfig['data'];
-    return modelConfig;
-  }
-
   ScreenModel(this.params);
   var pageModel;
   Map<String, String> params;

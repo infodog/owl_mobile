@@ -38,7 +38,8 @@ class OwlView extends OwlComponent {
       Map<String, dynamic> child = children[i];
       var nodeName = child.keys.first;
 //      print(child.toString());
-      var position = getAttr(child[nodeName], 'position');
+      List childRules = getNodeCssRules(child[nodeName], pageCss);
+      var position = getRuleValue(childRules, 'position');
 
       if (position == 'absolute') {
         fixednodes.add(child);
@@ -49,28 +50,50 @@ class OwlView extends OwlComponent {
 
     List<Widget> childWidgets = [];
     List<Widget> fixedWidgets = [];
+    Map<Widget, int> widget2zindex = {};
+
     for (var i = 0; i < nonFixedNodes.length; i++) {
       var childNode = nonFixedNodes[i];
-      childWidgets.addAll(OwlComponentBuilder.buildList(
+      var zIndexStr = getRuleValue(childNode.rules, 'z-index');
+      int zIndex = 0;
+      if (zIndexStr != null) {
+        zIndex = int.parse(zIndexStr);
+      }
+
+      var widgets = OwlComponentBuilder.buildList(
           node: childNode,
           pageCss: pageCss,
           appCss: appCss,
           model: model,
           componentModel: componentModel,
           parentNode: node,
-          parentWidget: this));
+          parentWidget: this);
+      childWidgets.addAll(widgets);
+      for (var j = 0; j < widgets.length; j++) {
+        widget2zindex[widgets[j]] = zIndex;
+      }
     }
 
     for (var i = 0; i < fixednodes.length; i++) {
       var childNode = fixednodes[i];
-      fixedWidgets.addAll(OwlComponentBuilder.buildList(
+      var zIndexStr = getRuleValue(childNode.rules, 'z-index');
+      int zIndex = 0;
+      if (zIndexStr != null) {
+        zIndex = int.parse(zIndexStr);
+      }
+      var widgets = OwlComponentBuilder.buildList(
           node: childNode,
           pageCss: pageCss,
           appCss: appCss,
           model: model,
           componentModel: componentModel,
           parentNode: node,
-          parentWidget: this));
+          parentWidget: this);
+      fixedWidgets.addAll(widgets);
+
+      for (var j = 0; j < widgets.length; j++) {
+        widget2zindex[widgets[j]] = zIndex;
+      }
     }
 
     List rules = getNodeCssRules(node, pageCss);
@@ -174,6 +197,9 @@ class OwlView extends OwlComponent {
       if (fixedWidgets.length > 0) {
         List<Widget> stackChildren = [realView];
         stackChildren.addAll(fixedWidgets);
+        stackChildren.sort((w1, w2) {
+          return widget2zindex[w1].compareTo(widget2zindex[w2]);
+        });
         return Stack(children: stackChildren);
       } else {
         return realView;

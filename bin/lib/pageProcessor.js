@@ -4,7 +4,127 @@ const template = require('art-template')
 const cssutil = require('./cssutil')
 const xmlutil = require('./xmlutil.js')
 
+
+
+
+function getAttr(node, attrName) {
+    if (typeof node == 'string') {
+        return null;
+    }
+    var attrs = node['attrs'];
+    if (attrs == null) {
+        return null;
+    }
+    for (var i = 0; i < attrs.length; i++) {
+        var attr = attrs[i];
+        if (attr['name'] == attrName) {
+            return attr['value'];
+        }
+    }
+    return null;
+}
+
+
+function getNodeRules(node,pageCss){
+    var cssClass = getAttr(node, "class");
+    var style = getAttr(node, "style");
+    console.log("class=" + cssClass + ";style=" + style);
+    var rules = getEffectiveCssRules(cssClass, style, pageCss);
+    return rules;
+}
+
+function isRuleEffective( selectors,  classes) {
+    var isEffective = false;
+    if (selectors == null || classes == null) {
+        return false;
+    }
+    for (var i = 0; i < classes.length; i++) {
+        var className = classes[i];
+        var selector = '.' + className;
+        if (selectors.indexOf(selector) >= 0) {
+            isEffective = true;
+        }
+    }
+    return isEffective;
+}
+
+function addOrReplaceRule(rules, rule) {
+    if (rule['property'] != null) {
+        rule['property'] = rule['property'].toLowerCase();
+    }
+    if (rule['value'] != null && typeof rule['value'] == 'string') {
+        rule['value'] = rule['value'].toLowerCase();
+    } else {
+    }
+
+    for (var i = 0; i < rules.length; i++) {
+        if (rules[i]['property'] == rule['property']) {
+            rules[i] = rule;
+            return;
+        }
+    }
+    rules.push(rule);
+}
+
+function getEffectiveCssRules(classString, style,  pageCss) {
+    var rules = [];
+    if (classString != null) {
+        var classes = classString.split(/\s+/);
+        var pageRules = pageCss["stylesheet"]["rules"];
+        for (var i = 0; i < pageRules.length; i++) {
+            var rule = pageRules[i];
+            var type = rule['type'];
+            if (type == 'rule') {
+                var selectors = rule['selectors'];
+                if (isRuleEffective(selectors, classes)) {
+                    var newRules = rule["declarations"];
+                    newRules.forEach(function(r) {
+                        addOrReplaceRule(rules, r);
+                    });
+                }
+            }
+        }
+    }
+
+    if (style != null) {
+        style = style.toLowerCase();
+        var styleRules = style.split(";");
+        for (var i = 0; i < styleRules.length; i++) {
+            var s = styleRules[i];
+            var pair = s.split(":");
+            if (pair.length == 2) {
+                var rule = {
+                    "type": "declaration",
+                    "property": pair[0].trim(),
+                    "value": pair[1].trim()
+                };
+                rules.push(rule);
+            }
+        }
+    }
+
+    return rules;
+}
+
+function preProcessNode(pageNode, pageCss){
+    var nodeName = Object.keys(pageNode)[0];
+    console.log(nodeName);
+    if(nodeName=='_text'){
+        return;
+    }
+    var node = pageNode[nodeName];
+
+    var rules = getNodeRules(node,pageCss);
+    node.rules = rules;
+    if(node.children){
+        node.children.forEach(function(childNode){
+            preProcessNode(childNode,pageCss);
+        });
+    }
+}
+
 var pageProcessor = {
+
     processPage:function(wxAppPath,flutterPath,pageName){
         var cwd = process.cwd();
         var pageClass = pageName.replace(/\//g,"_");
@@ -17,6 +137,7 @@ var pageProcessor = {
         var pageJsFile = path.join(wxAppPath,pageName + ".js");
         var pageJsContent = fs.readFileSync(pageJsFile,{encoding: 'utf-8'});
         console.log(pageJsFile);
+
         var beginPos = pageJsContent.indexOf("//dartbegin");
         if(beginPos>-1){
             pageJsContent = pageJsContent.substring(beginPos+"//dartbegin".length);
@@ -26,6 +147,7 @@ var pageProcessor = {
 
         var pageNode = xmlutil.parseFile(pageWxmlFile);
         var pageCss = cssutil.parseFile(pageWxssFile);
+        preProcessNode(pageNode,pageCss);
 
         var pageJsonContent = fs.readFileSync(pageJsonFile,{encoding: 'utf-8'});
 

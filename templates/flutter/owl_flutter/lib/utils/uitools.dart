@@ -113,13 +113,21 @@ bool hasTextStyles(List rules) {
 }
 
 List<dynamic> getNodeCssRules(node, pageCss) {
+  return node['rules'];
+}
+
+List<dynamic> calcNodeCssRules(node, pageCss) {
   var cssClass = getAttr(node, "class");
   var style = getAttr(node, "style");
   List rules = getEffectiveCssRules(cssClass, style, pageCss);
   return rules;
 }
 
-String getRuleValue(List<Map> rules, String name) {
+String getRuleValue(List<dynamic> rules, String name) {
+  if (rules == null) {
+    return null;
+  }
+
   for (int i = 0; i < rules.length; i++) {
     Map<String, dynamic> rule = rules[i];
     if (rule["property"] == name) {
@@ -155,7 +163,25 @@ Color fromCssColor(String cssColor) {
     int inColor = int.parse(cssColor, radix: 16);
     return Color(inColor).withAlpha(0xff);
   } else {
-    return null;
+    var beginPos = cssColor.indexOf("rgba(");
+    if (beginPos == -1) {
+      return null;
+    }
+    var endPos = cssColor.indexOf(")");
+    if (endPos == -1) {
+      return null;
+    }
+    var args = cssColor.substring(beginPos + 4, endPos);
+    var parts = args.split(",");
+    if(parts.length!=4){
+      return null;
+    }
+
+    int r = int.parse(parts[0]);
+    int g = int.parse(parts[1]);
+    int b = int.parse(parts[2]);
+    int a = double.parse(parts[3])*255 as int;
+    return Color.fromARGB(a, r, g, b);
   }
 }
 
@@ -171,7 +197,7 @@ FontWeight getFontWeight(String fontWeight) {
     case 'normal':
       return FontWeight.normal;
     case 'light':
-      return FontWeight.w300;
+      return FontWeight.w400;
     default:
       return null;
   }

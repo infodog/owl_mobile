@@ -15,6 +15,7 @@ class __pageName extends StatelessWidget {
   var pageCss = __pageCss;
   var pageJson = __pageConfig;
   var appCss;
+
   Map<String, String> params;
 
   @override
@@ -37,7 +38,12 @@ class __pageName extends StatelessWidget {
 }
 
 class __ScreenModel extends ScreenModel {
+  static Page(var modelConfig) {
+    return modelConfig;
+  }
+
   __ScreenModel(params) : super(params) {
     this.pageJs = __pageJs;
+    this.data = pageJs['data'];
   }
 }

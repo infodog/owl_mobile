@@ -93,7 +93,7 @@ class OwlSwiperState extends State<OwlSwiper> {
     return new Container(
         height: lp(height, 200.0),
         width: lp(width, 320.0),
-        color: Color.fromARGB(50, 128, 0, 0),
+//        color: Color.fromARGB(50, 128, 0, 0),
         child: Swiper(
           indicatorLayout: PageIndicatorLayout.SCALE,
           itemBuilder: (BuildContext context, int index) {
