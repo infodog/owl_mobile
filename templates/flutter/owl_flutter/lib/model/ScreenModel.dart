@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class ScreenModel extends Model {
-  static dynamic Page(var modelConfig) {
+  dynamic Page(var modelConfig) {
+    this.data = modelConfig['data'];
     return modelConfig;
   }
 
@@ -12,6 +13,7 @@ class ScreenModel extends Model {
   var pageModel;
   Map<String, String> params;
   var pageJs;
+  var data;
 
   void setData(Map<String, dynamic> data) {
     var o = this.pageJs["data"];

@@ -37,10 +37,6 @@ class __pageName extends StatelessWidget {
 }
 
 class __ScreenModel extends ScreenModel {
-  static dynamic Page(var modelConfig) {
-    return modelConfig;
-  }
-
   __ScreenModel(params) : super(params) {
     this.pageJs = __pageJs;
   }

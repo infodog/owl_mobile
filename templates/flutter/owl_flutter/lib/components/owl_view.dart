@@ -108,7 +108,7 @@ class OwlView extends OwlComponent {
                 alignItems: alignItems)),
         width: lp(width, null),
         height: lp(height, null),
-        alignment: Alignment.topLeft,
+//        alignment: Alignment.topLeft,
         padding: getPadding(rules),
         margin: getMargin(rules),
         decoration: BoxDecoration(
