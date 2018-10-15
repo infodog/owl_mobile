@@ -37,7 +37,6 @@ class OwlView extends OwlComponent {
     for (var i = 0; i < children.length; i++) {
       Map<String, dynamic> child = children[i];
       var nodeName = child.keys.first;
-//      print(child.toString());
       List childRules = getNodeCssRules(child[nodeName], pageCss);
       var position = getRuleValue(childRules, 'position');
 
@@ -54,7 +53,7 @@ class OwlView extends OwlComponent {
 
     for (var i = 0; i < nonFixedNodes.length; i++) {
       var childNode = nonFixedNodes[i];
-      var zIndexStr = getRuleValue(childNode.rules, 'z-index');
+      var zIndexStr = getRuleValue(childNode['rules'], 'z-index');
       int zIndex = 0;
       if (zIndexStr != null) {
         zIndex = int.parse(zIndexStr);
@@ -76,7 +75,7 @@ class OwlView extends OwlComponent {
 
     for (var i = 0; i < fixednodes.length; i++) {
       var childNode = fixednodes[i];
-      var zIndexStr = getRuleValue(childNode.rules, 'z-index');
+      var zIndexStr = getRuleValue(childNode['rules'], 'z-index');
       int zIndex = 0;
       if (zIndexStr != null) {
         zIndex = int.parse(zIndexStr);
@@ -196,6 +195,8 @@ class OwlView extends OwlComponent {
       //检查下面的子元素是否有position=absolute
       if (fixedWidgets.length > 0) {
         List<Widget> stackChildren = [realView];
+        widget2zindex[realView] = 0;
+
         stackChildren.addAll(fixedWidgets);
         stackChildren.sort((w1, w2) {
           return widget2zindex[w1].compareTo(widget2zindex[w2]);
