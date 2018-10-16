@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
@@ -141,11 +143,19 @@ class OwlPage extends OwlComponent {
     }
   }
 
+  Future<void> _refresh() {
+    var onPullDownRefresh = model.pageJs['onPullDownRefresh'];
+    if (onPullDownRefresh != null) {
+      return Future(onPullDownRefresh);
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: buildAppBar(),
-      body: buildBody(),
+      body: RefreshIndicator(onRefresh: _refresh, child: buildBody()),
       backgroundColor: Color(0xffffffff),
     );
   }
