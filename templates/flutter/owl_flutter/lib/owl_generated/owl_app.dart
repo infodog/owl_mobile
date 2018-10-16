@@ -30,7 +30,7 @@ class OwlApp {
   navigateTo(var obj, BuildContext context) {
     String url = obj['url'];
     if (url.startsWith("/")) {
-      return url.substring(1);
+      url = url.substring(1);
     }
 
     int pos = url.indexOf("?");
