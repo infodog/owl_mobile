@@ -9,7 +9,6 @@ import 'package:owl_flutter/components/owl_page.dart';
 import 'package:owl_flutter/components/owl_row.dart';
 import 'package:owl_flutter/components/owl_scroll_view.dart';
 import 'package:owl_flutter/components/owl_swiper.dart';
-import 'package:owl_flutter/components/owl_swiper_item.dart';
 import 'package:owl_flutter/components/owl_text.dart';
 import 'package:owl_flutter/components/owl_view.dart';
 import 'package:owl_flutter/components/owl_wrap.dart';
@@ -170,7 +169,7 @@ class OwlComponentBuilder {
             parentWidget: parentWidget);
         break;
       case "swiper-item":
-        widget = OwlSwiperItem(
+        widget = OwlView(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,

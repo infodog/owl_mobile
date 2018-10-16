@@ -44,26 +44,19 @@ class OwlSwiperState extends State<OwlSwiper> {
     String width = getRuleValue(rules, "width");
     String height = getRuleValue(rules, "height");
     var children = widget.node['children'];
-    List images = [];
+    List<Widget> swiperItems = [];
     for (int i = 0; i < children.length; i++) {
       var childNode = children[i];
-      List<Widget> swiperItems = OwlComponentBuilder.buildList(
+      swiperItems.addAll(OwlComponentBuilder.buildList(
           node: childNode,
           pageCss: widget.pageCss,
           appCss: widget.appCss,
           model: widget.model,
           componentModel: widget.componentModel,
           parentNode: widget.node,
-          parentWidget: widget);
-      for (int j = 0; j < swiperItems.length; j++) {
-        OwlSwiperItem item = swiperItems[j];
-        if (item != null) {
-          images.add(item.getImage());
-        }
-      }
+          parentWidget: widget));
     }
 
-    print("++++++images.length=" + images.length.toString());
     String indicatorDots =
         widget.renderText(getAttr(widget.node, "indicator-dots"));
     String indicatorColor =
@@ -97,13 +90,9 @@ class OwlSwiperState extends State<OwlSwiper> {
         child: Swiper(
           indicatorLayout: PageIndicatorLayout.SCALE,
           itemBuilder: (BuildContext context, int index) {
-            return new Image(
-                image: images[index],
-                fit: BoxFit.cover,
-                width: lp(width, 320.0),
-                height: lp(height, 200.0));
+            return swiperItems[index];
           },
-          itemCount: images.length,
+          itemCount: swiperItems.length,
           autoplay: autoplay == 'true',
           viewportFraction: 1.0,
           scale: 1.0,
