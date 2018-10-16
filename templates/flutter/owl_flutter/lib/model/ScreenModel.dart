@@ -1,14 +1,20 @@
 import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
+import 'package:owl_flutter/utils/wx.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class ScreenModel extends Model {
-  ScreenModel(this.params);
+  ScreenModel(this.params, BuildContext buildContext) {
+    wx = WeiXinAdapter(buildContext);
+  }
+
   var pageModel;
   Map<String, String> params;
   var pageJs;
   var data;
+
+  WeiXinAdapter wx;
 
   void setData(Map<String, dynamic> data) {
     var o = this.pageJs["data"];

@@ -28,7 +28,11 @@ class OwlApp {
   }
 
   navigateTo(var obj, BuildContext context) {
-    String url = obj.url;
+    String url = obj['url'];
+    if (url.startsWith("/")) {
+      return url.substring(1);
+    }
+
     int pos = url.indexOf("?");
     Map params = {};
     if (pos > 0) {
@@ -48,9 +52,11 @@ class OwlApp {
     }
 
     Widget screen = getScreen(url, {}, appCss);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => screen),
-    );
+    if (screen != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => screen),
+      );
+    }
   }
 }

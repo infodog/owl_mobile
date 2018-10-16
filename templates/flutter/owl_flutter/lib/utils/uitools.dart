@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:owl_flutter/components/owl_componet.dart';
+import 'package:owl_flutter/components/owl_statefulcomponent.dart';
 import 'package:owl_flutter/model/ScreenModel.dart';
 
 import '../utils/json_util.dart';
@@ -484,13 +486,21 @@ EdgeInsetsGeometry getMargin(rules) {
   }
 }
 
-GestureDetector wrapGestureDetector(
-    Widget widget, dynamic node, ScreenModel model) {
+Widget wrapGestureDetector(Widget widget, dynamic node, ScreenModel model) {
   var bindtap = getAttr(node, 'bindtap');
   var pageBindTap = model.pageJs[bindtap];
   if (pageBindTap != null) {
     GestureTapUpCallback _onTapHandler = (TapUpDetails details) {
-      var dataset = getDataSet(node);
+      Map dataset = getDataSet(node);
+      dataset = dataset.map((k, v) {
+        if (widget is OwlComponent) {
+          v = (widget as OwlComponent).renderText(v);
+        } else if (widget is OwlStatefulComponent) {
+          v = (widget as OwlStatefulComponent).renderText(v);
+        }
+        return MapEntry(k, v);
+      });
+
       var id = getAttr(node, "id");
       var event = {
         'type': 'tap',

@@ -7,7 +7,7 @@
     "middle": "/components/center/center"
   },
   "backgroundTextStyle": "light",
-  "navigationBarBackgroundColor": "#44dd44",
-  "navigationBarTitleText": "product search form",
-  "navigationBarTextStyle": "white"
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTitleText": "享海购",
+  "navigationBarTextStyle": "black"
 }

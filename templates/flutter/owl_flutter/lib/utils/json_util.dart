@@ -15,7 +15,7 @@ dynamic getAttr(node, attrName) {
   return null;
 }
 
-Map<String, String> getDataSet(node) {
+Map getDataSet(node) {
   if (node is String) {
     return null;
   }
@@ -34,7 +34,7 @@ Map<String, String> getDataSet(node) {
       }
     }
   }
-  return null;
+  return result;
 }
 
 String getMiddle(String s, String beginTag, String endTag) {

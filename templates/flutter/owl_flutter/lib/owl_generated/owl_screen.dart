@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:owl_flutter/components/owl_page.dart';
 import 'package:owl_flutter/model/ScreenModel.dart';
+import 'package:owl_flutter/utils/wx.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../utils/owl.dart';
@@ -21,7 +22,7 @@ class __pageName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScopedModel<__ScreenModel>(
-      model: __ScreenModel(this.params),
+      model: __ScreenModel(this.params, context),
       child: ScopedModelDescendant<__ScreenModel>(
         builder: (context, child, model) {
           return new OwlPage(
@@ -42,7 +43,8 @@ class __ScreenModel extends ScreenModel {
     return modelConfig;
   }
 
-  __ScreenModel(params) : super(params) {
+  __ScreenModel(params, BuildContext buildContext)
+      : super(params, buildContext) {
     this.pageJs = __pageJs;
     this.data = pageJs['data'];
   }

@@ -28,6 +28,7 @@ class OwlImage extends OwlComponent {
   @override
   Widget build(BuildContext context) {
     String src = getAttr(node, "src");
+    src = renderText(src);
     var mode = getAttr(node, "mode");
     List rules = getNodeCssRules(node, pageCss);
     //搜索width和height

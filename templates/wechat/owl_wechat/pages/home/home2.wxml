@@ -11,7 +11,7 @@
           <swiper class='banner-swiper' indicator-dots="{{indicatorDots}}"
           autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <swiper-item wx:for="{{imgUrls}}">
-              <image src="{{item}}" class="slide-image"/>
+              <image src="{{item}}" class="slide-image" bindtap="onBannerTap" data-idx='{{index}}'/>
             </swiper-item>
         </swiper>
       </view>
