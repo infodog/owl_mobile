@@ -51,8 +51,8 @@ class OwlPage extends OwlComponent {
     if (app.appJson['window'] != null) {
       backgroundColor = app.appJson['window']['navigationBarBackgroundColor'];
     }
-    if (pageJson['backgroundColor'] != null) {
-      backgroundColor = pageJson['backgroundColor'];
+    if (pageJson['navigationBarBackgroundColor'] != null) {
+      backgroundColor = pageJson['navigationBarBackgroundColor'];
     }
 
     String navigationBarTextStyle =
