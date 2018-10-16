@@ -185,8 +185,20 @@ class OwlView extends OwlComponent {
       String right = getRuleValue(rules, 'right');
       String bottom = getRuleValue(rules, 'bottom');
 
+      var realChild = realView;
+      if (fixedWidgets.length > 0) {
+        List<Widget> stackChildren = [realView];
+        widget2zindex[realView] = 0;
+
+        stackChildren.addAll(fixedWidgets);
+        stackChildren.sort((w1, w2) {
+          return widget2zindex[w1].compareTo(widget2zindex[w2]);
+        });
+        realChild =  Stack(children: stackChildren);
+      }
+
       return Positioned(
-          child: realView,
+          child: realChild,
           top: lp(top, null),
           left: lp(left, null),
           right: lp(right, null),

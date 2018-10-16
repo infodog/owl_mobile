@@ -86,7 +86,7 @@ class OwlPage extends OwlComponent {
       Map<String, dynamic> child = children[i];
       var nodeName = child.keys.first;
 
-      var position = getAttr(child[nodeName], 'position');
+      var position = getRuleValue(child[nodeName]['rules'], 'position');
       print("i=" +
           i.toString() +
           " position=" +
