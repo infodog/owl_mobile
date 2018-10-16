@@ -6,7 +6,8 @@
   "bin": {
     "owlmobile": "bin/owlmobile.js",
     "owlmobile-build": "bin/owlmobile-build.js",
-    "owlmobile-init": "bin/owlmobile-init.js"
+    "owlmobile-init": "bin/owlmobile-init.js",
+    "owlmobile-upgrade": "bin/owlmobile-upgrade.js"
   },
   "dependencies": {
     "art-template": "^4.12.2",

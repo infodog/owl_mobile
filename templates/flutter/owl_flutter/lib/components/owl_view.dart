@@ -194,7 +194,7 @@ class OwlView extends OwlComponent {
         stackChildren.sort((w1, w2) {
           return widget2zindex[w1].compareTo(widget2zindex[w2]);
         });
-        realChild =  Stack(children: stackChildren);
+        realChild = Stack(children: stackChildren);
       }
 
       return Positioned(

@@ -113,10 +113,10 @@ bool hasTextStyles(List rules) {
 }
 
 List<dynamic> getNodeCssRules(node, pageCss) {
-  if(node==null){
+  if (node == null) {
     return null;
   }
-  if(node is String){
+  if (node is String) {
     return null;
   }
   return node['rules'];

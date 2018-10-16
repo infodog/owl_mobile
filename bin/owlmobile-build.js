@@ -34,9 +34,6 @@ ncp(path.resolve(wxappPath,'img'),path.resolve(flutterPath,'assets','img'),funct
     console.log('build finished.')
 });
 
-
-
-
 function mkdir(path) {
     try {
         fs.mkdirSync(path)

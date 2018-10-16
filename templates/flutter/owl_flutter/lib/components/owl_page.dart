@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
 import 'package:owl_flutter/owl_generated/owl_app.dart';
-import 'package:owl_flutter/utils/json_util.dart';
 import 'package:owl_flutter/utils/uitools.dart';
 
 import '../utils/owl.dart';
