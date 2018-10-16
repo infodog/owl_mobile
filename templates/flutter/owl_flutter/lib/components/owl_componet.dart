@@ -24,7 +24,7 @@ abstract class OwlComponent extends StatelessWidget {
   final Map<String, dynamic> parentNode;
   final Widget parentWidget;
 
-  String renderText(String text, {bool escape = true}) {
+  String renderText(String text, {bool escape = false}) {
     if (text == null) {
       return null;
     }
