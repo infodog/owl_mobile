@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owl_flutter/model/ScreenModel.dart';
 
 import '../utils/json_util.dart';
 
@@ -480,5 +481,30 @@ EdgeInsetsGeometry getMargin(rules) {
         right: lp(marginRight, 0.0),
         left: lp(marginLeft, 0.0),
         bottom: lp(marginBottom, 0.0));
+  }
+}
+
+GestureDetector wrapGestureDetector(
+    Widget widget, dynamic node, ScreenModel model) {
+  var bindtap = getAttr(node, 'bindtap');
+  var pageBindTap = model.pageJs[bindtap];
+  if (pageBindTap != null) {
+    GestureTapUpCallback _onTapHandler = (TapUpDetails details) {
+      var dataset = getDataSet(node);
+      var id = getAttr(node, "id");
+      var event = {
+        'type': 'tap',
+        'target': {"id": id, "dataset": dataset},
+        'currentTarget': {"id": id, 'dataset': dataset},
+        'detail': {
+          'x': details.globalPosition.dx,
+          'y': details.globalPosition.dy
+        }
+      };
+      pageBindTap(event);
+    };
+    return GestureDetector(child: widget, onTapUp: _onTapHandler);
+  } else {
+    return widget;
   }
 }

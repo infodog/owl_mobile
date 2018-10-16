@@ -15,6 +15,7 @@ import 'package:owl_flutter/components/owl_view.dart';
 import 'package:owl_flutter/components/owl_wrap.dart';
 import 'package:owl_flutter/model/ScreenModel.dart';
 import 'package:owl_flutter/utils/json_util.dart';
+import 'package:owl_flutter/utils/uitools.dart';
 
 class OwlComponentBuilder {
   static Widget build(
@@ -31,9 +32,10 @@ class OwlComponentBuilder {
     }
     nodeName = node.keys.first;
     var childNode = node[nodeName];
+    Widget widget;
     switch (nodeName) {
       case "page":
-        return new OwlPage(
+        widget = OwlPage(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
@@ -41,91 +43,9 @@ class OwlComponentBuilder {
             componentModel: componentModel,
             parentNode: parentNode,
             parentWidget: parentWidget);
-      case "view":
-        return new OwlView(
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget);
-      case "column":
-        return new OwlColumn(
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget);
-      case "row":
-        return new OwlRow(
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget);
-      case "wrap":
-        return new OwlWrap(
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget);
-      case "form":
-        return new OwlForm(
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget);
-      case "input":
-        return new OwlInput(
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget);
-      case "center":
-        return new OwlCenter(
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget);
-      case "middle":
-        return new OwlCenter(
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget);
-      case "expanded":
-        return new OwlExpanded(
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget);
-      case "swipper":
         break;
-      case "scroll-view":
-        return new OwlScrollView(
+      case "view":
+        widget = OwlView(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
@@ -133,12 +53,104 @@ class OwlComponentBuilder {
             componentModel: componentModel,
             parentNode: parentNode,
             parentWidget: parentWidget);
+        break;
+      case "column":
+        Widget widget = OwlColumn(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+        break;
+      case "row":
+        widget = OwlRow(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+        break;
+      case "wrap":
+        widget = OwlWrap(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+        break;
+      case "form":
+        widget = OwlForm(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+        break;
+      case "input":
+        widget = OwlInput(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+        break;
+      case "center":
+        widget = OwlCenter(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+        break;
+      case "middle":
+        widget = OwlCenter(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+        break;
+      case "expanded":
+        widget = OwlExpanded(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+        break;
+
+      case "scroll-view":
+        widget = OwlScrollView(
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget);
+        break;
       case "cover_view":
         break;
       case "bottom_navigator_bar":
         break;
       case "image":
-        return new OwlImage(
+        widget = OwlImage(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
@@ -146,8 +158,9 @@ class OwlComponentBuilder {
             componentModel: componentModel,
             parentNode: parentNode,
             parentWidget: parentWidget);
+        break;
       case "swiper":
-        return OwlSwiper(
+        widget = OwlSwiper(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
@@ -155,8 +168,9 @@ class OwlComponentBuilder {
             componentModel: componentModel,
             parentNode: parentNode,
             parentWidget: parentWidget);
+        break;
       case "swiper-item":
-        return OwlSwiperItem(
+        widget = OwlSwiperItem(
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
@@ -164,8 +178,9 @@ class OwlComponentBuilder {
             componentModel: componentModel,
             parentNode: parentNode,
             parentWidget: parentWidget);
+        break;
       case "_text":
-        return OwlText(
+        widget = OwlText(
             node: node,
             pageCss: pageCss,
             appCss: appCss,
@@ -173,7 +188,9 @@ class OwlComponentBuilder {
             componentModel: componentModel,
             parentNode: parentNode,
             parentWidget: parentWidget);
+        break;
     }
+    return wrapGestureDetector(widget, childNode, model);
   }
 
   static List<Widget> buildList(

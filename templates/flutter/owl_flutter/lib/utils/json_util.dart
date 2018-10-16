@@ -15,6 +15,28 @@ dynamic getAttr(node, attrName) {
   return null;
 }
 
+Map<String, String> getDataSet(node) {
+  if (node is String) {
+    return null;
+  }
+  var result = {};
+  List attrs = node['attrs'];
+  if (attrs == null) {
+    return null;
+  }
+  for (int i = 0; i < attrs.length; i++) {
+    var attr = attrs[i];
+    if (attr['name'] != null) {
+      String attrName = attr['name'];
+      if (attrName.startsWith('data-')) {
+        var dataName = attrName.substring(5);
+        result[dataName] = attr['value'];
+      }
+    }
+  }
+  return null;
+}
+
 String getMiddle(String s, String beginTag, String endTag) {
   int beginPos = s.indexOf(beginTag);
   if (beginPos < 0) {

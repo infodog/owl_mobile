@@ -28,10 +28,7 @@ abstract class OwlComponent extends StatelessWidget {
     if (text == null) {
       return null;
     }
-    if (!escape) {
-      text = "{" + text + "}";
-    }
-    Template template = new Template(text);
+    Template template = new Template(text, htmlEscapeValues: escape);
     if (componentModel != null) {
       if (componentModel['includedScreenModel'] == true) {
         //do nothing
