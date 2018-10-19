@@ -44,11 +44,9 @@ class OwlPage extends OwlComponent {
         title = app.appJson['window']['navigationBarTitleText'];
       }
     }
-
     if (title == null) {
       title = 'owlmobile';
     }
-
     String backgroundColor;
     if (app.appJson['window'] != null) {
       backgroundColor = app.appJson['window']['navigationBarBackgroundColor'];

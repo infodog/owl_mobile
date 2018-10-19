@@ -13,7 +13,9 @@ abstract class OwlComponent extends StatelessWidget {
       this.componentModel,
       this.parentNode,
       this.parentWidget})
-      : super(key: key);
+      : super(key: key) {
+    model.componentModel = componentModel;
+  }
 
   final Map<String, dynamic> node;
   final Map<String, dynamic> pageCss;

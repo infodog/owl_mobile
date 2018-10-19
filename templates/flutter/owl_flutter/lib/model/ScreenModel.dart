@@ -7,18 +7,20 @@ import 'package:scoped_model/scoped_model.dart';
 class ScreenModel extends Model {
   ScreenModel(this.params, BuildContext buildContext) {
     wx = WeiXinAdapter(buildContext);
+    componentModel = {};
   }
 
   var pageModel;
   Map<String, String> params;
   var pageJs;
   var data;
+  var componentModel;
 
   WeiXinAdapter wx;
 
-  void setData(Map<String, dynamic> data) {
+  void setData(Map<dynamic, dynamic> data) {
     var o = this.pageJs["data"];
-    data.forEach((String key, dynamic value) {
+    data.forEach((dynamic key, dynamic value) {
       List parts = key.split(".");
       for (int i = 0; i < parts.length; i++) {
         var part = parts[i];
@@ -66,7 +68,27 @@ class ScreenModel extends Model {
   }
 
   dynamic getData(String objPath) {
-    var o = this.pageJs["data"];
+    if (componentModel != null) {
+      if (componentModel['includedScreenModel'] == true) {
+        //do nothing
+      } else {
+        var screenModel = this.pageJs['data'];
+        screenModel.forEach((k, v) {
+          if (!componentModel.containsKey(k)) {
+            componentModel[k] = v;
+          }
+        });
+        componentModel['includedScreenModel'] = true;
+      }
+    } else {
+      componentModel = {};
+      var screenModel = this.pageJs['data'];
+      screenModel.forEach((k, v) {
+        componentModel[k] = v;
+      });
+      componentModel['includedScreenModel'] = true;
+    }
+    var o = this.componentModel;
     List parts = objPath.split(".");
     for (int i = 0; i < parts.length; i++) {
       var part = parts[i];
@@ -75,8 +97,7 @@ class ScreenModel extends Model {
 
       if (begin == -1) {
         if (o[part] == null) {
-          o[part] = {};
-          o = o[part];
+          return null;
         } else {
           o = o[part];
         }
