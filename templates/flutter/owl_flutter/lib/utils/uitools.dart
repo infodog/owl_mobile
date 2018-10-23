@@ -180,7 +180,7 @@ Color fromCssColor(String cssColor) {
     if (endPos == -1) {
       return null;
     }
-    var args = cssColor.substring(beginPos + 4, endPos);
+    var args = cssColor.substring(beginPos + 5, endPos);
     var parts = args.split(",");
     if (parts.length != 4) {
       return null;
@@ -189,7 +189,7 @@ Color fromCssColor(String cssColor) {
     int r = int.parse(parts[0]);
     int g = int.parse(parts[1]);
     int b = int.parse(parts[2]);
-    int a = double.parse(parts[3]) * 255 as int;
+    int a = (double.parse(parts[3]) * 255).round();
     return Color.fromARGB(a, r, g, b);
   }
 }

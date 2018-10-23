@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:owl_flutter/components/owl_home.dart';
 
 import 'owl_generated/owl_route.dart';
-import 'utils/owl.dart';
 
 void main() {
   var homeUrl = home_route;
   debugPaintSizeEnabled = false;
-  Widget homeScreen = getScreen(homeUrl, {}, owl.getApplication().appCss);
+//  Widget homeScreen = getScreen(homeUrl, {}, owl.getApplication().appCss);
   runApp(MaterialApp(
     title: 'Owl Applications',
-    home: homeScreen,
+    home: OwlHome(homeUrl, {}),
   ));
 }

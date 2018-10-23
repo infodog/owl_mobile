@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
@@ -8,8 +9,8 @@ import 'package:owl_flutter/utils/uitools.dart';
 
 import '../utils/owl.dart';
 
-class OwlPage extends OwlComponent {
-  OwlPage(
+class OwlPageCupertino extends OwlComponent {
+  OwlPageCupertino(
       {Key key,
       node,
       pageCss,
@@ -32,7 +33,8 @@ class OwlPage extends OwlComponent {
             parentWidget: parentWidget);
 
   final Widget bottomBar;
-  AppBar buildAppBar() {
+
+  CupertinoNavigationBar buildAppBar(BuildContext context) {
     OwlApp app = owl.getApplication();
     String title = null;
 
@@ -68,14 +70,19 @@ class OwlPage extends OwlComponent {
       titleColor = fromCssColor("#ffffff");
     }
 
-    return AppBar(
-      title: new Text(title),
-      backgroundColor: fromCssColor(backgroundColor),
-      elevation: 0.0,
-      textTheme: TextTheme(
-          title: TextStyle(
-              color: titleColor, fontSize: 18.0, fontWeight: FontWeight.bold)),
-    );
+    return CupertinoNavigationBar(
+        leading: CupertinoButton(
+          child: const Text('Back'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        middle: new Text(title,
+            style: TextStyle(
+                color: titleColor,
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold)),
+        backgroundColor: fromCssColor(backgroundColor));
   }
 
   Widget buildBody() {
@@ -88,10 +95,7 @@ class OwlPage extends OwlComponent {
       var nodeName = child.keys.first;
 
       var position = getRuleValue(child[nodeName]['rules'], 'position');
-      print("i=" +
-          i.toString() +
-          " position=" +
-          (position == null ? 'null' : position));
+
       if (position == 'fixed') {
         fixednodes.add(child);
       } else {
@@ -153,10 +157,9 @@ class OwlPage extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: buildAppBar(),
-        body: RefreshIndicator(onRefresh: _refresh, child: buildBody()),
-        backgroundColor: Color(0xffffffff),
-        bottomNavigationBar: bottomBar);
+    return new CupertinoPageScaffold(
+        navigationBar: buildAppBar(context),
+        child: RefreshIndicator(onRefresh: _refresh, child: buildBody()),
+        backgroundColor: Color(0xffffffff));
   }
 }

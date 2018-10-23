@@ -16,6 +16,6 @@ class WeiXinAdapter {
   }
 
   void switchTab(o) {
-    owl.getApplication().navigateTo(o, buildContext);
+    owl.getApplication().switchTab(o, buildContext);
   }
 }

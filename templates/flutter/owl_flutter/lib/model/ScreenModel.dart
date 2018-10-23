@@ -11,7 +11,7 @@ class ScreenModel extends Model {
   }
 
   var pageModel;
-  Map<String, String> params;
+  Map params;
   var pageJs;
   var data;
   var componentModel;

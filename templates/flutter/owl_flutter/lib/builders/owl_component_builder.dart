@@ -229,7 +229,7 @@ class OwlComponentBuilder {
         brevert = true;
       }
       var r = model.getData(wxifExpr);
-      if (r == false || r == 'false') {
+      if (r == false || r == 'false' || r == null) {
         r = false;
       } else {
         r = true;

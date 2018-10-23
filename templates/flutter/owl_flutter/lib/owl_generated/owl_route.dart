@@ -7,10 +7,10 @@ import 'package:flutter/cupertino.dart';
 
 
 
-Widget getScreen(String path, Map<String, String> params, Map<String, dynamic> appCss) {
+Widget getScreen(String path, Map<dynamic,dynamic> params, Map<String, dynamic> appCss) {
   switch (path) {
     {{each pages as value}}
-    case '{{value.path}}': return {{value.className}}(params:params, appCss:appCss);
+    case '{{value.path}}': return {{value.className}}(params:params, appCss:appCss,url:'{{value.path}}');
     {{/each}}
   }
 }
