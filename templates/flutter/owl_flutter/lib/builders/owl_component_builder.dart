@@ -205,6 +205,7 @@ class OwlComponentBuilder {
     if (node.keys.length == 0) {
       return null;
     }
+    model.componentModel = componentModel;
     nodeName = node.keys.first;
     if (nodeName == '_text') {
       result.add(OwlText(
