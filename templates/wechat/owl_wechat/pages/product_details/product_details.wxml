@@ -1,0 +1,341 @@
+<view class='container'>
+   <view class='product_banner'>
+     <!-- 轮播图 -->
+          <swiper class='banner-swiper' indicator-dots="{{indicatorDots}}"
+          autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <swiper-item wx:for="{{imgUrls}}">
+              <image src="{{item}}" class="slide-image"/>
+            </swiper-item>
+        </swiper>
+     <!--end 轮播图 -->
+     <view class='pic_num'>1/4</view>
+    </view>
+  <!---->
+  <view class='product_text'>
+      <view class='product_text_tit'>Whoo后拱辰享乳液 水沄平衡乳110ml 补水保湿精华乳 官方直售</view>
+      <view class='product_text_bot'>
+         <view class='product_text_1'>￥450</view>
+         <view class='product_text_2'>￥650</view>
+         <view class='product_text_3'>7.5折</view>
+      </view>
+  </view>
+  <!---->
+  <!--line-->
+  <view class='color_line'></view>
+  <!--line-->
+  <!--链接-->
+  <view class='pro_link'>
+    <view class='pro_link_top' bindtap='go' data-url=''>
+       <view class='pro_link_top_left'>
+           <image class='link_icon' src='../../img/hang.png'></image>
+           <view class='pro_link_top_text'>WHOO 海外官网链接</view>
+       </view>
+       <view class='right_icon_box'>
+            <image class='right_icon' src='../../img/more.png'></image>
+       </view>
+    </view>
+    <view class='pro_link_cont'>
+        <image class='pro_link_cont_pic' src='../../img/chanp.png'></image>
+        <view class='pro_link_cont_r'>
+          <view class='pro_link_cont_tit'>Whoo后拱辰享乳液 水沄平衡乳110ml补水保湿精华乳 官方直售</view>
+          <view class='pro_link_cont_pri'>
+            官网评价 
+            <view style='margin-left:20rpx;'> ₩38000  ₩68000 </view>
+          </view>
+          <view class='pro_link_cont_pj'>
+             <view style='margin-right:20rpx;'>官网评价</view>
+             <image class='xingxing' src='../../img/xx.png'></image>
+          </view>
+        </view>
+    </view>
+  </view>
+  <!--链接-->
+  <!--line-->
+  <view class='color_line'></view>
+  <!--line-->
+  <!--支付-->
+   <view>
+      <view class='choosed'>
+         <view class='choosed_left'>
+           <view class='choosed_left_tex1'>已选</view>
+           <view class='choosed_left_tex2'>110ml</view>
+         </view>
+         <image class='right_icon' src='../../img/more.png'></image>
+      </view>
+      <!--支付方式-->
+      <view class='pay_box'>
+          <view class='pay_tit'>支付方式</view>
+          <image class='pay_icon' src='../../img/weix.png'></image>
+          <view class='pay_text pay_wx'>微信</view>
+          <image class='pay_icon' src='../../img/zfb.png'></image>
+          <view class='pay_text pay_zfb'>支付宝</view>
+      </view>
+      <!--支付方式-->
+   </view>
+  <!--支付-->
+  <!---->
+  <view class='diffrent'>
+     <view class='diffrent_list'>
+       <image class='diffrent_icon' src='../../img/shop.png'></image>
+       <view class='diffrent_text'>一线商品</view>
+     </view>
+     <view class='diffrent_list'>
+       <image class='diffrent_icon' src='../../img/libao.png'></image>
+       <view class='diffrent_text'>官网直送</view>
+     </view>
+     <view class='diffrent_list'>
+       <image class='diffrent_icon' src='../../img/tongj.png'></image>
+       <view class='diffrent_text'>海外同价</view>
+     </view>
+  </view>
+  <!---->
+  <!--line-->
+  <view class='color_line'></view>
+  <!--line-->
+  <!--商家 -->
+  <view class='business'>
+     <view class='business_top'>品牌</view>
+     <view class='business_cont'>
+           <image class='bu_logo' src='../../img/companny.png'></image>
+           <view class='business_cont_mid'>
+              <view class='bus_mid_top'>
+                 <image class='mark' src='../../img/hang.png'></image>
+                 <view class='hfg'>WHOO后官方</view>
+              </view>
+              <view>在售商品  28款</view>
+              <view style='color:#0F6EDD;font-size:24'>http://www.whoo.com/</view>
+           </view>
+           <view class='bus_mid_right'>
+              <image class='bu_sc' src='../../img/shouc.png'></image>
+              <view class='mid_rig_sc'>收藏</view>
+           </view>
+     </view>
+     <view class='business_msg'>WHOO后是来自韩国的韩国顶级宫廷护肤名品，是属于LG生活健康的著名化妆品牌。 2003于韩国上市，源自宫廷的独秘配方，让广大的韩国女性为之疯狂与倾心。</view>
+  </view>
+  <!--商家 e-->
+  <!--line-->
+  <view class='color_line'></view>
+  <!--line-->
+  <!--评价-->
+  <view>
+     <view class='evaluate_top'>
+        <view class='evaluate_top_list'><view class='gf_evaluate gf_evaluate_active'>官网评价</view>(506条)</view>
+        <view class='evaluate_top_list evaluate_top_list2'><view class='gf_evaluate'>商品评价</view>(336条)</view>
+        <image class='right_icon' src='../../img/more.png'></image>
+     </view>
+     <!--评论内容 s-->
+     <view>
+        <!--一条评论-->
+        <view class='evaluate_cont'>
+            <view class='evaluate_cont_left'>
+                <view class='evaluate_cont_t'>
+                  <image class='evaluate_user' src='../../img/paqi.png'></image>
+                  <view class='evaluate_user_name'>佩奇小姐姐</view>
+                </view>
+                <view class='evaluate_user_text'>用了一次，保湿效果极好，感觉挺清爽的！</view>     <view class='dianzan_box'>
+                    <image class='dianzan' src='../../img/zanh.png'></image>
+                    <view class='dianzan_num dianzan_num_active'>16</view>
+                </view>
+            </view>
+            <view class='evaluate_cont_right'>
+                <image class='evaluate_user_pic' src='../../img/userpic.png'></image>
+                <view class='user_pic_num'>2张</view>
+            </view>
+          </view>
+          <!--一条评论 e-->
+          <!--一条评论-->
+        <view class='evaluate_cont'>
+            <view class='evaluate_cont_left'>
+                <view class='evaluate_cont_t'>
+                  <image class='evaluate_user' src='../../img/paqi.png'></image>
+                  <view class='evaluate_user_name'>佩奇小姐姐</view>
+                </view>
+                <view class='evaluate_user_text'>用了一次，保湿效果极好，感觉挺清爽的！</view>     <view class='dianzan_box'>
+                    <image class='dianzan' src='../../img/dzb.png'></image>
+                    <view class='dianzan_num'>33</view>
+                </view>
+            </view>
+            <view class='evaluate_cont_right'>
+                <image class='evaluate_user_pic' src='../../img/userpic.png'></image>
+                <view class='user_pic_num'>2张</view>
+            </view>
+          </view>
+          <!--一条评论 e-->
+          <!--一条评论-->
+        <view class='evaluate_cont'>
+            <view class='evaluate_cont_left'>
+                <view class='evaluate_cont_t'>
+                  <image class='evaluate_user' src='../../img/paqi.png'></image>
+                  <view class='evaluate_user_name'>佩奇小姐姐</view>
+                </view>
+                <view class='evaluate_user_text'>用了一次，保湿效果极好，感觉挺清爽的！</view>     <view class='dianzan_box'>
+                    <image class='dianzan' src='../../img/dzb.png'></image>
+                    <view class='dianzan_num'>33</view>
+                </view>
+            </view>
+            <view class='evaluate_cont_right'>
+                <image class='evaluate_user_pic' src='../../img/userpic.png'></image>
+                <view class='user_pic_num'>2张</view>
+            </view>
+          </view>
+          <!--一条评论 e-->
+     </view>
+     <!--评论内容 e-->
+  </view>
+  <!--评价-->
+  <!--line-->
+  <view class='color_line'></view>
+  <!--line-->
+  <!--平台承诺 s-->
+  <view class='ptcn'>
+      <image class='ptcn_img' src='../../img/ptcn_bg.png'></image>
+      <view class='ptcn_text_box'>
+         <image class='ptcn_text_img' src='../../img/ptcn.png'></image>
+         <view class='ptcn_text_cont'>享海购所售海外直邮商品为100%海外原装正品。商品是从海外官方网站直接发货，过程全程监管，经过国际快递—海关清关—国内快递送到您手中。请您放心购买。</view>
+      </view>
+  </view>
+  <!--平台承诺 e-->
+  <!--line-->
+  <view class='color_line'></view>
+  <!--line-->
+  <!--商品详情 s-->
+  <view class='product_detail'>
+     <view class='product_detail_top'>商品详情</view>
+     <image class='product_detail_img' src='../../img/cpxq.png'></image>
+  </view>
+  <!--商品详情 e-->
+  <!--商品推荐 s-->
+  <view class='product_tj'>
+      <view class='product_tj_top'>商品推荐</view>
+      <view class='product_tj_cont'>
+        <wrap>
+        <!--每个商品 s-->
+        <view class='pro_cont_list' wx:for="{{pro_cont_list}}" wx:key="{{index}}" bindtap='go' data-url="{{item.link}}">
+            <image class='pro_con_list_pic' src='{{item.img}}'></image>
+            <view class='pro_con_list_tit'>{{item.title}}</view>
+            <view class='pro_con_list_com'>
+              <image class='com_icon' src='{{item.com_pic}}'></image>
+              <view class='com_name'>{{item.com_text}}</view>
+            </view>
+            <view class='pro_con_list_pri'><view>{{item.price}}</view><view class='con_list_pri_dz' wx:if="{{item.show}}">{{item.zekou}}</view></view>
+            <view class='pro_con_list_hs'>{{item.zs}}</view>
+            <view class='pro_con_list_pj'>
+                <view class='con_list_pj_text'>官网评价</view>
+                <image class='xingxing' src='{{item.gfpj}}'></image>
+            </view>
+        </view>
+        <!--每个商品 e-->
+        </wrap>
+      </view>
+  </view>
+  <!--商品推荐 e-->
+  <!--头部固定-->
+  <view class='top_fixed'>
+     <view class='top_icon_bg top_icon_bg_go'>
+        <image class='top_icon' src='../../img/Rectangle50.png'></image>
+     </view>
+     <view class='fixed-right'>
+       <view class='top_icon_bg'>
+         <image class='top_icon' src='../../img/gwc.png'></image>
+        </view>
+        <view class='top_icon_bg top_icon_fx'>
+            <image class='top_icon' src='../../img/fenx.png'></image>
+        </view>
+     </view>
+  </view>
+  <!--头部固定-->
+  <!--尾部固定 s-->
+  <view class='detail_bottom'>
+    <view class='detail_bottom_left'>
+        <view class='bottom_icon_box bottom_icon_box1'>
+          <image class='detail_bottom_icon' src='../../img/touhui.png'></image>
+          <view>客服</view>
+        </view>
+        <view class='bottom_icon_line'></view>
+        <view class='bottom_icon_box'>
+          <image class='detail_bottom_icon' src='../../img/aixin.png'></image>
+          <view>客服</view>
+        </view>
+    </view>
+    <view class='shop-cart'>加入购物车</view>
+    <view class='shop-buy'>
+       <image class='shop-buy-bg' src='../../img/jianbian.png'></image>
+       <view class='shop-buy-text'>立即购买</view>
+    </view>
+  </view>
+  <!--尾部固定 e-->
+  
+  <!--成功加入购物车弹窗 s-->
+  <view class='gwc_tc' wx:if="{{gwc_tc_show}}">
+    <image class='gwc_tc_pic' src='../../img/gwctc.png'></image>
+  </view>
+  <!--成功加入购物车弹窗 e-->
+  <!--向下滑动才显示的头部 s-->
+  <view class='all_shop_title' wx:if="{{all_shop_title}}">
+   <image class='all_shop_title_bg' src='../../img/Rectangle3.png'></image>
+   <view class='all_shop_title_cont' posotion="absolute">
+    <view class='all_shop_cont'>
+       <view class='flex_center'>
+         <image class='go_back' src='../../img/Rectangle50.png'></image>
+       </view>
+       <view class='top_shop_list top_shop_list1'>商品</view>
+       <view class='top_shop_list top_shop_list2'>评价</view>
+       <view class='top_shop_list top_shop_list3'>详情</view>
+       <view class='top_gwc_box flex_center'>
+         <image class='top_gwc' src='../../img/gwc.png'></image>
+       </view>
+       <view class='flex_center'>
+         <image class='top_fx' src='../../img/fenx.png'></image>
+       </view>
+      </view>
+    </view>
+  </view>
+  <!--向下滑动才显示的头部 e-->
+  <!--点击加入购物车弹窗 s-->
+  <view class='click_gwc' wx:if="{{click_gwc}}"></view>
+  <view  class='click_gwc_cont'>
+      <view class='close_box'><image class='close' src='../../img/dacha.png'></image></view>
+      <view class='shop_massege'>
+        <view class='gwc_shop_pic_box'><image class='gwc_shop_pic' src='../../img/chanp.png'></image></view>
+        <view class='shop_pic_msg'>
+           <view class='shop_pic_msg1'>￥450</view>
+           <view class='shop_pic_msg2'>已选：110ml</view>
+           <view class='shop_pic_msg2'>库存充足</view>
+        </view>
+      </view>
+      <view class='color_classfily'>颜色分类</view>
+      <view class='color_classfily_box'>
+        <scroll-view scroll-y="true" style='height:100rpx'>
+        <wrap>
+         <view class='color_classfily_list color_list_active'>110meerer</view>
+         <view class='color_classfily_list'>220ml</view>
+         <view class='color_classfily_list'>330ml</view>
+         <view class='color_classfily_list'>220ml</view>
+         <view class='color_classfily_list'>330ml</view>
+         <view class='color_classfily_list'>220ml</view>
+         <view class='color_classfily_list'>330ml</view>
+          <view class='color_classfily_list'>330ml</view>
+         <view class='color_classfily_list'>220ml</view>
+         <view class='color_classfily_list'>330ml</view>
+         </wrap>
+        </scroll-view>
+      </view>
+      <view class='buy_num_pannel'>
+         <view class='buy_num'>购买数量</view>
+         <view class='buy_num_box'>
+            <view class='js_icon'>-</view>
+            <view class='js_icon_cont'></view>
+            <view class='js_icon'>+</view>
+         </view>
+      </view>
+      <view class='comfirm_join_box'>
+          <view class='comfirm_join'>
+            <view class='comfirm_join_bg_box'>
+              <image class='comfirm_join_bg' src='../../img/jrgwc.png'></image>
+            </view>
+            <view class='comfirm_join_text' position="absolute">确定加入购物车 </view> 
+         </view>
+      </view>
+   </view>
+  <!--点击加入购物车弹窗 e-->
+</view>

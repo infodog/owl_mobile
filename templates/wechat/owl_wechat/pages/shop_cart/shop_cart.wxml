@@ -1,0 +1,162 @@
+<view class='container'>
+  <!--购物车没东西才显示 s-->
+  <view class='not_shop_box' wx:if="{{not_shop_box}}">
+      <image class='not_shop_img' src='../../img/gwck.png'></image>
+      <view class='not_shop_text'>购物车空空如也~</view>
+  </view>
+  <!--购物车没东西才显示 e-->
+  <!--商品列表 s-->
+  <view class='cart_product' wx:for="{{cart_product}}" wx:for-item="pli" wx:key="{{index}}">
+     <!--产品头部信息 s-->
+     <view class='cart_product_top'>
+        <view class='product_choose product_choose_all'>
+            <view class='choose_pic_box'  wx:if="{{pli.all_choose}}">
+               <image class='choose_pic' src='../../img/xuanze.png'></image>
+            </view>
+        </view>
+        <image class='product_top_com' src='{{pli.icon}}'></image>
+        <view class='product_top_text'>{{pli.top_text}}</view>
+     </view>
+     <!--产品头部信息 e-->
+     <!--一个产品内容 s-->
+     <view  wx:for="{{pli.list}}" wx:key="{{index}}">
+       <scroll-view class='p_scroll_view' scroll-x='true'>
+         <view class='pr_scroll_item'>
+          <view class='cart_product_list'>
+            <view class='product_choose'>
+                <view class='choose_pic_box'  wx:if="{{item.choose}}">
+                  <image class='choose_pic' src='../../img/xuanze.png'></image>
+                </view>
+            </view>
+            <view class='product_list_img_box'>
+                <image class='product_list_img' src='{{item.img}}'></image>
+                <view class='product_list_img_text' wx:if="{{item.text_show}}">库存紧张</view>
+            </view>
+            <view class='product_list_right'>
+                <view class='product_list_msg'>{{item.msg}}</view>
+                <view class='product_list_msg2'>
+                    <view class='product_list_color'>{{item.xz}}</view>
+                    <view class='product_list_price'>{{item.price}}</view>
+                </view>
+                <view class='product_list_msg3'>
+                    <view class='product_list_js'>
+                        <view class='product_list_edit'>-</view>
+                        <view class='product_list_num'></view>
+                        <view class='product_list_edit'>+</view>
+                    </view>
+                    <view class='product_price_zs'>{{item.price_zs}}</view>
+                </view>
+            </view>
+          </view>
+          <!--收藏与删除 s-->
+          <view class='product_collect'>
+              <image class='product_collect_img' src='../../img/bsc.png'></image>
+              <view class='product_collect_text'>移入收藏</view>
+          </view>
+          <view class='product_del'>
+              <image class='product_del_pic' src='../../img/scbg.png'></image>
+              <view class='product_del_ab'>
+                  <image class='product_del_icon' src='../../img/bshanc.png'></image>
+                  <view class='product_del_text'>删除</view>
+              </view>
+          </view>
+          <!--收藏与删除 e-->
+        </view>
+     </scroll-view>
+     </view>
+     <!--一个产品内容 e-->
+  </view>
+  <!--商品列表 e-->
+  <!--你可能会喜欢 s-->
+  <view class='you_love'>你可能会喜欢</view>
+  <view class='tj_content'>
+    <wrap style="background-color:#f7f7f7">
+        <!--每个产品 s-->
+        <view class='tj_cont_list' wx:for="{{tj_cont_list}}" wx:key="{{index}}">        
+           <view class='tj_list_img_box'>
+              <image class='tj_cont_list_img' src='{{item.img}}'></image>
+           </view>
+           <view class='tj_cont_list_msg'>{{item.msg}}</view>
+           <view class='list_icon_box'>
+             <image class='tj_cont_list_icon' src='{{item.icon}}'></image>
+             <view class='list_icon_text'>{{item.icon_text}}</view>
+           </view>
+           <view class='yl_price_box'>
+              <view class='yl_price'>{{item.price}}</view>
+              <view class='yl_price_zk' wx:if="{{item.dz_show}}">{{item.price_dz}}</view>
+           </view>
+           <view class='yl_price_hs'>{{item.price_hs}}</view>
+           <view class='tl_pj'>
+              <view class='tl_pj_text'>官方评价</view>
+              <image class='tl_pj_pic' src='{{item.gfpj}}'></image>
+           </view>
+        </view>
+        <!--每个产品 e-->
+    </wrap>
+  </view>
+  <!--头部固定 s-->
+  <view class='top'>
+     <image class='top_bg' src='../../img/Rectangle3.png'></image>
+     <view class='top_cont'>
+        <view class='top_text'>购物车</view>
+        <view class='top_edit' wx:if="{{top_edit}}">编辑</view>
+        <view class='top_edit' wx:if="{{top_finish}}">完成</view>
+     </view>
+  </view>
+  <!--头部固定 e-->
+  <!--返回顶部-->
+  <view class='go_top_fixed'>
+     <image class='go_top' src='../../img/top.png'></image>
+  </view>
+  <!--返回顶部-->
+  <!--底部-->
+  <view class='bottom' wx:if="{{bottom_show}}">
+     <view class='bottom_left'>
+        <view class='product_choose'>
+          <view class='choose_pic_box' wx:if="{{all_choose_show}}">
+            <image class='choose_pic' src='../../img/xuanze.png'></image>
+          </view>
+        </view>
+        <view class='all_choose_text'>全选</view>
+      </view>
+      <view class='bottom_right'>
+         <!--结算 s-->
+         <view class='js_box' wx:if="{{js_show}}">
+            <view class='js_left'>
+               <view class='js_all_price'>
+                 合计:<view class='js_all_num'>￥108888</view>
+               </view>
+               <view class='js_all_price_hs'>(₩68000+円32000)</view>
+            </view>
+            <view class='js_right'>
+                <image class='js_bg' src='../../img/js_bg.png'></image>
+                <view class='js_right_text'>结算(8)</view>
+            </view>
+         </view>
+         <!--结算 e-->
+         <!--收藏与删除-->
+         <view class='sc_box'  wx:if="{{sc_show}}">
+            <view class='sc_box_yr'>移入收藏</view>
+            <view class='sc_box_sc'>
+               <image class='sc_box_pic' src='../../img/ysc.png'></image>
+               <view class='sc_text'>删除商品</view>
+            </view>
+         </view>
+         <!--收藏与删除-->
+      </view>
+  </view>
+  <!--底部-->
+  <!--删除遮罩 s-->
+  <view class='del_bg' wx:if="{{del_show}}"></view>
+  <!--删除遮罩 e-->
+  <!--删除窗口 s-->
+  <view class='del_pannel' wx:if="{{del_show}}">
+    <view class='del_text1'>提示</view>
+    <view class='del_text2'>确定要删除吗？</view>
+    <view class='del_edit_box'>
+      <view class='del_edit del_edit_qx'>取消</view>
+      <view class='del_edit'>确定</view>
+    </view>
+  </view>
+  <!--删除窗口 e-->
+</view>

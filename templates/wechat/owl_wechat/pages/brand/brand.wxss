@@ -1,0 +1,156 @@
+.top{
+  position: relative;
+  width: 750rpx;
+  height: 80rpx;
+  top:0rpx;
+  left: 0rpx;
+
+}
+.bg{
+  position: absolute;
+  left: 0rpx;
+  top:0rpx;
+  width: 750rpx;
+  height: 80rpx;
+}
+.bg_pic{
+  width: 750rpx;
+  height: 80rpx;
+}
+.icon_back_box{
+  width: 35rpx;
+  height: 35rpx;
+}
+.icon_back{
+  width: 35rpx;
+  height: 35rpx;
+}
+.icon_search_box{
+  width: 44rpx;
+  height: 44rpx;
+}
+.icon_search{
+width: 44rpx;
+height: 44rpx;
+}
+.top_cont{
+  position: absolute;
+  left: 0rpx;
+  top:0rpx;
+  width: 750rpx;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rpx 41rpx;
+}
+.top_cont_list{
+  display: flex;
+  flex-direction: row;
+  width: 220rpx;
+  height: 80rpx;
+  align-items: center;
+  justify-content: space-between;
+}
+.classifly{
+  padding: 11rpx 0rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 36rpx;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+.product{
+  padding: 11rpx 0rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 36rpx;
+  color: #ffffff;
+}
+.active{
+  border-bottom: 4rpx solid #ffffff;
+}
+.brand_cont{
+  display: flex;
+  flex-direction: row;
+}
+.brand_cont_right{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 124rpx;
+}
+.brand_right_tit{
+  font-size: 24rpx;
+  color: #222222;
+}
+.brand_list_title{
+  width: 660rpx;
+  height: 80rpx;
+  background-color: #F7F7F7;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  color: #222222;
+  margin: 20rpx 0rpx 0rpx 30rpx;
+}
+
+.br_gh_cont{
+  width: 680rpx;
+  margin-left: 30rpx;
+}
+.br_gh_list{
+  display: flex;
+  flex-direction: column;
+  width: 150rpx;
+  align-items: center;
+  margin-bottom: 14rpx;
+  margin-right: 20rpx;
+  margin-top: 20rpx;
+}
+.br_gh_list_img{
+  width: 150rpx;
+  height: 150rpx;
+}
+.br_gh_list_text{
+  font-size: 24rpx;
+  color: #222222;
+  margin-top: 24rpx;
+}
+.br_all_shop{
+  margin-bottom: 20rpx;
+}
+.br_size_pannel{
+  margin-left: 30rpx;
+  padding-top: 20rpx;
+}
+.br_size_tit{
+  width: 660rpx;
+  box-sizing: border-box;
+  padding-left: 16rpx;
+  height: 40rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #F7F7F7;
+  font-size: 28rpx;
+  color: #222222;
+}
+.br_size_list{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  width: 660rpx;
+  padding-left: 16rpx;
+  height: 70rpx;
+  border-bottom: 1px solid #F0F0F0;
+  font-size: 24rpx;
+  color: #666666;
+}

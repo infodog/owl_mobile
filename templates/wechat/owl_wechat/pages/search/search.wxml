@@ -1,0 +1,67 @@
+<view class='container'>
+  <!--top start-->
+  <view class='top'>
+    <view>
+      <view class='search_bg' >
+        <image class='search_bg-img' src='../../img/Rectangle3.png'></image>
+      </view>
+      <view class='search_box' position='absolute'>
+        <view class='search_form'>
+            <view class='search_btn' position='absolute'>
+              <image class='search_btn-img' src='../../img/seach.png'></image>
+              </view>
+              <view class='search_input' wx:if="{{search_input}}">
+                <input type='text' name='search_input' placeholder='带你淘遍日韩最好货' placeholder-style='color:#999999'/>
+              </view>
+              <!--推荐搜索-->
+              <view class='tj_search' wx:else>
+                <view class='tj_text'>assss</view>
+                <view class='close'>×</view>
+              </view>
+              <!--推荐搜索-->
+            </view>
+          <view class='cannel'>取消</view>
+      </view>
+      </view>
+  </view>
+  <!--top end-->
+  <!---->
+<view class='search-cont'>
+  <view class='hot_search'>
+     <view class='hot_search_title'>热搜</view>
+      <scroll-view scroll-x='true' style="width: 100%;height:50rpx;white-space: nowrap;">
+        <view class='hot_search_list'>ipsa流金水</view>
+        <view class='hot_search_list'>爱丽小屋眉笔</view>
+        <view class='hot_search_list'>卸妆棉</view>
+        <view class='hot_search_list'>防晒霜</view>
+        <view class='hot_search_list'>洗面奶</view>
+      </scroll-view>
+  </view>
+  <!---->
+  <view class='line'></view>
+  <!---->
+  <!--历史搜索 s-->
+  <view class='history_search'>
+     <view class='history_search_title'>历史搜索</view>
+     <view class='history_search_list' wx:for="{{history_search}}" wx:key="index">
+        {{item}}
+     </view>
+    <!---->
+     <view class='clear_history'>
+       <view class='clear_history_box'>
+          <image class='clear_icon' src='../../img/icon-clear.png'></image>
+          <view class='clear_history_text'>清空历史搜索</view>
+       </view>
+     </view>
+     <!---->
+  </view>
+  <!--历史搜索 e-->
+  </view>
+  <!--没内容则显示 s-->
+  <view class='search-brank-cont'wx:if="{{brank_cont}}">
+      <view><image class='search_kong' src='../../img/kong.png'></image></view>
+      <view class='search_kong_text'>抱歉，没有找到相关商品~</view>
+      <view class='search_kong_text'>您可以换个词再试试</view>
+  </view>
+  <!--没内容则显示 e-->
+</view>

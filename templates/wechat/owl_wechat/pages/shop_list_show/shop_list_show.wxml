@@ -1,0 +1,403 @@
+<view class='container'>
+   <!--横排商品内容 s-->
+   <view wx:if="{{content_show}}">
+       <!--一个商品 s-->
+      <view class='shop_cont_list' wx:for='{{shop_cont_list}}' wx:key="{{index}}">
+          <view class='cont_list_pic_box'>
+            <image class='cont_list_pic' src='{{item.img}}'></image>
+          </view>
+          <view class='list_right'>
+          <view class='list_icon_box'>
+             <image class='cont_list_icon' src='{{item.icon}}'></image>
+             <view class='list_icon_text'>{{item.icon_text}}</view>
+          </view>
+          <view class='cont_list_text'>{{item.text}}</view>
+          <view class='cont_list_price'>{{item.price}}</view>
+          <view class='cont_list_price_zs'>{{item.price_zs}}</view>
+          <view class='list_pj'>
+             <view class='list_pj_text'>官网评价</view>
+             <image class='list_pj_icon' src='{{item.gfpj}}'></image>
+          </view>
+          </view>
+          <!--库存紧张-->
+          <view class='kcjz' wx:if='{{item.last}}'>{{item.last_text}}</view>
+          <!--库存紧张-->
+          <!--加入购物车-->
+          <view class='list_gwc_box'><image class='list_gwc' src='../../img/cat.png'></image></view>
+          <!--加入购物车-->
+          <!--已售完-->
+          <view class='selle_finish' wx:if="{{item.sell_finish}}">
+             <view class='selle_finish_text' >已售完</view>
+             <view class='selle_finish_text2'>SOLDOUT</view>
+          </view>
+          <!--已售完-->
+      </view>
+      <!--一个商品 e-->
+   </view>
+   <!--横排商品内容 e-->
+   <!--竖排商品内容 s-->
+   <view class='shop_content' wx:else>
+     <wrap>
+      <!--一个商品 s-->
+      <view class='shop_cont_list2' wx:for='{{shop_cont_list}}' wx:key="{{index}}">
+          <view class='cont_list_pic_box1'>
+            <image class='cont_list_pic1' src='{{item.img}}'></image>
+          </view>
+          <view class='cont_list_text1'>{{item.text}}</view>
+          <view class='list_icon_box1'>
+             <image class='cont_list_icon1' src='{{item.icon}}'></image>
+             <view class='list_icon_text1'>{{item.icon_text}}</view>
+          </view>
+          <view class='cont_list_price1'>{{item.price}}</view>
+          <view class='cont_list_price_zs1'>{{item.price_zs}}</view>
+          <view class='list_pj1'>
+             <view class='list_pj_text1'>官网评价</view>
+             <image class='list_pj_icon1' src='{{item.gfpj}}'></image>
+          </view>
+          <!--库存紧张-->
+          <view class='kcjz1' wx:if='{{item.last}}'>仅剩一件</view>
+          <!--库存紧张-->
+          <!--加入购物车-->
+          <view class='list_gwc_box1'><image class='list_gwc1' src='../../img/cat.png'></image></view>
+          <!--加入购物车-->
+          <!--已售完-->
+          <view class='selle_finish1' wx:if="{{item.sell_finish}}">
+             <view class='selle_finish_text1' >已售完</view>
+             <view class='selle_finish_text3'>SOLDOUT</view>
+          </view>
+          <!--已售完-->
+      </view>
+      <!--一个商品 e-->
+     </wrap>
+   </view>
+   <!--竖排商品内容 e-->
+   <!--头部固定-->
+   <view class='top-fiexd'>
+   <view class='top'>
+       <image class='top_bg' src='../../img/Rectangle3.png'></image>
+   <view class='top_cont'>
+     <view class='go_back'><image class='go_pic' src='../../img/Rectangle50.png'></image></view>
+     <!--搜索框-->
+     <view class='search'>
+         <view class='search_icon_box'><image class='search_icon' src='../../img/seach.png'></image></view>
+         <view class='input_box'>
+          <input placeholder='搜索你喜欢的' />
+         </view>
+         <!--推荐搜索-->
+          <view class='tj_search' wx:if="{{tj_search}}">
+            <view class='tj_text'>面膜</view>
+            <view class='close'>×</view>
+          </view>
+          <!--推荐搜索-->
+     </view>
+     <!--搜索框-->
+     <view class='meun'>
+       <!--横排竖排内容切换按钮 s-->
+       <image wx:if="{{meun_pic}}" class='meun_pic' src='../../img/meun.png'></image>
+       <image wx:if="{{meun_other}}" class='meun_pic' src='../../img/bian.png'>
+       <!--横排竖排内容切换按钮 s-->
+     </image>
+     </view>
+    </view>
+   </view>
+   <!---->
+   <view class='top_list1'>
+       <view class='flex zh_box'>
+           <view class='zh'>综合</view>
+           <image class='zh_pic' src='../../img/xjt.png'></image>
+       </view>
+       <view class='sell_num'>销量</view>
+       <view class='top_price'>
+          <view class='top_price_text'>价格</view>
+          <image class='sxjt' src='../../img/sxjt.png'></image>
+       </view>
+       <view class='choose'>筛选</view>
+       <view class='other'><image class='right_icon' src='../../img/other.png'></image></view>
+   </view>
+   <!---->
+   <view class='top_list2'>
+      <view class='top_list2_item item_active'>
+          <image wx:if="{{dagou_show1}}" class='dagou' src='../../img/dagou.png'></image>
+          <view class='new_pro text_active'>新品</view>
+      </view>
+      <view class='top_list2_item'>
+          <image wx:if="{{dagou_show2}}" class='dagou' src='../../img/dagou.png'></image>
+          <view class='brand'>品牌</view>
+          <image class='hxjt' src='../../img/hxjt.png'></image>
+      </view>
+      <view class='top_list2_item'>
+          <image wx:if="{{dagou_show3}}" class='dagou' src='../../img/dagou.png'></image>
+          <view class='brand'>分类</view>
+          <image class='hxjt' src='../../img/hxjt.png'></image>
+      </view>
+      <view class='top_list2_item'>
+          <image wx:if="{{dagou_show4}}" class='dagou' src='../../img/dagou.png'></image>
+          <view class='brand'>功效</view>
+          <image class='hxjt' src='../../img/hxjt.png'></image>
+      </view>
+   </view>
+   </view>
+  <!--头部固定 e-->
+    <!--购物车固定 s-->
+   <view class='all_cart'>
+      <image class='all_cart_pic' src='../../img/cat_list.png'></image>
+      <view class='all_cart_text'>87</view>
+   </view>
+   <!--购物车固定 e-->
+   <!--返回顶部 s-->
+   <view class='go_top_box'><image class='go_top' src='../../img/top.png'></image></view>
+   <!--返回顶部 e-->
+   <!--点击"综合"弹出 s-->
+   <view class='bg_cover' wx:if="{{bg_cover_show}}">
+      <view class='bg_cover_cont'>
+        <view class='cover_cont_list'>
+           <view class='cover_cont_list_text cover_list_active'>综合排序</view>
+           <image wx:if="{{cover_list_chose}}" class='dagou' src='../../img/dagou.png'></image>
+        </view>
+        <view class='cover_cont_list'>
+           <view class='cover_cont_list_text '>评论数从高到低</view>
+           <image wx:if="{{cover_list_chose1}}" class='dagou' src='../../img/dagou.png'></image>
+        </view>
+      </view>
+   </view>
+   <!--点击"综合"弹出 e-->
+   <!--点击"品牌"弹出 s-->
+   <view class='bg_cover_tc' wx:if="{{bg_cover_tc}}">
+      <view class='bg_tc_cont'>
+        <wrap>
+        <!--内容循环-->
+         <view class='bg_tc_cont_list' wx:for="{{bg_tc_cont_list}}" wx:key="{{index}}">
+            <view class='tc_cont_list_text'>{{item.text}}</view>
+            <image wx:if="{{item.show}}" class='dagou'  src='../../img/dagou.png'></image>
+         </view>
+         <!--内容循环-->
+         </wrap>
+         <!---->
+         <view class='tc_cont_bottom'>
+           <view class='tc_resit'>重置</view>
+           <view class='tc_confirm'>
+              <image class='tc_confirm_pic' src='../../img/Rectangle3.png'></image>
+              <view class='tc_confirm_text'>确定</view>
+           </view>
+         </view>
+         </view>
+         <!---->
+   </view>
+   <!--点击"品牌"弹出 e-->
+   <!--点击"筛选"弹出 s-->
+   <view class='sx_over_bg' wx:if="{{sx_over_bg}}">
+    <scroll-view scroll-y="true" class='scroll'>
+     <view class='sx_over_cont'>
+       <view class='sx_over_cont_list'>
+            <view class='sx_com_text'>价格</view>
+            <view class='sx_flex'>
+              <view class='sx_jg_list'>
+                <input class='sx_jg_list_input'  placeholder='最低价' />
+              </view>
+               -
+              <view class='sx_jg_list'>
+                <input class='sx_jg_list_input' placeholder='最高价' />
+              </view>
+            </view>
+        </view>
+        <!--折扣 s-->
+        <view class='sx_over_cont_list'>
+            <view class='sx_com_text'>折扣</view>
+            <view class='sx_flex'>
+              <view class='sx_jg_listz'>
+                <input class='sx_jg_list_input'  placeholder='最低折扣' />
+              </view>
+               -
+              <view class=' sx_jg_listz'>
+                <input class='sx_jg_list_input' placeholder='最高折扣' />
+              </view>
+            </view>
+        </view>
+        <!--折扣 s-->
+        <!--品牌 s-->
+         <view  class='sx_over_cont_list'>
+            <view class='pp_top'>
+              <view class='sx_top_text'>品牌</view>
+              <view class='pp_flex'>
+                <view class='pp_flex_text'>全部</view>
+                <image class='sx_jt' src='../../img/xiangs.png'></image>
+              </view>
+            </view>
+            <view class='pp_item_box'>
+                <wrap>
+                  <view class='pp_item'>Elixir/怡丽丝尔</view>
+                  <view class='pp_item'>Elixir/怡丽丝尔</view>
+                  <view class='pp_item'>Elixir/怡丽丝尔</view>
+                  <view class='pp_item'>Elixir/怡丽丝尔</view>
+                </wrap>
+            </view>
+         </view>
+        <!--品牌 e-->
+        <!--分类s-->
+         <view  class='sx_over_cont_list'>
+            <view class='pp_top'>
+              <view class='sx_top_text'>分类</view>
+              <view class='pp_flex'>
+                <view class='pp_flex_text'>全部</view>
+                <image class='sx_jt' src='../../img/xiangx.png'></image>
+              </view>
+            </view>
+            <view class='pp_item_box'>
+                <wrap>
+                  <view class='pp_item'>面膜/面膜粉</view>
+                  <view class='pp_item'>睡眠面膜</view>
+                  <view class='pp_item'>贴片面膜</view>
+                </wrap>
+            </view>
+         </view>
+        <!--分类 e-->
+        <!--功效 s-->
+         <view  class='sx_over_cont_list'>
+            <view class='pp_top'>
+              <view class='sx_top_text'>功效</view>
+              <view class='pp_flex'>
+                <view class='gx_choose'>细致毛孔</view>
+                <view class='pp_flex_text'>全部</view>
+                <image class='sx_jt' src='../../img/xiangx.png'></image>
+              </view>
+            </view>
+            <view class='pp_item_box'>
+                <wrap>
+                  <view class='gx_item'>
+                    <image wx:if='{{gx_item_choose}}' class='dagou' src='../../img/dagou.png'></image>
+                    <view class='gx_list_text'>补水保湿</view>
+                  </view>
+                  <view class='gx_item gx_item_active'>
+                    <image class='dagou' src='../../img/dagou.png'></image>
+                    <view class='gx_list_text gx_list_text_active'>细致毛孔</view>
+                  </view>
+                  <view class='gx_item'>
+                    <image wx:if='{{gx_item_choose}}' class='dagou' src='../../img/dagou.png'></image>
+                    <view class='gx_list_text'>控油平衡</view>
+                  </view>
+                </wrap>
+            </view>
+         </view>
+        <!--功效 e-->
+        <!--适合肤质s-->
+         <view  class='sx_over_cont_list'>
+            <view class='pp_top'>
+              <view class='sx_top_text'>适合肤质</view>
+              <view class='pp_flex'>
+                <view class='pp_flex_text'>全部</view>
+                <image class='sx_jt' src='../../img/xiangx.png'></image>
+              </view>
+            </view>
+            <view class='pp_item_box'>
+                <wrap>
+                  <view class='gx_item'>适合肤质</view>
+                  <view class='gx_item'>混合性</view>
+                  <view class='gx_item'>油性</view>
+                </wrap>
+            </view>
+         </view>
+        <!--适合肤质 e-->
+        <!--产品类型s-->
+         <view  class='sx_over_cont_list'>
+            <view class='pp_top'>
+              <view class='sx_top_text'>产品类型</view>
+              <view class='pp_flex'>
+                <view class='pp_flex_text'>全部</view>
+                <image class='sx_jt' src='../../img/xiangx.png'></image>
+              </view>
+            </view>
+            <view class='pp_item_box'>
+                <wrap>
+                  <view class='gx_item'>贴片式</view>
+                  <view class='gx_item'>水洗式</view>
+                  <view class='gx_item'>睡眠面膜</view>
+                </wrap>
+            </view>
+         </view>
+        <!--产品类型 e-->
+        <!--质地s-->
+         <view  class='sx_over_cont_list'>
+            <view class='pp_top'>
+              <view class='sx_top_text'>质地</view>
+              <view class='pp_flex'>
+                <view class='pp_flex_text'>全部</view>
+                <image class='sx_jt' src='../../img/xiangx.png'></image>
+              </view>
+            </view>
+            <view class='pp_item_box'>
+                <wrap>
+                  <view class='gx_item'>膏状</view>
+                  <view class='gx_item'>液体</view>
+                  <view class='gx_item'>啫喱</view>
+                </wrap>
+            </view>
+         </view>
+        <!--质地 e-->
+        <!--规格s-->
+         <view  class='sx_over_cont_list'>
+            <view class='pp_top'>
+              <view class='sx_top_text'>规格</view>
+              <view class='pp_flex'>
+                <view class='pp_flex_text'>全部</view>
+                <image class='sx_jt' src='../../img/xiangx.png'></image>
+              </view>
+            </view>
+            <view class='pp_item_box'>
+                <wrap>
+                  <view class='gx_item'>1片</view>
+                  <view class='gx_item'>2-5片</view>
+                  <view class='gx_item'>6-10片</view>
+                </wrap>
+            </view>
+         </view>
+        <!--规格 e-->
+        <!--适用群体s-->
+         <view  class='sx_over_cont_list'>
+            <view class='pp_top'>
+              <view class='sx_top_text'>适用群体</view>
+              <view class='pp_flex'>
+                <view class='pp_flex_text'>全部</view>
+                <image class='sx_jt' src='../../img/xiangx.png'></image>
+              </view>
+            </view>
+            <view class='pp_item_box'>
+                <wrap style="justify-content: space-between">
+                  <view class='gx_item'>所有人群</view>
+                  <view class='gx_item'>男</view>
+                  <view class='gx_item'>女</view>
+                   <view class='gx_item'>女</view>
+                </wrap>
+            </view>
+         </view>
+        <!--适用群体 e-->
+        <!--国家地区s-->
+         <view  class='sx_over_cont_list'>
+            <view class='pp_top'>
+              <view class='sx_top_text'>国家地区</view>
+              <view class='pp_flex'>
+                <view class='pp_flex_text'>全部</view>
+                <image class='sx_jt' src='../../img/xiangx.png'></image>
+              </view>
+            </view>
+            <view class='pp_item_box'>
+                <wrap>
+                  <view class='gx_item'>韩国</view>
+                  <view class='gx_item'>日本</view>
+                </wrap>
+            </view>
+          </view>
+          </view>
+     </scroll-view>
+     </view>
+     <!--底部-->
+     <view class='sx_bottom' wx:if="{{sx_over_bg}}">
+        <view class='sx_bottom_list'>重置</view>
+        <view class='sx_bottom_confirm'>
+          <image class='sx_bottom_bg' src='../../img/Rectangle3.png'></image>
+          <view class='sx_confirm_text'>确定</view>
+        </view>
+     </view>
+     <!--底部-->
+   
+   <!--点击"筛选"弹出 e-->
+</view>
