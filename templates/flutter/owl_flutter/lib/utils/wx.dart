@@ -27,7 +27,7 @@ class WeiXinAdapter {
     }
     var url = o['url'];
     var data = o['data'];
-    Map<String,String> header = o['header'];
+    Map<String, String> header = o['header'];
     Request req = Request(method, url);
     if (data is String) {
       req.body = data;
@@ -36,19 +36,20 @@ class WeiXinAdapter {
     }
 
     Map<String, String> headers = req.headers;
-    for(MapEntry<String, String> entry in header.entries){
+    for (MapEntry<String, String> entry in header.entries) {
       headers[entry.key] = entry.value;
     }
 
     var client = new Client();
-    client.send(req).then((StreamedResponse response){var res = {};
-      response.stream.bytesToString().then((String body){
+    client.send(req).then((StreamedResponse response) {
+      var res = {};
+      response.stream.bytesToString().then((String body) {
         var res = {};
         res['data'] = body;
         res['statusCode'] = response.statusCode;
         res['header'] = response.headers;
         o['success'](res);
-      },onError: o['failed']);
-
-    },onError: o['failed']).whenComplete(o['complete']);
+      }, onError: o['failed']);
+    }, onError: o['failed']).whenComplete(o['complete']);
+  }
 }
