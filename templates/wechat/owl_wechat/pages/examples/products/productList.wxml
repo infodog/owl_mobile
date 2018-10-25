@@ -1,4 +1,5 @@
 <!--pages/examples/products/productList.wxml-->
+<view>
 <column>
   <view class='searchBar'>
     <form class='searchForm'>
@@ -72,3 +73,4 @@
       <view class='recommendItem' wx:for="{{recommend}}" >{{item}}</view>
   </view>
 </column>
+</view>

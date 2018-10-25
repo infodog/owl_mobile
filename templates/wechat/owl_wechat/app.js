@@ -6,8 +6,10 @@ App({
     'onLaunch': function () {
         owl.login(this);
         owl.getUserInfo(this,null);
+
     },
     'globalData': {
         'userInfo': null
-    }
+    },
+  
 });

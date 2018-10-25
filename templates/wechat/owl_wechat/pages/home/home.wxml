@@ -20,7 +20,7 @@
         <view class='banner'>
           <swiper class='banner-pic' indicator-dots="{{indicatorDots}}"
           autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-          <block wx:for="{{imgUrls}}">
+          <block wx:for="{{imgUrls}}" wx:key="{{index}}">
             <swiper-item>
               <image src="{{item}}" class="slide-image"/>
             </swiper-item>

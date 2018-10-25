@@ -1,22 +1,19 @@
 <view class='container'>
-  
   <view class='home'>
     <view class='home-top'>
       <view class='top-bg'>
         <image src='../../img/home-top-bg.png' style='width:750rpx;height:750rpx' mode='scaleToFill'></image>
       </view>
-      
       <!-- 轮播图 -->
       <view class='banner' position='absolute'>
-          <swiper class='banner-swiper' indicator-dots="{{indicatorDots}}"
-          autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-            <swiper-item wx:for="{{imgUrls}}">
-              <image src="{{item}}" class="slide-image" bindtap="onBannerTap" data-idx='{{index}}'/>
+          <swiper class='banner-swiper'
+          autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}"  bindchange="swiperChange">
+            <swiper-item wx:for="{{imgUrls}}" wx:key='{{index}}'>
+              <image src="{{item}}" class="slide-image"></image>
             </swiper-item>
         </swiper>
-      </view>
+       </view>
      <!--end 轮播图 -->
-
      <!-- 分类 -->
      <view class='ytquick-nav' position='absolute'>
       <view class='ytquick-nav-tit'><center>日韩范儿</center></view>
@@ -56,20 +53,20 @@
 
   <view class='home-seach' onTitleBar='true' position='fixed' >
     <row>
-      <view class='import'>
+      <view class='import' bindtap='go' data-url='/pages/search/search'>
         <row>
           <view class='search_ico' >
-            <image  src='../../img/seach@2x.png' mode='aspectFit' style='width:34rpx;height:34rpx;'></image>
+            <image  src='../../img/seach.png' mode='aspectFit' style='width:34rpx;height:34rpx;'></image>
           </view>
           
           <view class='search_input'>
-            <view style='width:320rpx;color:#bbbbbb;margin-top:15rpx'>带你淘遍日韩最好货</view>
+带你淘遍日韩最好货
           </view>
          
         </row>
       </view>
       <view class='news'>
-        <image src='../../img/nwes@2x.png' style='width:50rpx;height:50rpx' mode='aspectFit'></image>
+        <image src='../../img/nwes.png' style='width:50rpx;height:50rpx' mode='aspectFit'></image>
         <view class='news_spot' position='absolute'></view>
       </view>
     </row>
@@ -133,21 +130,24 @@
 
         <view class='filter-cont'>
           <scroll-view  scroll-x='true' style=' white-space: nowrap; display:flex;height:480rpx;'>
-              <view class='filter-cont-hot-cont-item'>
-                <image src='../../img/hot.jpg' class='filter-cont-hot-cont-item-image'></image>
+              <!--一个商品 s-->
+              <view class='filter-cont-hot-cont-item' wx:for="{{hot_cont_item}}" wx:key="{{index}}">
+                 <view class='hot_cont_item_top'>
+                     <view class='hot_num'>{{item.hot_num}}</view>
+                     <view class='selled'>已售<view class='selled_num'>{{item.selled_num}}</view>件</view>
+                 </view>
+                <image src='{{item.img}}' class='filter-cont-hot-cont-item-image'></image>
+                 <view class='hot_item_title'>{{item.title}}</view>
+                 <view class='hot_item_icon_box'>
+                     <image class='hot_item_icon' src='{{item.icon}}'></image>
+                     <view class='hot_item_icon_text'>whoo</view>
+                 </view>
+                 <view class='hot_item_price'>
+                    <view class='item_y_price'>{{item.price}}</view>
+                    <view class='item_zs_price'>{{item.zs_price}}</view>
+                 </view>
               </view>
-              <view class='filter-cont-hot-cont-item'>
-                <image src='../../img/hot.jpg' class='filter-cont-hot-cont-item-image'></image>
-              </view>
-              <view class='filter-cont-hot-cont-item'>
-                <image src='../../img/hot.jpg' class='filter-cont-hot-cont-item-image'></image>
-              </view>
-              <view class='filter-cont-hot-cont-item'>
-                <image src='../../img/hot.jpg' class='filter-cont-hot-cont-item-image'></image>
-              </view>
-              <view class='filter-cont-hot-cont-item'>
-                <image src='../../img/hot.jpg' class='filter-cont-hot-cont-item-image'></image>
-              </view>
+              <!--一个商品 e-->
           </scroll-view>
         </view>
   </view>
@@ -224,117 +224,24 @@
         </view>
 
         <view class='home_recommend_list'>
-              <view class='recommend_item'>
+             <!--每个列表 s-->
+              <view class='recommend_item' wx:for="{{home_recommend_list}}" wx:key="{{index}}">
                 <view class='recommend_item-pic'>
-                  <image  src='../../img/300x300@2x.png' class='recommend_item-pic-img' mode='aspectFit'></image>
+                  <image  src='{{item.img}}' class='recommend_item-pic-img' mode='aspectFit'></image>
                 </view>
-
                 <view class='recommend_item-text'>
-                
-                  <view class='recommend_item_text-1'>人气口红好价放心买</view>
-                 
-                    <view class='recommend_item_text-2'>
-                    女神💄永远不嫌多
+                   <view class='zzzz'>
+                    <view class='recommend_item_text-1'>{{item.text1}}</view>
                     </view>
-                    <view class='recommend_item_text-2'>
-                    快来宠幸我吧！
-                    </view>
-                    <view class='recommend_item_text-3'>享海购 推荐</view>
+                    <view class='recommend_item_text-2'>{{item.text2}}</view>
+                    <view class='recommend_item_text-2'>{{item.text3}}</view>
+                    <view class='recommend_item_text-3'>{{item.text4}}</view>
                 </view>
               </view>
-              
-              <view class='recommend_item'>
-                <view class='recommend_item-pic'>
-                  <image  src='../../img/300x300-2.png' class='recommend_item-pic-img' mode='aspectFit'></image>
-                </view>
-
-                <view class='recommend_item-text'>
-                
-                  <view class='recommend_item_text-1'>值得投资的驻颜神器🌟</view>
-                 
-                    <view class='recommend_item_text-2'>
-                    雪花秀滋盈生人参焕颜
-                    </view>
-                    <view class='recommend_item_text-2'>
-                    拯救您的干燥肌肤！
-                    </view>
-                    <view class='recommend_item_text-3'>享海购 推荐</view>
-                </view>
-              </view>
-               <view class='recommend_item'>
-                <view class='recommend_item-pic'>
-                  <image  src='../../img/300x300-2.png' class='recommend_item-pic-img' mode='aspectFit'></image>
-                </view>
-
-                <view class='recommend_item-text'>
-                
-                  <view class='recommend_item_text-1'>值得投资的驻颜神器🌟</view>
-                 
-                    <view class='recommend_item_text-2'>
-                    雪花秀滋盈生人参焕颜
-                    </view>
-                    <view class='recommend_item_text-2'>
-                    拯救您的干燥肌肤！
-                    </view>
-                    <view class='recommend_item_text-3'>享海购 推荐</view>
-                </view>
-              </view>
-               <view class='recommend_item'>
-                <view class='recommend_item-pic'>
-                  <image  src='../../img/300x300-2.png'class='recommend_item-pic-img' mode='aspectFit'></image>
-                </view>
-
-                <view class='recommend_item-text'>
-                
-                  <view class='recommend_item_text-1'>值得投资的驻颜神器🌟</view>
-                 
-                    <view class='recommend_item_text-2'>
-                    雪花秀滋盈生人参焕颜
-                    </view>
-                    <view class='recommend_item_text-2'>
-                    拯救您的干燥肌肤！
-                    </view>
-                    <view class='recommend_item_text-3'>享海购 推荐</view>
-                </view>
-              </view>
-               <view class='recommend_item'>
-                <view class='recommend_item-pic'>
-                  <image  src='../../img/300x300-2.png' class='recommend_item-pic-img' mode='aspectFit'></image>
-                </view>
-
-                <view class='recommend_item-text'>
-                
-                  <view class='recommend_item_text-1'>值得投资的驻颜神器🌟</view>
-                 
-                    <view class='recommend_item_text-2'>
-                    雪花秀滋盈生人参焕颜
-                    </view>
-                    <view class='recommend_item_text-2'>
-                    拯救您的干燥肌肤！
-                    </view>
-                    <view class='recommend_item_text-3'>享海购 推荐</view>
-                </view>
-              </view>
-               
-               <view class='recommend_item'>
-                <view class='recommend_item-pic'>
-                  <image  src='../../img/300x300-2.png' class='recommend_item-pic-img' mode='aspectFit'></image>
-                </view>
-
-                <view class='recommend_item-text'>
-                
-                  <view class='recommend_item_text-1'>值得投资的驻颜神器🌟</view>
-                 
-                    <view class='recommend_item_text-2'>
-                    雪花秀滋盈生人参焕颜
-                    </view>
-                    <view class='recommend_item_text-2'>
-                    拯救您的干燥肌肤！
-                    </view>
-                    <view class='recommend_item_text-3'>享海购 推荐</view>
-                </view>
-              </view>
+              <!--每个列表 s-->
           </view>
-
+          <!--线-->
+          <view class='line'></view>
+          <!--线-->
     </view>
 </view>
