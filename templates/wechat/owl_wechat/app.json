@@ -1,11 +1,12 @@
 {
   "pages": [
-    
-    "pages/home/home2",
+    "pages/shop_cart/shop_cart",
     "pages/classifly/classifly",
+    "pages/home/home2",
+    
     "pages/my_center/my_center",
     "pages/order/order",
-    "pages/shop_cart/shop_cart",
+    
     "pages/search/search",
     "pages/product_details/product_details",
     "pages/brand/brand",

@@ -50,13 +50,13 @@
           </view>
           <!--收藏与删除 s-->
           <view class='product_collect'>
-              <image class='product_collect_img' src='../../img/bsc.png'></image>
+              <image class='product_collect_img' src='../../img/del/bsc.png'></image>
               <view class='product_collect_text'>移入收藏</view>
           </view>
           <view class='product_del'>
               <image class='product_del_pic' src='../../img/scbg.png'></image>
               <view class='product_del_ab'>
-                  <image class='product_del_icon' src='../../img/bshanc.png'></image>
+                  <image class='product_del_icon' src='../../img/del/bshanc.png'></image>
                   <view class='product_del_text'>删除</view>
               </view>
           </view>

@@ -21,7 +21,7 @@ Page({
         "list":[
             {
             "choose":true,
-            "img":"../../img/cpb.png",
+            "img":"../../img/del/cpb.png",
             "text_show":false,
             "msg":"肌肤之钥CPB口红 瑰丽唇膏4g持久不易脱色 滋润显色易上色",
             "xz":"颜色:203",
@@ -30,7 +30,7 @@ Page({
             },
             {
             "choose": true,
-            "img": "../../img/cpb.png",
+              "img": "../../img/del/cpb.png",
             "text_show": false,
             "msg": "肌肤之钥CPB口红 瑰丽唇膏4g持久不易脱色 滋润显色易上色",
             "xz": "颜色:203",
@@ -39,7 +39,7 @@ Page({
             },
             {
             "choose": true,
-            "img": "../../img/cpb.png",
+              "img": "../../img/del/cpb.png",
             "text_show": false,
             "msg": "肌肤之钥CPB口红 瑰丽唇膏4g持久不易脱色 滋润显色易上色",
             "xz": "颜色:203",
@@ -55,7 +55,7 @@ Page({
         "list": [
           {
             "choose": true,
-            "img": "../../img/chanp.png",
+            "img": "../../img/del/chanp.png",
             "text_show": true,
             "msg": "Whoo后拱辰享乳液 水沄平衡110ml 补水保湿精华乳",
             "xz": "110ml",
@@ -64,7 +64,7 @@ Page({
           },
           {
             "choose": false,
-            "img": "../../img/chanp.png",
+            "img": "../../img/del/chanp.png",
             "text_show": false,
             "msg": "Whoo后拱辰享乳液 水沄平衡110ml 补水保湿精华乳",
             "xz": "110ml",
@@ -73,7 +73,7 @@ Page({
           },
           {
             "choose": false,
-            "img": "../../img/chanp.png",
+            "img": "../../img/del/chanp.png",
             "text_show": false,
             "msg": "Whoo后拱辰享乳液 水沄平衡110ml 补水保湿精华乳",
             "xz": "110ml",
@@ -88,7 +88,7 @@ Page({
     /*你可能会喜欢产品*/
     "tj_cont_list":[
       {
-        "img":"../../img/skii.png",
+        "img":"../../img/del/skii.png",
         "msg": "sk-iisk2 神仙水skii护肤精华露补水紧致提亮肤色",
         "icon":"../../img/riben.png",
         "icon_text":"SKII",
@@ -99,7 +99,7 @@ Page({
         "gfpj":"../../img/xx.png"
       },
       {
-        "img": "../../img/xuehuaxiu.png",
+        "img": "../../img/del/xuehuaxiu.png",
         "msg": "雪花秀致美润白气垫粉底液气垫bb霜含替芯",
         "icon": "../../img/hang.png",
         "icon_text": "雪花秀",
@@ -110,7 +110,7 @@ Page({
         "gfpj": "../../img/xx1.png"
       },
       {
-        "img": "../../img/skii.png",
+        "img": "../../img/del/skii.png",
         "msg": "sk-iisk2 神仙水skii护肤精华露补水紧致提亮肤色",
         "icon": "../../img/riben.png",
         "icon_text": "SKII",
@@ -121,7 +121,7 @@ Page({
         "gfpj": "../../img/xx.png"
       },
       {
-        "img": "../../img/xuehuaxiu.png",
+        "img": "../../img/del/xuehuaxiu.png",
         "msg": "雪花秀致美润白气垫粉底液气垫bb霜含替芯",
         "icon": "../../img/hang.png",
         "icon_text": "雪花秀",
@@ -132,7 +132,7 @@ Page({
         "gfpj": "../../img/xx1.png"
       },
       {
-        "img": "../../img/skii.png",
+        "img": "../../img/del/skii.png",
         "msg": "sk-iisk2 神仙水skii护肤精华露补水紧致提亮肤色",
         "icon": "../../img/riben.png",
         "icon_text": "SKII",
@@ -143,7 +143,7 @@ Page({
         "gfpj": "../../img/xx.png"
       },
       {
-        "img": "../../img/xuehuaxiu.png",
+        "img": "../../img/del/xuehuaxiu.png",
         "msg": "雪花秀致美润白气垫粉底液气垫bb霜含替芯",
         "icon": "../../img/hang.png",
         "icon_text": "雪花秀",
@@ -154,7 +154,7 @@ Page({
         "gfpj": "../../img/xx1.png"
       },
       {
-        "img": "../../img/skii.png",
+        "img": "../../img/del/skii.png",
         "msg": "sk-iisk2 神仙水skii护肤精华露补水紧致提亮肤色",
         "icon": "../../img/riben.png",
         "icon_text": "SKII",
@@ -165,7 +165,7 @@ Page({
         "gfpj": "../../img/xx.png"
       },
       {
-        "img": "../../img/xuehuaxiu.png",
+        "img": "../../img/del/xuehuaxiu.png",
         "msg": "雪花秀致美润白气垫粉底液气垫bb霜含替芯",
         "icon": "../../img/hang.png",
         "icon_text": "雪花秀",
@@ -176,7 +176,7 @@ Page({
         "gfpj": "../../img/xx1.png"
       },
       {
-        "img": "../../img/skii.png",
+        "img": "../../img/del/skii.png",
         "msg": "sk-iisk2 神仙水skii护肤精华露补水紧致提亮肤色",
         "icon": "../../img/riben.png",
         "icon_text": "SKII",
@@ -187,7 +187,7 @@ Page({
         "gfpj": "../../img/xx.png"
       },
       {
-        "img": "../../img/xuehuaxiu.png",
+        "img": "../../img/del/xuehuaxiu.png",
         "msg": "雪花秀致美润白气垫粉底液气垫bb霜含替芯",
         "icon": "../../img/hang.png",
         "icon_text": "雪花秀",
