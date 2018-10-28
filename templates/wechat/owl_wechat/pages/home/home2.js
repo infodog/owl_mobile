@@ -6,15 +6,15 @@ Page({
    */
   "data": {
     "imgUrls": [
-      '../../img/banner.png',
-      '../../img/banner.png',
-      '../../img/banner.png'
+      '../../img/del/banner.png',
+      '../../img/del/banner.png',
+      '../../img/del/banner.png'
     ],
     "hot_cont_item":[
       {
         "hot_num":"TOP1",
         "selled_num":383,
-        "img":"../../img/chungao.png",
+        "img":"../../img/del/chungao.png",
         "title":"平价版SK-II清洁面膜…",
         "icon":"../../img/hang.png",
         "text":"whoo",
@@ -34,7 +34,7 @@ Page({
       {
         "hot_num": "TOP3",
         "selled_num": 383,
-        "img": "../../img/hot_item.png",
+        "img": "../../img/del/hot_item.png",
         "title": "平价版SK-II清洁面膜…",
         "icon": "../../img/hang.png",
         "text": "whoo",
@@ -79,7 +79,7 @@ Page({
         "text4": "享海购 推荐"
       },
       {
-        "img": "../../img/daaixin.png",
+        "img": "../../img/del/daaixin.png",
         "text1": "💡新品享受9折优惠",
         "text2": "MZUU 秋季新品",
         "text3": "✨明星款时髦又百搭",

@@ -77,23 +77,23 @@
       <column>
         <view class='recommend-l'>
           <view class='recommend-l-item-1'>
-            <image src='../../img/335x435.png' mode='aspectFill' style='width:335rpx; height:435rpx'></image>
+            <image src='../../img/del/335x435.png' mode='aspectFill' style='width:335rpx; height:435rpx'></image>
           </view> 
           <view class='recommend-l-item'>
-            <image src='../../img/340x210.png' mode='aspectFill' style='width:335rpx; height:210rpx'></image>
+            <image src='../../img/del/340x210.png' mode='aspectFill' style='width:335rpx; height:210rpx'></image>
           </view> 
         </view>
       </column>
       <column>
         <view class='recommend-r'>
           <view class='recommend-r-item'>
-            <image src='../../img/340x210-1.png' mode='aspectFill' style='width:340rpx; height:210rpx'></image>
+            <image src='../../img/del/340x210-1.png' mode='aspectFill' style='width:340rpx; height:210rpx'></image>
           </view> 
           <view class='recommend-r-item'>
-            <image src='../../img/340x210-2.png' mode='aspectFill' style='width:340rpx; height:210rpx'></image>
+            <image src='../../img/del/340x210-2.png' mode='aspectFill' style='width:340rpx; height:210rpx'></image>
           </view> 
           <view class='recommend-r-item'>
-            <image src='../../img/340x210-3.png' mode='aspectFill' style='width:340rpx; height:210rpx'></image>
+            <image src='../../img/del/340x210-3.png' mode='aspectFill' style='width:340rpx; height:210rpx'></image>
           </view> 
         </view>
       </column>
@@ -165,49 +165,49 @@
         <wrap class='brand-cont-brand-list'>
             <view class='brand-cont-brand-list-item'>
               <view class='brand-cont-brand-list-item-pic'>
-                <image src='../../img/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
+                <image src='../../img/del/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
               </view>
             </view>
             
              <view class='brand-cont-brand-list-item'>
               <view class='brand-cont-brand-list-item-pic'>
-                <image src='../../img/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
+                <image src='../../img/del/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
               </view>
             </view>
             
             <view class='brand-cont-brand-list-item'>
               <view class='brand-cont-brand-list-item-pic'>
-                <image src='../../img/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
+                <image src='../../img/del/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
               </view>
             </view>
             
             <view class='brand-cont-brand-list-item'>
               <view class='brand-cont-brand-list-item-pic'>
-                <image src='../../img/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
+                <image src='../../img/del/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
               </view>
             </view>
 
             <view class='brand-cont-brand-list-item'>
               <view class='brand-cont-brand-list-item-pic'>
-                <image src='../../img/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
+                <image src='../../img/del/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
               </view>
             </view>
             
             <view class='brand-cont-brand-list-item'>
               <view class='brand-cont-brand-list-item-pic'>
-                <image src='../../img/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
+                <image src='../../img/del/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
               </view>
             </view>
 
             <view class='brand-cont-brand-list-item'>
               <view class='brand-cont-brand-list-item-pic'>
-                <image src='../../img/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
+                <image src='../../img/del/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
               </view>
             </view>
             
             <view class='brand-cont-brand-list-item'>
               <view class='brand-cont-brand-list-item-pic'>
-                <image src='../../img/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
+                <image src='../../img/del/brand.png' class="brand-cont-brand-list-item-pic-img" mode='aspectFill'></image>
               </view>
             </view>
         </wrap>

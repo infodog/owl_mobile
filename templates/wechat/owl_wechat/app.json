@@ -1,15 +1,16 @@
 {
   "pages": [
-    "pages/order/order",
-    "pages/shop_list_show/shop_list_show",
-    "pages/shop_cart/shop_cart",
+    
     "pages/home/home2",
+    "pages/classifly/classifly",
+    "pages/my_center/my_center",
+    "pages/order/order",
+    "pages/shop_cart/shop_cart",
     "pages/search/search",
     "pages/product_details/product_details",
     "pages/brand/brand",
     "pages/classifly_mz/classifly_mz",
-    "pages/classifly/classifly",
-    "pages/my_center/my_center",
+    "pages/shop_list_show/shop_list_show",
     "pages/examples/products/productList",
     "pages/index/index"
     
@@ -27,7 +28,7 @@
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/shop_list_show/shop_list_show",
+        "pagePath": "pages/home/home2",
         "text": "首页",
         "iconPath": "img/home.png",
         "selectedIconPath": "img/homeh.png"

@@ -67,22 +67,22 @@
         <view class='recommend-l fl'>
           
           <view class='item item-1'>
-            <image src='../../img/335x435.png'></image>
+            <image src='../../img/del/335x435.png'></image>
           </view> 
           <view class='item'>
-            <image src='../../img/340x210.png'></image>
+            <image src='../../img/del/340x210.png'></image>
           </view> 
         </view>
         <view class='recommend-r fl'>
           
           <view class='item'>
-            <image src='../../img/340x210-1.png'></image>
+            <image src='../../img/del/340x210-1.png'></image>
           </view> 
           <view class='item'>
-            <image src='../../img/340x210-2.png'></image>
+            <image src='../../img/del/340x210-2.png'></image>
           </view> 
           <view class='item'>
-            <image src='../../img/340x210-3.png'></image>
+            <image src='../../img/del/340x210-3.png'></image>
           </view> 
         </view>  
       </row>
