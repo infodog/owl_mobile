@@ -29,7 +29,7 @@ mkdir(path.resolve(flutterPath,'assets','img'));
 
 ncp(path.resolve(wxappPath,'img'),path.resolve(flutterPath,'assets','img'),function(err){
     if(err){
-        return console.err(err);
+        return console.log(err);
     }
     console.log('build finished.')
 });
