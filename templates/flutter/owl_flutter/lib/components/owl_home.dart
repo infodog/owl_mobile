@@ -7,12 +7,39 @@ import 'package:owl_flutter/utils/uitools.dart';
 
 import '../utils/owl.dart';
 
-class OwlHome extends StatelessWidget {
+class OwlHome extends StatefulWidget {
   OwlHome(this.url, this.params);
 
   var url;
   var params;
   var currentIndex = 0;
+  @override
+  OwlHomeState createState() {
+    // TODO: implement createState
+    return OwlHomeState();
+  }
+}
+
+class OwlHomeState extends State<OwlHome> with TickerProviderStateMixin {
+  AnimationController animationController;
+  Animation<double> ani;
+  initState() {
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 1000), vsync: this);
+    ani = Tween<double>(begin: 1.0, end: 1.2).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.ease));
+    ani.addListener(this.printAni);
+  }
+
+  printAni() {
+    print(ani.value);
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
 
   Widget buildTabBar(BuildContext context) {
     var tabBar = owl.getApplication().appJson['tabBar'];
@@ -42,8 +69,8 @@ class OwlHome extends StatelessWidget {
       var selectedIconPath = item['selectedIconPath'];
 
       var pagePath = item['pagePath'];
-      if (pagePath == url) {
-        currentIndex = i;
+      if (pagePath == widget.url) {
+        widget.currentIndex = i;
       }
       int posIcon = iconPath.indexOf('img');
       var assetKeyIcon = 'assets/' + iconPath.substring(posIcon);
@@ -63,10 +90,12 @@ class OwlHome extends StatelessWidget {
 
     return WxTabBar(
       items: barItems,
-      currentIndex: currentIndex,
+      currentIndex: widget.currentIndex,
       backgroundColor: barBackgroundColor,
       activeColor: activeColor,
       inactiveColor: itemColor,
+      ani: ani,
+      animationController: animationController,
 //      onTap: (int selected) {
 //        var item = list[selected];
 //        owl.getApplication().navigateTo({"url": item['pagePath']}, context);
@@ -89,8 +118,8 @@ class OwlHome extends StatelessWidget {
     var item = list[index];
     var url = item['pagePath'];
     var effectiveParams = {};
-    if (index == this.currentIndex) {
-      effectiveParams = this.params;
+    if (index == widget.currentIndex) {
+      effectiveParams = widget.params;
     }
     Widget screen =
         getScreen(url, effectiveParams, owl.getApplication().appCss);
@@ -108,16 +137,18 @@ const Color _kDefaultTabBarBorderColor = Color(0x4C000000);
 const double _kTabBarHeight = 50.0;
 
 class WxTabBar extends CupertinoTabBar {
-  WxTabBar({
-    Key key,
-    items,
-    onTap,
-    currentIndex = 0,
-    backgroundColor,
-    activeColor = CupertinoColors.activeBlue,
-    inactiveColor = CupertinoColors.inactiveGray,
-    iconSize = 30.0,
-  }) : super(
+  WxTabBar(
+      {Key key,
+      items,
+      onTap,
+      currentIndex = 0,
+      backgroundColor,
+      activeColor = CupertinoColors.activeBlue,
+      inactiveColor = CupertinoColors.inactiveGray,
+      iconSize = 30.0,
+      this.ani,
+      this.animationController})
+      : super(
             key: key,
             items: items,
             onTap: onTap,
@@ -127,9 +158,12 @@ class WxTabBar extends CupertinoTabBar {
             inactiveColor: inactiveColor,
             iconSize: iconSize);
 
+  Animation<double> ani;
+  AnimationController animationController;
   @override
   Widget build(BuildContext context) {
     final double bottomPadding = MediaQuery.of(context).padding.bottom;
+
     Widget result = new DecoratedBox(
       decoration: new BoxDecoration(
         border: const Border(
@@ -202,6 +236,9 @@ class WxTabBar extends CupertinoTabBar {
                 onTap: onTap == null
                     ? null
                     : () {
+                        animationController
+                          ..reset()
+                          ..forward();
                         onTap(index);
                       },
                 child: new Padding(
@@ -212,7 +249,9 @@ class WxTabBar extends CupertinoTabBar {
                       new Expanded(
                           child: new Center(
                               child: index == currentIndex
-                                  ? items[index].activeIcon
+                                  ? ScaleTransition(
+                                      child: items[index].activeIcon,
+                                      scale: ani)
                                   : items[index].icon)),
                       items[index].title,
                     ],
@@ -244,26 +283,28 @@ class WxTabBar extends CupertinoTabBar {
 
   /// Create a clone of the current [CupertinoTabBar] but with provided
   /// parameters overridden.
-  WxTabBar copyWith({
-    Key key,
-    List<BottomNavigationBarItem> items,
-    Color backgroundColor,
-    Color activeColor,
-    Color inactiveColor,
-    Size iconSize,
-    int currentIndex,
-    ValueChanged<int> onTap,
-  }) {
+  WxTabBar copyWith(
+      {Key key,
+      List<BottomNavigationBarItem> items,
+      Color backgroundColor,
+      Color activeColor,
+      Color inactiveColor,
+      Size iconSize,
+      int currentIndex,
+      ValueChanged<int> onTap,
+      Animation ani,
+      AnimationController animationController}) {
     return WxTabBar(
-      key: key ?? this.key,
-      items: items ?? this.items,
-      backgroundColor: backgroundColor ?? this.backgroundColor,
-      activeColor: activeColor ?? this.activeColor,
-      inactiveColor: inactiveColor ?? this.inactiveColor,
-      iconSize: iconSize ?? this.iconSize,
-      currentIndex: currentIndex ?? this.currentIndex,
-      onTap: onTap ?? this.onTap,
-    );
+        key: key ?? this.key,
+        items: items ?? this.items,
+        backgroundColor: backgroundColor ?? this.backgroundColor,
+        activeColor: activeColor ?? this.activeColor,
+        inactiveColor: inactiveColor ?? this.inactiveColor,
+        iconSize: iconSize ?? this.iconSize,
+        currentIndex: currentIndex ?? this.currentIndex,
+        onTap: onTap ?? this.onTap,
+        ani: ani ?? this.ani,
+        animationController: animationController ?? this.animationController);
   }
 }
 

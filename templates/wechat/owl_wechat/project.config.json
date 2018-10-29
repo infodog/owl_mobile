@@ -13,7 +13,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.3.0",
 	"appid": "wxe8de228e5039db0a",
-	"projectname": "owlmobile_template",
+	"projectname": "owlTemplate",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
