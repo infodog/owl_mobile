@@ -488,6 +488,9 @@ EdgeInsetsGeometry getMargin(rules) {
 
 Widget wrapGestureDetector(Widget widget, dynamic node, ScreenModel model) {
   var bindtap = getAttr(node, 'bindtap');
+  if(bindtap==null){
+    return widget;
+  }
   var pageBindTap = model.pageJs[bindtap];
   if (pageBindTap != null) {
     GestureTapUpCallback _onTapHandler = (TapUpDetails details) {
