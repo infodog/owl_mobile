@@ -200,7 +200,32 @@ class OwlComponentBuilder {
       componentModel,
       parentNode,
       parentWidget}) {
+    if (model.widgetCaches.containsKey(node) && model.isDirty==false) {
+      return model.widgetCaches[node];
+    }
+    List<Widget> result = _buildList(
+        node: node,
+        pageCss: pageCss,
+        appCss: appCss,
+        model: model,
+        componentModel: componentModel,
+        parentNode: parentNode,
+        parentWidget: parentWidget);
+    model.widgetCaches[node] = result;
+    model.clearDirty();
+    return result;
+  }
+
+  static List<Widget> _buildList(
+      {Map<String, dynamic> node,
+      Map<String, dynamic> pageCss,
+      Map<String, dynamic> appCss,
+      ScreenModel model,
+      componentModel,
+      parentNode,
+      parentWidget}) {
     List<Widget> result = [];
+
     String nodeName = "";
     if (node.keys.length == 0) {
       return null;
@@ -255,7 +280,6 @@ class OwlComponentBuilder {
       if (wxforIndex == null) {
         wxforIndex = 'index';
       }
-
       wxfor = getMiddle(wxfor, '{{', '}}');
       var array = model.getData(wxfor);
       if (array != null && array is List) {

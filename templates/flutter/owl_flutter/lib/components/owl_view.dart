@@ -25,9 +25,9 @@ class OwlView extends OwlComponent {
             parentWidget: parentWidget);
 
   bool isStack;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget w = null;
+  Widget _buildWidget(BuildContext context) {
+    print("...build");
     setScreenWidth(context);
     String alignment = getAttr(node, 'alignment');
     var children = node['children'];
@@ -120,6 +120,9 @@ class OwlView extends OwlComponent {
     String justifyContent = getRuleValue(rules, "justify-content");
     String alignItems = getRuleValue(rules, "align-items");
 
+    String boxShadow = getRuleValue(rules, 'box-shadow');
+    List<BoxShadow> shadows = parseBoxShadow(boxShadow);
+
     Widget container = Container(
         key: ValueKey(className),
         child: ClipRect(
@@ -136,6 +139,7 @@ class OwlView extends OwlComponent {
         decoration: BoxDecoration(
             color: bColor,
             border: border,
+            boxShadow: shadows,
             borderRadius: borderRadius == null
                 ? null
                 : BorderRadius.circular(lp(borderRadius, 0.0))),
@@ -218,6 +222,14 @@ class OwlView extends OwlComponent {
         return realView;
       }
     }
-//    return realView;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (w != null) {
+      return w;
+    }
+    w = _buildWidget(context);
+    return w;
   }
 }

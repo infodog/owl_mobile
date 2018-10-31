@@ -8,6 +8,7 @@ class ScreenModel extends Model {
   ScreenModel(this.params, BuildContext buildContext) {
     wx = WeiXinAdapter(buildContext);
     componentModel = {};
+    widgetCaches = {};
   }
 
   var pageModel;
@@ -15,10 +16,21 @@ class ScreenModel extends Model {
   var pageJs;
   var data;
   var componentModel;
+  bool isDirty;
+
+  Map<dynamic, List<Widget>> widgetCaches;
 
   WeiXinAdapter wx;
 
+  clearDirty(){
+    isDirty = false;
+  }
+
+  setDirty(){
+    isDirty = true;
+  }
   void setData(Map<dynamic, dynamic> data) {
+    setDirty();
     var o = this.pageJs["data"];
     data.forEach((dynamic key, dynamic value) {
       List parts = key.split(".");
@@ -136,14 +148,5 @@ class ScreenModel extends Model {
     if (f != null) {
       f({});
     }
-  }
-
-  Map<String, Widget> cachedWidgets = {};
-  void setWidget(String key, Widget w) {
-    cachedWidgets[key] = w;
-  }
-
-  Widget getWidget(String key) {
-    return cachedWidgets[key];
   }
 }

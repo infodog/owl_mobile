@@ -159,8 +159,10 @@ double lp(String l, double defaultValue) {
     l = l.substring(0, l.length - 2);
     double lrpx = double.parse(l);
     return lrpx;
+  } else {
+    double v = double.parse(l);
+    return v;
   }
-  return defaultValue;
 }
 
 Color fromCssColor(String cssColor) {
@@ -488,7 +490,7 @@ EdgeInsetsGeometry getMargin(rules) {
 
 Widget wrapGestureDetector(Widget widget, dynamic node, ScreenModel model) {
   var bindtap = getAttr(node, 'bindtap');
-  if(bindtap==null){
+  if (bindtap == null) {
     return widget;
   }
   var pageBindTap = model.pageJs[bindtap];
@@ -520,4 +522,46 @@ Widget wrapGestureDetector(Widget widget, dynamic node, ScreenModel model) {
   } else {
     return widget;
   }
+}
+
+List<BoxShadow> parseBoxShadow(String cssBoxShadow) {
+  if (cssBoxShadow == null) {
+    return null;
+  }
+  //首先将cssBoxShadow给切分开
+  List<String> parts = cssBoxShadow.split(new RegExp("[\n]+"));
+  List<BoxShadow> result = [];
+  for (int i = 0; i < parts.length; i++) {
+    String part = parts[i];
+    part = part.trim();
+    //首先找到color
+    int colorIndex = part.indexOf("#");
+    if (colorIndex == -1) {
+      colorIndex = part.indexOf("rgba");
+    }
+    String strColor = part.substring(colorIndex);
+    String numPart = part.substring(0, colorIndex);
+    numPart = numPart.trim();
+    List<String> numParts = numPart.split(new RegExp("[ \t]+"));
+    assert(numParts.length >= 2);
+
+    double offsetX = lp(numParts[0], null);
+    double offsetY = lp(numParts[1], null);
+
+    double blurRadius = null;
+    double spreadRadius = null;
+    if (numParts.length >= 3) {
+      blurRadius = lp(numParts[2], 0.0);
+    }
+    if (numParts.length >= 4) {
+      spreadRadius = lp(numParts[3], 0.0);
+    }
+    BoxShadow boxShadow = BoxShadow(
+        color: fromCssColor(strColor),
+        offset: Offset(offsetX, offsetY),
+        blurRadius: blurRadius,
+        spreadRadius: spreadRadius);
+    result.add(boxShadow);
+  }
+  return result;
 }
