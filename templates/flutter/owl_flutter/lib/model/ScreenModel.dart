@@ -22,13 +22,15 @@ class ScreenModel extends Model {
 
   WeiXinAdapter wx;
 
-  clearDirty(){
+  clearDirty() {
     isDirty = false;
   }
 
-  setDirty(){
+  setDirty() {
+    widgetCaches.clear();
     isDirty = true;
   }
+
   void setData(Map<dynamic, dynamic> data) {
     setDirty();
     var o = this.pageJs["data"];
