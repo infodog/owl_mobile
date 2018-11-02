@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:owl_flutter/components/owl_statefulcomponent.dart';
-import 'package:owl_flutter/utils/json_util.dart';
-import 'package:owl_flutter/utils/uitools.dart';
+
+import '../components/owl_statefulcomponent.dart';
+import '../utils/json_util.dart';
+import '../utils/uitools.dart';
 
 class OwlInput extends OwlStatefulComponent {
   OwlInput(
@@ -40,6 +41,8 @@ class OwlInputState extends State<OwlInput> {
   String color;
   String placeholder;
   bool enabled = true;
+  bool obscureText = false;
+  TextStyle hintTextStyle = null;
 
   Color cssColor;
 
@@ -60,6 +63,19 @@ class OwlInputState extends State<OwlInput> {
     fontSize = getRuleValue(rules, "font-size");
     color = getRuleValue(rules, 'color');
     cssColor = fromCssColor(color);
+
+    var hintTextColor = getRuleValue(rules, 'hintTextColor');
+    if (hintTextStyle != null) {
+      hintTextStyle = TextStyle(color: fromCssColor(hintTextColor));
+    }
+
+    String type = getAttr(widget.node, 'type');
+    if (type != null) {
+      type = type.toLowerCase();
+      if (type == 'password') {
+        obscureText = true;
+      }
+    }
 
     ///设置事件处理程序
     String initValue = getAttr(widget.node, 'value');
@@ -86,6 +102,7 @@ class OwlInputState extends State<OwlInput> {
   Widget build(BuildContext context) {
     return TextField(
         controller: this.editingController,
+        obscureText: obscureText,
         style: DefaultTextStyle.of(context)
             .style
             .merge(TextStyle(color: cssColor, fontSize: lp(fontSize, null))),
@@ -93,6 +110,7 @@ class OwlInputState extends State<OwlInput> {
             border: InputBorder.none,
             enabled: enabled,
             hintText: placeholder,
+            hintStyle: hintTextStyle,
             contentPadding: EdgeInsets.only(
                 left: lp(paddingLeft, 0.0),
                 right: lp(paddingRight, 0.0),

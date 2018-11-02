@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:owl_flutter/components/owl_componet.dart';
-import 'package:owl_flutter/utils/uitools.dart';
+
+import '../components/owl_componet.dart';
+import '../utils/uitools.dart';
 
 class OwlText extends OwlComponent {
   OwlText(

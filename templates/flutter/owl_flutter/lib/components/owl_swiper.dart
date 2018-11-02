@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:owl_flutter/builders/owl_component_builder.dart';
-import 'package:owl_flutter/components/owl_statefulcomponent.dart';
-import 'package:owl_flutter/components/owl_swiper_item.dart';
-import 'package:owl_flutter/utils/json_util.dart';
-import 'package:owl_flutter/utils/uitools.dart';
+
+import '../builders/owl_component_builder.dart';
+import '../components/owl_statefulcomponent.dart';
+import '../utils/json_util.dart';
+import '../utils/uitools.dart';
 
 class OwlSwiper extends OwlStatefulComponent {
   OwlSwiper(

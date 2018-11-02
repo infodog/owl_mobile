@@ -1,11 +1,12 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:owl_flutter/builders/owl_component_builder.dart';
-import 'package:owl_flutter/components/owl_statefulcomponent.dart';
-import 'package:owl_flutter/components/owl_swiper_item.dart';
-import 'package:owl_flutter/utils/json_util.dart';
-import 'package:owl_flutter/utils/uitools.dart';
+
+import '../builders/owl_component_builder.dart';
+import '../components/owl_statefulcomponent.dart';
+import '../components/owl_swiper_item.dart';
+import '../utils/json_util.dart';
+import '../utils/uitools.dart';
 
 class OwlSwiperCarousel extends OwlStatefulComponent {
   OwlSwiperCarousel(

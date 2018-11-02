@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:owl_flutter/components/owl_home.dart';
 
+import './components/owl_home.dart';
 import 'owl_generated/owl_route.dart';
 import 'utils/owl.dart';
 

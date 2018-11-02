@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:owl_flutter/builders/owl_component_builder.dart';
-import 'package:owl_flutter/components/owl_componet.dart';
-import 'package:owl_flutter/owl_generated/owl_app.dart';
-import 'package:owl_flutter/utils/uitools.dart';
 
+import '../builders/owl_component_builder.dart';
+import '../components/owl_componet.dart';
+import '../owl_generated/owl_app.dart';
 import '../utils/owl.dart';
+import '../utils/uitools.dart';
 
 class OwlPage extends OwlComponent {
   OwlPage(

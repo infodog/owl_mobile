@@ -1,4 +1,4 @@
-import 'package:owl_flutter/owl_generated/owl_app.dart';
+import '../owl_generated/owl_app.dart';
 
 class owl {
   static void login(app) {}

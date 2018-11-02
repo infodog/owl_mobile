@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:owl_flutter/owl_generated/owl_route.dart';
-import 'package:owl_flutter/utils/uitools.dart';
 
+import '../owl_generated/owl_route.dart';
 import '../utils/owl.dart';
+import '../utils/uitools.dart';
 
 class OwlHome extends StatefulWidget {
   OwlHome(this.url, this.params);

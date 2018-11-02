@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:owl_flutter/components/owl_componet.dart';
-import 'package:owl_flutter/components/owl_statefulcomponent.dart';
-import 'package:owl_flutter/model/ScreenModel.dart';
 
+import '../components/owl_componet.dart';
+import '../components/owl_statefulcomponent.dart';
+import '../model/ScreenModel.dart';
 import '../utils/json_util.dart';
 
 double screenWidth;
@@ -548,8 +548,8 @@ List<BoxShadow> parseBoxShadow(String cssBoxShadow) {
     double offsetX = lp(numParts[0], null);
     double offsetY = lp(numParts[1], null);
 
-    double blurRadius = null;
-    double spreadRadius = null;
+    double blurRadius = 0.0;
+    double spreadRadius = 0.0;
     if (numParts.length >= 3) {
       blurRadius = lp(numParts[2], 0.0);
     }
@@ -564,4 +564,132 @@ List<BoxShadow> parseBoxShadow(String cssBoxShadow) {
     result.add(boxShadow);
   }
   return result;
+}
+
+double percentageToDouble(String percentage) {
+  //percentage is like 50%
+  percentage = percentage.trim();
+  if (percentage.endsWith("%")) {
+    percentage = percentage.substring(0, percentage.length - 1);
+    return double.parse(percentage) / 100;
+  } else {
+    print("is not percentage.");
+    return double.nan;
+  }
+}
+
+AlignmentGeometry fromCssAlignment(String x, String y) {
+  if (x == 'left' || x == 'right' || x == 'center') {
+    if (y == null) {
+      y = 'center';
+    }
+    if (x == 'left' && y == 'top') {
+      return Alignment.topLeft;
+    }
+    if (x == 'left' && y == 'center') {
+      return Alignment.centerLeft;
+    }
+    if (x == 'left' && y == 'bottom') {
+      return Alignment.bottomLeft;
+    }
+    if (x == 'right' && y == 'top') {
+      return Alignment.topRight;
+    }
+    if (x == 'right' && y == 'center') {
+      return Alignment.centerRight;
+    }
+    if (x == 'right' && y == 'bottom') {
+      return Alignment.bottomRight;
+    }
+    if (x == 'center' && y == 'top') {
+      return Alignment.topCenter;
+    }
+    if (x == 'center' && y == 'center') {
+      return Alignment.center;
+    }
+    if (x == 'center' && y == 'bottom') {
+      return Alignment.bottomCenter;
+    }
+  } else {
+    if (y == null) {
+      y = '50%';
+    }
+
+    double dx = percentageToDouble(x);
+    double dy = percentageToDouble(y);
+    return Alignment(dx * 2 - 1, dy * 2 - 1);
+  }
+}
+
+DecorationImage createDecorationImage(
+    {String backgroundImage,
+    String backgroundPosition,
+    String backgroundRepeat,
+    String backgroundSize}) {
+  ImageProvider image;
+  AlignmentGeometry alignment = Alignment.center;
+  ImageRepeat repeat = ImageRepeat.noRepeat;
+  BoxFit fit = BoxFit.scaleDown;
+
+  ////image
+  if (backgroundImage == null) {
+    return null;
+  }
+  if (backgroundImage.startsWith('http')) {
+    image = NetworkImage(backgroundImage);
+  } else {
+    String assetKey = null;
+    int pos = backgroundImage.indexOf('img');
+    assetKey = 'assets/' + backgroundImage.substring(pos);
+    image = AssetImage(assetKey);
+  }
+
+  //backgroundPosition目前只支持%号定位
+  //css:
+  //x% y%	The first value is the horizontal position and the second value is the vertical.
+  // The top left corner is 0% 0%. The right bottom corner is 100% 100%.
+  // If you only specify one value, the other value will be 50%. . Default value is: 0% 0%
+
+  String x, y;
+  if (backgroundPosition != null) {
+    backgroundPosition = backgroundPosition.trim();
+    List<String> parts = backgroundPosition.split("\\s");
+    x = parts[0];
+    if (parts.length > 1) {
+      y = parts[1];
+    } else {
+      y = null;
+    }
+
+    ///alignment
+    alignment = fromCssAlignment(x, y);
+  }
+
+  ///repeat
+  if (backgroundRepeat != null) {
+    if (backgroundRepeat == 'no-repeat') {
+      repeat = ImageRepeat.noRepeat;
+    } else if (backgroundRepeat == 'repeat') {
+      repeat = ImageRepeat.repeat;
+    } else if (backgroundRepeat == 'repeat-x') {
+      repeat = ImageRepeat.repeatX;
+    } else if (backgroundRepeat == 'repeat-y') {
+      repeat = ImageRepeat.repeatY;
+    } else {
+      repeat = ImageRepeat.noRepeat;
+    }
+  }
+
+  if (backgroundSize != null) {
+    if (backgroundSize == 'auto') {
+      fit = BoxFit.none;
+    } else if (backgroundSize == 'cover') {
+      fit = BoxFit.cover;
+    } else if (backgroundSize == 'contain') {
+      fit = BoxFit.contain;
+    }
+  }
+
+  return DecorationImage(
+      image: image, fit: fit, alignment: alignment, repeat: repeat);
 }

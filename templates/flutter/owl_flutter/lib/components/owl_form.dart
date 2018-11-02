@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:owl_flutter/builders/owl_component_builder.dart';
-import 'package:owl_flutter/components/owl_componet.dart';
+
+import '../builders/owl_component_builder.dart';
+import '../components/owl_componet.dart';
 
 class OwlForm extends OwlComponent {
   OwlForm(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:owl_flutter/model/ScreenModel.dart';
 import 'package:reflected_mustache/mustache.dart';
+
+import '../model/ScreenModel.dart';
 
 abstract class OwlStatefulComponent extends StatefulWidget {
   OwlStatefulComponent(

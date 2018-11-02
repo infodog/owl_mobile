@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:owl_flutter/components/owl_componet.dart';
-import 'package:owl_flutter/utils/json_util.dart';
+
+import '../components/owl_componet.dart';
+import '../utils/json_util.dart';
 
 class OwlSwiperItem extends OwlComponent {
   OwlSwiperItem(

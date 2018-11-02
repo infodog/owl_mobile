@@ -1,20 +1,21 @@
 import 'package:flutter/widgets.dart';
-import 'package:owl_flutter/components/owl_center.dart';
-import 'package:owl_flutter/components/owl_column.dart';
-import 'package:owl_flutter/components/owl_expanded.dart';
-import 'package:owl_flutter/components/owl_form.dart';
-import 'package:owl_flutter/components/owl_image.dart';
-import 'package:owl_flutter/components/owl_input.dart';
-import 'package:owl_flutter/components/owl_page.dart';
-import 'package:owl_flutter/components/owl_row.dart';
-import 'package:owl_flutter/components/owl_scroll_view.dart';
-import 'package:owl_flutter/components/owl_swiper.dart';
-import 'package:owl_flutter/components/owl_text.dart';
-import 'package:owl_flutter/components/owl_view.dart';
-import 'package:owl_flutter/components/owl_wrap.dart';
-import 'package:owl_flutter/model/ScreenModel.dart';
-import 'package:owl_flutter/utils/json_util.dart';
-import 'package:owl_flutter/utils/uitools.dart';
+
+import '../components/owl_center.dart';
+import '../components/owl_column.dart';
+import '../components/owl_expanded.dart';
+import '../components/owl_form.dart';
+import '../components/owl_image.dart';
+import '../components/owl_input.dart';
+import '../components/owl_page.dart';
+import '../components/owl_row.dart';
+import '../components/owl_scroll_view.dart';
+import '../components/owl_swiper.dart';
+import '../components/owl_text.dart';
+import '../components/owl_view.dart';
+import '../components/owl_wrap.dart';
+import '../model/ScreenModel.dart';
+import '../utils/json_util.dart';
+import '../utils/uitools.dart';
 
 class OwlComponentBuilder {
   static Widget build(
@@ -200,7 +201,7 @@ class OwlComponentBuilder {
       componentModel,
       parentNode,
       parentWidget}) {
-    if (model.widgetCaches.containsKey(node) && model.isDirty==false) {
+    if (model.widgetCaches.containsKey(node) && model.isDirty == false) {
       return model.widgetCaches[node];
     }
     List<Widget> result = _buildList(

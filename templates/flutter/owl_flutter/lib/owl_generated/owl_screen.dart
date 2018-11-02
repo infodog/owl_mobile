@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:owl_flutter/components/owl_page.dart';
-import 'package:owl_flutter/components/owl_page_cupertino.dart';
-import 'package:owl_flutter/model/ScreenModel.dart';
-import 'package:owl_flutter/utils/uitools.dart';
-import 'package:owl_flutter/utils/wx.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import '../components/owl_page.dart';
+import '../components/owl_page_cupertino.dart';
+import '../model/ScreenModel.dart';
 import '../utils/owl.dart';
+import '../utils/uitools.dart';
+import '../utils/wx.dart';
 
 class __pageName extends StatelessWidget {
   __pageName({this.params, this.appCss, this.url});

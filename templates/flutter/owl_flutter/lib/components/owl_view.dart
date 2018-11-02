@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:owl_flutter/builders/owl_component_builder.dart';
-import 'package:owl_flutter/components/owl_componet.dart';
-import 'package:owl_flutter/utils/json_util.dart';
-import 'package:owl_flutter/utils/uitools.dart';
+
+import '../builders/owl_component_builder.dart';
+import '../components/owl_componet.dart';
+import '../utils/json_util.dart';
+import '../utils/uitools.dart';
 
 class OwlView extends OwlComponent {
   OwlView(
@@ -109,6 +110,9 @@ class OwlView extends OwlComponent {
     String borderRadius = getRuleValue(rules, "border-radius");
 
     String backgroundImage = getRuleValue(rules, "background-image");
+    String backgroundPosition = getRuleValue(rules, "background-position");
+    String backgroundRepeat = getRuleValue(rules, "background-repeat");
+    String backgroundSize = getRuleValue(rules, 'background-size');
 
     String position = getRuleValue(rules, "position");
 
@@ -138,6 +142,11 @@ class OwlView extends OwlComponent {
         margin: getMargin(rules),
         decoration: BoxDecoration(
             color: bColor,
+            image: createDecorationImage(
+                backgroundImage: backgroundImage,
+                backgroundPosition: backgroundPosition,
+                backgroundSize: backgroundSize,
+                backgroundRepeat: backgroundRepeat),
             border: border,
             boxShadow: shadows,
             borderRadius: borderRadius == null
