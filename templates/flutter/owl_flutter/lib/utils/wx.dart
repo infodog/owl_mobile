@@ -13,11 +13,15 @@ class WeiXinAdapter {
   BuildContext buildContext;
 
   void navigateTo(o) {
-    owl.getApplication().navigateTo(o, buildContext);
+    owl.navigateTo(o, buildContext);
   }
 
   void switchTab(o) {
-    owl.getApplication().switchTab(o, buildContext);
+    owl.switchTab(o, buildContext);
+  }
+
+  void navigateBack(o) {
+    owl.navigateBack(o, buildContext);
   }
 
   request(o) {

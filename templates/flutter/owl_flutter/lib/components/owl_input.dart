@@ -64,7 +64,7 @@ class OwlInputState extends State<OwlInput> {
     color = getRuleValue(rules, 'color');
     cssColor = fromCssColor(color);
 
-    var hintTextColor = getRuleValue(rules, 'hintTextColor');
+    var hintTextColor = getRuleValue(rules, 'hint-text-color');
     if (hintTextStyle != null) {
       hintTextStyle = TextStyle(color: fromCssColor(hintTextColor));
     }
