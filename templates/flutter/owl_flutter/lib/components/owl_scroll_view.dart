@@ -14,7 +14,8 @@ class OwlScrollView extends OwlComponent {
       model,
       componentModel,
       parentNode,
-      parentWidget})
+      parentWidget,
+      cacheContext})
       : super(
             key: key,
             node: node,
@@ -23,7 +24,8 @@ class OwlScrollView extends OwlComponent {
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,8 @@ class OwlScrollView extends OwlComponent {
           model: model,
           componentModel: componentModel,
           parentNode: node,
-          parentWidget: this);
+          parentWidget: this,
+          cacheContext: cacheContext);
       listChildren.addAll(childWidgets);
     }
     Axis scrollDirection = Axis.vertical;

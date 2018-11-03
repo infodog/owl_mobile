@@ -14,7 +14,8 @@ class OwlInput extends OwlStatefulComponent {
       model,
       componentModel,
       parentNode,
-      parentWidget})
+      parentWidget,
+      cacheContext})
       : super(
             key: key,
             node: node,
@@ -23,7 +24,8 @@ class OwlInput extends OwlStatefulComponent {
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
 
   @override
   OwlInputState createState() {

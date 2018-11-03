@@ -17,7 +17,8 @@ class OwlSwiper extends OwlStatefulComponent {
       model,
       componentModel,
       parentNode,
-      parentWidget})
+      parentWidget,
+      cacheContext})
       : super(
             key: key,
             node: node,
@@ -26,7 +27,8 @@ class OwlSwiper extends OwlStatefulComponent {
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
 
   @override
   OwlSwiperState createState() {
@@ -54,7 +56,8 @@ class OwlSwiperState extends State<OwlSwiper> {
           model: widget.model,
           componentModel: widget.componentModel,
           parentNode: widget.node,
-          parentWidget: widget));
+          parentWidget: widget,
+          cacheContext: cacheContext));
     }
 
     String indicatorDots =

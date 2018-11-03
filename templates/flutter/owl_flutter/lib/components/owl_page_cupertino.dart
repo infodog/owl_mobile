@@ -20,7 +20,8 @@ class OwlPageCupertino extends OwlComponent {
       componentModel,
       parentNode,
       parentWidget,
-      this.bottomBar})
+      this.bottomBar,
+      cacheContext})
       : super(
             key: key,
             node: node,
@@ -30,7 +31,8 @@ class OwlPageCupertino extends OwlComponent {
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
 
   final Widget bottomBar;
 
@@ -112,7 +114,8 @@ class OwlPageCupertino extends OwlComponent {
               model: model,
               componentModel: componentModel,
               parentNode: node,
-              parentWidget: this));
+              parentWidget: this,
+              cacheContext: cacheContext));
     } else {
 //      print('fixednodes.lengt!=0');
       List<Widget> childWidgets = [];
@@ -126,7 +129,8 @@ class OwlPageCupertino extends OwlComponent {
             model: model,
             componentModel: componentModel,
             parentNode: node,
-            parentWidget: this));
+            parentWidget: this,
+            cacheContext: cacheContext));
       }
 
       for (var i = 0; i < fixednodes.length; i++) {
@@ -138,7 +142,8 @@ class OwlPageCupertino extends OwlComponent {
             model: model,
             componentModel: componentModel,
             parentNode: node,
-            parentWidget: this));
+            parentWidget: this,
+            cacheContext: cacheContext));
       }
 
       List<Widget> stackChildren = [ListView(children: childWidgets)];

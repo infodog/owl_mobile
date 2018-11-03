@@ -13,7 +13,8 @@ class OwlCenter extends OwlComponent {
       model,
       componentModel,
       parentNode,
-      parentWidget})
+      parentWidget,
+      cacheContext})
       : super(
             key: key,
             node: node,
@@ -22,7 +23,8 @@ class OwlCenter extends OwlComponent {
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,8 @@ class OwlCenter extends OwlComponent {
         model: model,
         componentModel: componentModel,
         parentNode: node,
-        parentWidget: this);
+        parentWidget: this,
+        cacheContext: cacheContext);
     if (childWidgets.length >= 1) {
       return Center(child: childWidgets[0]);
     }

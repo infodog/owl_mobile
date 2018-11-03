@@ -13,7 +13,8 @@ abstract class OwlComponent extends StatelessWidget {
       this.model,
       this.componentModel,
       this.parentNode,
-      this.parentWidget})
+      this.parentWidget,
+      this.cacheContext})
       : super(key: key) {
     model.componentModel = componentModel;
   }
@@ -26,6 +27,7 @@ abstract class OwlComponent extends StatelessWidget {
   final Map componentModel;
   final Map<String, dynamic> parentNode;
   final Widget parentWidget;
+  Map<dynamic, List<Widget>> cacheContext;
 
   String renderText(String text, {bool escape = false}) {
     if (text == null) {

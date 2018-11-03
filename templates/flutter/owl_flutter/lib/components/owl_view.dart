@@ -14,7 +14,8 @@ class OwlView extends OwlComponent {
       model,
       componentModel,
       parentNode,
-      parentWidget})
+      parentWidget,
+      cacheContext})
       : super(
             key: key,
             node: node,
@@ -23,7 +24,8 @@ class OwlView extends OwlComponent {
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
 
   bool isStack;
   Widget w = null;
@@ -67,7 +69,8 @@ class OwlView extends OwlComponent {
           model: model,
           componentModel: componentModel,
           parentNode: node,
-          parentWidget: this);
+          parentWidget: this,
+          cacheContext: cacheContext);
       childWidgets.addAll(widgets);
       for (var j = 0; j < widgets.length; j++) {
         widget2zindex[widgets[j]] = zIndex;
@@ -88,7 +91,8 @@ class OwlView extends OwlComponent {
           model: model,
           componentModel: componentModel,
           parentNode: node,
-          parentWidget: this);
+          parentWidget: this,
+          cacheContext: cacheContext);
       fixedWidgets.addAll(widgets);
 
       for (var j = 0; j < widgets.length; j++) {

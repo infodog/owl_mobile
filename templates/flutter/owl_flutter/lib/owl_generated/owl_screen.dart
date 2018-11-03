@@ -98,7 +98,7 @@ class __pageName extends StatelessWidget {
           type: BottomNavigationBarType.fixed,
           onTap: (int selected) {
             var item = list[selected];
-            owl.getApplication().navigateTo({"url": item['pagePath']}, context);
+            owl.navigateTo({"url": item['pagePath']}, context);
           },
         ));
   }
@@ -110,14 +110,14 @@ class __pageName extends StatelessWidget {
       child: ScopedModelDescendant<__ScreenModel>(
         builder: (context, child, model) {
           return new OwlPage(
-              node: pageNode,
-              key: Key('__pageName'),
-              pageJson: pageJson,
-              pageCss: pageCss,
-              appCss: appCss,
-              model: model /*,
-              bottomBar: buildTabBar(context)*/
-              );
+            node: pageNode,
+            key: Key('__pageName'),
+            pageJson: pageJson,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            cacheContext: model.widgetCaches,
+          );
         },
       ),
     );

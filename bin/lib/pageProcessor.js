@@ -4,7 +4,7 @@ const template = require('art-template')
 const cssutil = require('./cssutil')
 const xmlutil = require('./xmlutil.js')
 
-
+const uuidv1 = require('uuid/v1');
 
 
 function getAttr(node, attrName) {
@@ -113,6 +113,8 @@ function preProcessNode(pageNode, pageCss){
         return;
     }
     var node = pageNode[nodeName];
+    var nodeId = uuidv1();
+    node.nodeId = nodeId;
 
     var rules = getNodeRules(node,pageCss);
     node.rules = rules;

@@ -19,13 +19,15 @@ import '../utils/uitools.dart';
 
 class OwlComponentBuilder {
   static Widget build(
-      {Map<String, dynamic> node,
+      {Key key,
+      Map<String, dynamic> node,
       Map<String, dynamic> pageCss,
       Map<String, dynamic> appCss,
       ScreenModel model,
       Map componentModel,
       Map<String, dynamic> parentNode,
-      Widget parentWidget}) {
+      Widget parentWidget,
+      Map<dynamic, List<Widget>> cacheContext}) {
     String nodeName = "";
     if (node.keys.length == 0) {
       return null;
@@ -33,117 +35,142 @@ class OwlComponentBuilder {
     nodeName = node.keys.first;
     var childNode = node[nodeName];
     Widget widget;
+    Map oldComponentModel = model.componentModel;
+    model.componentModel = componentModel;
+
     switch (nodeName) {
       case "page":
         widget = OwlPage(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "view":
         widget = OwlView(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "column":
-        Widget widget = OwlColumn(
+        widget = OwlColumn(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "row":
         widget = OwlRow(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "wrap":
         widget = OwlWrap(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "form":
         widget = OwlForm(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "input":
         widget = OwlInput(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "center":
         widget = OwlCenter(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "middle":
         widget = OwlCenter(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "expanded":
         widget = OwlExpanded(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
 
       case "scroll-view":
         widget = OwlScrollView(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "cover_view":
         break;
@@ -151,46 +178,56 @@ class OwlComponentBuilder {
         break;
       case "image":
         widget = OwlImage(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "swiper":
         widget = OwlSwiper(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "swiper-item":
         widget = OwlView(
+            key: key,
             node: childNode,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
       case "_text":
         widget = OwlText(
+            key: key,
             node: node,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
         break;
     }
-    return wrapGestureDetector(widget, childNode, model);
+    Widget w = wrapGestureDetector(widget, childNode, model);
+    model.componentModel = oldComponentModel;
+    return w;
   }
 
   static List<Widget> buildList(
@@ -200,9 +237,10 @@ class OwlComponentBuilder {
       ScreenModel model,
       componentModel,
       parentNode,
-      parentWidget}) {
-    if (model.widgetCaches.containsKey(node) && model.isDirty == false) {
-      return model.widgetCaches[node];
+      parentWidget,
+      Map<dynamic, List<Widget>> cacheContext}) {
+    if (cacheContext.containsKey(node)) {
+      return cacheContext[node];
     }
     List<Widget> result = _buildList(
         node: node,
@@ -211,9 +249,9 @@ class OwlComponentBuilder {
         model: model,
         componentModel: componentModel,
         parentNode: parentNode,
-        parentWidget: parentWidget);
-    model.widgetCaches[node] = result;
-    model.clearDirty();
+        parentWidget: parentWidget,
+        cacheContext: cacheContext);
+    cacheContext[node] = result;
     return result;
   }
 
@@ -224,7 +262,8 @@ class OwlComponentBuilder {
       ScreenModel model,
       componentModel,
       parentNode,
-      parentWidget}) {
+      parentWidget,
+      Map<dynamic, List<Widget>> cacheContext}) {
     List<Widget> result = [];
 
     String nodeName = "";
@@ -241,7 +280,8 @@ class OwlComponentBuilder {
           model: model,
           componentModel: componentModel,
           parentNode: parentNode,
-          parentWidget: parentWidget));
+          parentWidget: parentWidget,
+          cacheContext: cacheContext));
       return result;
     }
     var childNode = node[nodeName];
@@ -299,7 +339,8 @@ class OwlComponentBuilder {
               model: model,
               componentModel: newComponentModel,
               parentNode: parentNode,
-              parentWidget: parentWidget);
+              parentWidget: parentWidget,
+              cacheContext: {});
           if (widget != null) {
             result.add(widget);
           }
@@ -316,7 +357,8 @@ class OwlComponentBuilder {
           model: model,
           componentModel: componentModel,
           parentNode: parentNode,
-          parentWidget: parentWidget);
+          parentWidget: parentWidget,
+          cacheContext: cacheContext);
       if (widget != null) {
         result.add(widget);
       }

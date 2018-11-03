@@ -12,7 +12,8 @@ class OwlForm extends OwlComponent {
       model,
       componentModel,
       parentNode,
-      parentWidget})
+      parentWidget,
+      cacheContext})
       : super(
             key: key,
             node: node,
@@ -21,7 +22,8 @@ class OwlForm extends OwlComponent {
             model: model,
             componentModel: componentModel,
             parentNode: parentNode,
-            parentWidget: parentWidget);
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,8 @@ class OwlForm extends OwlComponent {
           model: model,
           componentModel: componentModel,
           parentNode: node,
-          parentWidget: this);
+          parentWidget: this,
+          cacheContext: cacheContext);
       listChildren.addAll(childWidgets);
     }
     if (listChildren.length > 1) {
