@@ -64,7 +64,6 @@ class OwlSwiperCarouselState extends State<OwlSwiperCarousel> {
       }
     }
 
-    print("++++++images.length=" + images.length.toString());
     String indicatorDots =
         widget.renderText(getAttr(widget.node, "indicator-dots"));
     String indicatorColor =
