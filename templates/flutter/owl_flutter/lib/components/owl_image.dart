@@ -44,10 +44,10 @@ class OwlImage extends OwlComponent {
         fit = BoxFit.fill;
         break;
       case 'aspectFit':
-        fit = BoxFit.cover;
+        fit = BoxFit.contain;
         break;
       case 'aspectFill':
-        fit = BoxFit.contain;
+        fit = BoxFit.cover;
         break;
       case 'widthFix':
         fit = BoxFit.fitWidth;
