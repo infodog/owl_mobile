@@ -57,7 +57,7 @@ class OwlSwiperState extends State<OwlSwiper> {
           componentModel: widget.componentModel,
           parentNode: widget.node,
           parentWidget: widget,
-          cacheContext: cacheContext));
+          cacheContext: widget.cacheContext));
     }
 
     String indicatorDots =

@@ -55,7 +55,7 @@ class OwlSwiperCarouselState extends State<OwlSwiperCarousel> {
           componentModel: widget.componentModel,
           parentNode: widget.node,
           parentWidget: widget,
-          cacheContext: cacheContext);
+          cacheContext: widget.cacheContext);
       for (int j = 0; j < swiperItems.length; j++) {
         OwlSwiperItem item = swiperItems[j];
         if (item != null) {
