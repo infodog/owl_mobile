@@ -6,6 +6,10 @@ import 'owl_generated/owl_route.dart';
 import 'utils/owl.dart';
 
 void main() {
+  appMain();
+}
+
+void appMain() {
   var homeUrl = home_route;
   debugPaintSizeEnabled = false;
 //  Widget homeScreen = getScreen(homeUrl, {}, owl.getApplication().appCss);
