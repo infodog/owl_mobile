@@ -146,6 +146,13 @@ class WxTabBar extends CupertinoTabBar {
       activeColor = CupertinoColors.activeBlue,
       inactiveColor = CupertinoColors.inactiveGray,
       iconSize = 30.0,
+      border = const Border(
+      top: BorderSide(
+        color: _kDefaultTabBarBorderColor,
+        width: 0.0, // One physical pixel.
+        style: BorderStyle.solid,
+      ),
+    ),
       this.ani,
       this.animationController})
       : super(
@@ -156,7 +163,8 @@ class WxTabBar extends CupertinoTabBar {
             backgroundColor: backgroundColor,
             activeColor: activeColor,
             inactiveColor: inactiveColor,
-            iconSize: iconSize);
+            iconSize: iconSize,
+            border:border);
 
   Animation<double> ani;
   AnimationController animationController;
@@ -293,6 +301,8 @@ class WxTabBar extends CupertinoTabBar {
       int currentIndex,
       ValueChanged<int> onTap,
       Animation ani,
+      Border border,
+
       AnimationController animationController}) {
     return WxTabBar(
         key: key ?? this.key,
@@ -304,6 +314,7 @@ class WxTabBar extends CupertinoTabBar {
         currentIndex: currentIndex ?? this.currentIndex,
         onTap: onTap ?? this.onTap,
         ani: ani ?? this.ani,
+        border : border??this.border,
         animationController: animationController ?? this.animationController);
   }
 }
