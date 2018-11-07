@@ -1,12 +1,12 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:owl_flutter/utils/uitools.dart';
 
 import '../builders/owl_component_builder.dart';
 import '../components/owl_statefulcomponent.dart';
 import '../components/owl_swiper_item.dart';
 import '../utils/json_util.dart';
-import '../utils/uitools.dart';
 
 class OwlSwiperCarousel extends OwlStatefulComponent {
   OwlSwiperCarousel(
@@ -39,10 +39,10 @@ class OwlSwiperCarouselState extends State<OwlSwiperCarousel> {
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    List rules = getNodeCssRules(widget.node, widget.pageCss);
+    List rules = widget.getNodeCssRulesEx(widget.node, widget.pageCss);
     //搜索width和height
-    String width = getRuleValue(rules, "width");
-    String height = getRuleValue(rules, "height");
+    String width = widget.getRuleValueEx(rules, "width");
+    String height = widget.getRuleValueEx(rules, "height");
     var children = widget.node['children'];
     List images = [];
     for (int i = 0; i < children.length; i++) {
@@ -91,8 +91,8 @@ class OwlSwiperCarouselState extends State<OwlSwiperCarousel> {
     }
 
     return new Container(
-        height: lp(height, 200.0),
-        width: lp(width, 320.0),
+        height: widget.lp(height, 200.0),
+        width: widget.lp(width, 320.0),
         color: Color.fromARGB(50, 128, 50, 50),
         child: new Carousel(
             images: images,

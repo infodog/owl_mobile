@@ -6,7 +6,6 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import '../builders/owl_component_builder.dart';
 import '../components/owl_statefulcomponent.dart';
 import '../utils/json_util.dart';
-import '../utils/uitools.dart';
 
 class OwlSwiper extends OwlStatefulComponent {
   OwlSwiper(
@@ -41,10 +40,10 @@ class OwlSwiperState extends State<OwlSwiper> {
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    List rules = getNodeCssRules(widget.node, widget.pageCss);
+    List rules = widget.getNodeCssRulesEx(widget.node, widget.pageCss);
     //搜索width和height
-    String width = getRuleValue(rules, "width");
-    String height = getRuleValue(rules, "height");
+    String width = widget.getRuleValueEx(rules, "width");
+    String height = widget.getRuleValueEx(rules, "height");
     var children = widget.node['children'];
     List<Widget> swiperItems = [];
     for (int i = 0; i < children.length; i++) {
@@ -87,8 +86,8 @@ class OwlSwiperState extends State<OwlSwiper> {
     }
 
     return new Container(
-        height: lp(height, 200.0),
-        width: lp(width, 320.0),
+        height: widget.lp(height, 200.0),
+        width: widget.lp(width, 320.0),
 //        color: Color.fromARGB(50, 128, 0, 0),
         child: Swiper(
           indicatorLayout: PageIndicatorLayout.SCALE,
@@ -99,8 +98,8 @@ class OwlSwiperState extends State<OwlSwiper> {
           autoplay: autoplay == 'true',
           viewportFraction: 1.0,
           scale: 1.0,
-          containerHeight: lp(height, 200.0),
-          containerWidth: lp(width, 320.0),
+          containerHeight: widget.lp(height, 200.0),
+          containerWidth: widget.lp(width, 320.0),
         ));
   }
 }

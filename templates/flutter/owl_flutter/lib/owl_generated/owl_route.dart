@@ -4,6 +4,13 @@ import 'package:flutter/cupertino.dart';
 
   var home_route='{{homeUrl}}';
 
+  List<String>  pageUrls = [];
+
+  void initPageUrls(){
+    {{each pages as value}}pageUrls.add('{{value.path}}');
+    {{/each}}
+  }
+
 
 
 

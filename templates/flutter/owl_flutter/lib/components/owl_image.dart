@@ -32,10 +32,10 @@ class OwlImage extends OwlComponent {
     String src = getAttr(node, "src");
     src = renderText(src);
     var mode = getAttr(node, "mode");
-    List rules = getNodeCssRules(node, pageCss);
+    List rules = getNodeCssRulesEx(node, pageCss);
     //搜索width和height
-    String width = getRuleValue(rules, "width");
-    String height = getRuleValue(rules, "height");
+    String width = getRuleValueEx(rules, "width");
+    String height = getRuleValueEx(rules, "height");
 
     BoxFit fit = BoxFit.cover;
 

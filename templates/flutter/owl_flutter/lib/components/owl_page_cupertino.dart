@@ -96,7 +96,7 @@ class OwlPageCupertino extends OwlComponent {
       Map<String, dynamic> child = children[i];
       var nodeName = child.keys.first;
 
-      var position = getRuleValue(child[nodeName]['rules'], 'position');
+      var position = getRuleValueEx(child[nodeName]['rules'], 'position');
 
       if (position == 'fixed') {
         fixednodes.add(child);

@@ -2,12 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:owl_flutter/components/owl_statefulcomponent.dart';
+import 'package:owl_flutter/utils/uitools.dart';
 
 import '../owl_generated/owl_route.dart';
 import '../utils/owl.dart';
-import '../utils/uitools.dart';
 
-class OwlHome extends StatefulWidget {
+class OwlHome extends OwlStatefulComponent {
   OwlHome(this.url, this.params);
 
   var url;
@@ -147,12 +148,12 @@ class WxTabBar extends CupertinoTabBar {
       inactiveColor = CupertinoColors.inactiveGray,
       iconSize = 30.0,
       border = const Border(
-      top: BorderSide(
-        color: _kDefaultTabBarBorderColor,
-        width: 0.0, // One physical pixel.
-        style: BorderStyle.solid,
+        top: BorderSide(
+          color: _kDefaultTabBarBorderColor,
+          width: 0.0, // One physical pixel.
+          style: BorderStyle.solid,
+        ),
       ),
-    ),
       this.ani,
       this.animationController})
       : super(
@@ -164,7 +165,7 @@ class WxTabBar extends CupertinoTabBar {
             activeColor: activeColor,
             inactiveColor: inactiveColor,
             iconSize: iconSize,
-            border:border);
+            border: border);
 
   Animation<double> ani;
   AnimationController animationController;
@@ -302,7 +303,6 @@ class WxTabBar extends CupertinoTabBar {
       ValueChanged<int> onTap,
       Animation ani,
       Border border,
-
       AnimationController animationController}) {
     return WxTabBar(
         key: key ?? this.key,
@@ -314,7 +314,7 @@ class WxTabBar extends CupertinoTabBar {
         currentIndex: currentIndex ?? this.currentIndex,
         onTap: onTap ?? this.onTap,
         ani: ani ?? this.ani,
-        border : border??this.border,
+        border: border ?? this.border,
         animationController: animationController ?? this.animationController);
   }
 }
