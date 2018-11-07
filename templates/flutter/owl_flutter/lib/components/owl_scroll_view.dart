@@ -29,12 +29,12 @@ class OwlScrollView extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
-    List rules = getNodeCssRules(node, pageCss);
+    List rules = getNodeCssRulesEx(node, pageCss);
     //搜索width和height
 
     //搜索width和height
-    String width = getRuleValue(rules, "width");
-    String height = getRuleValue(rules, "height");
+    String width = getRuleValueEx(rules, "width");
+    String height = getRuleValueEx(rules, "height");
 
     List children = node['children'];
     String scrollX = getAttr(node, 'scroll-x');

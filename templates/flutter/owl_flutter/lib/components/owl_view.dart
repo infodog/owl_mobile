@@ -40,8 +40,8 @@ class OwlView extends OwlComponent {
     for (var i = 0; i < children.length; i++) {
       Map<String, dynamic> child = children[i];
       var nodeName = child.keys.first;
-      List childRules = getNodeCssRules(child[nodeName], pageCss);
-      var position = getRuleValue(childRules, 'position');
+      List childRules = getNodeCssRulesEx(child[nodeName], pageCss);
+      var position = getRuleValueEx(childRules, 'position');
 
       if (position == 'absolute') {
         fixednodes.add(child);
@@ -56,7 +56,7 @@ class OwlView extends OwlComponent {
 
     for (var i = 0; i < nonFixedNodes.length; i++) {
       var childNode = nonFixedNodes[i];
-      var zIndexStr = getRuleValue(childNode['rules'], 'z-index');
+      var zIndexStr = getRuleValueEx(childNode['rules'], 'z-index');
       int zIndex = 0;
       if (zIndexStr != null) {
         zIndex = int.parse(zIndexStr);
@@ -79,7 +79,7 @@ class OwlView extends OwlComponent {
 
     for (var i = 0; i < fixednodes.length; i++) {
       var childNode = fixednodes[i];
-      var zIndexStr = getRuleValue(childNode['rules'], 'z-index');
+      var zIndexStr = getRuleValueEx(childNode['rules'], 'z-index');
       int zIndex = 0;
       if (zIndexStr != null) {
         zIndex = int.parse(zIndexStr);
@@ -100,35 +100,35 @@ class OwlView extends OwlComponent {
       }
     }
 
-    List rules = getNodeCssRules(node, pageCss);
+    List rules = getNodeCssRulesEx(node, pageCss);
     //搜索width和height
-    String width = getRuleValue(rules, "width");
-    String height = getRuleValue(rules, "height");
-    String color = getRuleValue(rules, "color");
-    String backgroundColor = getRuleValue(rules, 'background-color');
+    String width = getRuleValueEx(rules, "width");
+    String height = getRuleValueEx(rules, "height");
+    String color = getRuleValueEx(rules, "color");
+    String backgroundColor = getRuleValueEx(rules, 'background-color');
 
-    String minWidth = getRuleValue(rules, "min-width");
-    String maxWidth = getRuleValue(rules, "max-width");
-    String minHeight = getRuleValue(rules, "min-height");
-    String maxHeight = getRuleValue(rules, "max-height");
-    String borderRadius = getRuleValue(rules, "border-radius");
+    String minWidth = getRuleValueEx(rules, "min-width");
+    String maxWidth = getRuleValueEx(rules, "max-width");
+    String minHeight = getRuleValueEx(rules, "min-height");
+    String maxHeight = getRuleValueEx(rules, "max-height");
+    String borderRadius = getRuleValueEx(rules, "border-radius");
 
-    String backgroundImage = getRuleValue(rules, "background-image");
-    String backgroundPosition = getRuleValue(rules, "background-position");
-    String backgroundRepeat = getRuleValue(rules, "background-repeat");
-    String backgroundSize = getRuleValue(rules, 'background-size');
+    String backgroundImage = getRuleValueEx(rules, "background-image");
+    String backgroundPosition = getRuleValueEx(rules, "background-position");
+    String backgroundRepeat = getRuleValueEx(rules, "background-repeat");
+    String backgroundSize = getRuleValueEx(rules, 'background-size');
 
-    String position = getRuleValue(rules, "position");
+    String position = getRuleValueEx(rules, "position");
 
     Color bColor = fromCssColor(backgroundColor);
     Border border = getBorder(rules);
     String className = getAttr(node, 'class'); //{{aaaa}} => 1
 
-    String flexDirection = getRuleValue(rules, "flex-direction");
-    String justifyContent = getRuleValue(rules, "justify-content");
-    String alignItems = getRuleValue(rules, "align-items");
+    String flexDirection = getRuleValueEx(rules, "flex-direction");
+    String justifyContent = getRuleValueEx(rules, "justify-content");
+    String alignItems = getRuleValueEx(rules, "align-items");
 
-    String boxShadow = getRuleValue(rules, 'box-shadow');
+    String boxShadow = getRuleValueEx(rules, 'box-shadow');
     List<BoxShadow> shadows = parseBoxShadow(boxShadow);
 
     Widget container = Container(
@@ -165,15 +165,15 @@ class OwlView extends OwlComponent {
     Widget realView = null;
     if (hasTextStyles(rules)) {
       Color textcolor = fromCssColor(color);
-      var fontWeight = getRuleValue(rules, "font-weight");
-      var fontSize = getRuleValue(rules, "font-size");
-      var fontFamily = getRuleValue(rules, "font-family");
-      var letterSpacing = getRuleValue(rules, "letter-spacing");
-      var fontStyle = getRuleValue(rules, "font-style");
-      var textOverflow = getRuleValue(rules, "text-overflow");
-      var maxLines = getRuleValue(rules, "max-lines");
-      var lineHeight = getRuleValue(rules, 'line-height');
-      var textAlign = getRuleValue(rules, 'text-align');
+      var fontWeight = getRuleValueEx(rules, "font-weight");
+      var fontSize = getRuleValueEx(rules, "font-size");
+      var fontFamily = getRuleValueEx(rules, "font-family");
+      var letterSpacing = getRuleValueEx(rules, "letter-spacing");
+      var fontStyle = getRuleValueEx(rules, "font-style");
+      var textOverflow = getRuleValueEx(rules, "text-overflow");
+      var maxLines = getRuleValueEx(rules, "max-lines");
+      var lineHeight = getRuleValueEx(rules, 'line-height');
+      var textAlign = getRuleValueEx(rules, 'text-align');
 
       TextStyle style;
 
@@ -214,10 +214,10 @@ class OwlView extends OwlComponent {
     }
 
     if (position == 'absolute' || position == 'fixed') {
-      String left = getRuleValue(rules, 'left');
-      String top = getRuleValue(rules, 'top');
-      String right = getRuleValue(rules, 'right');
-      String bottom = getRuleValue(rules, 'bottom');
+      String left = getRuleValueEx(rules, 'left');
+      String top = getRuleValueEx(rules, 'top');
+      String right = getRuleValueEx(rules, 'right');
+      String bottom = getRuleValueEx(rules, 'bottom');
 
       var realChild = realView;
       if (fixedWidgets.length > 0) {

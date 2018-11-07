@@ -29,19 +29,19 @@ class OwlText extends OwlComponent {
   @override
   Widget build(BuildContext context) {
     setScreenWidth(context);
-    List rules = getNodeCssRules(node, pageCss);
+    List rules = getNodeCssRulesEx(node, pageCss);
 
     String text = node['_text'];
     text = renderText(text);
-    var fontWeight = getRuleValue(rules, "font-weight");
-    var fontSize = getRuleValue(rules, "font-size");
-    var fontFamily = getRuleValue(rules, "font-family");
-    var letterSpacing = getRuleValue(rules, "letter-spacing");
-    var fontStyle = getRuleValue(rules, "font-style");
-    var textOverflow = getRuleValue(rules, "text-overflow");
-    var maxLines = getRuleValue(rules, "max-lines");
-    var color = getRuleValue(rules, 'color');
-    var textAlign = getRuleValue(rules, 'text-align');
+    var fontWeight = getRuleValueEx(rules, "font-weight");
+    var fontSize = getRuleValueEx(rules, "font-size");
+    var fontFamily = getRuleValueEx(rules, "font-family");
+    var letterSpacing = getRuleValueEx(rules, "letter-spacing");
+    var fontStyle = getRuleValueEx(rules, "font-style");
+    var textOverflow = getRuleValueEx(rules, "text-overflow");
+    var maxLines = getRuleValueEx(rules, "max-lines");
+    var color = getRuleValueEx(rules, 'color');
+    var textAlign = getRuleValueEx(rules, 'text-align');
 
     Color textcolor = fromCssColor(color);
 

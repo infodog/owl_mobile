@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../components/owl_statefulcomponent.dart';
 import '../utils/json_util.dart';
-import '../utils/uitools.dart';
 
 class OwlInput extends OwlStatefulComponent {
   OwlInput(
@@ -56,19 +55,19 @@ class OwlInputState extends State<OwlInput> {
     if (disabled == 'true') {
       enabled = false;
     }
-    List rules = getNodeCssRules(widget.node, widget.pageCss);
+    List rules = widget.getNodeCssRulesEx(widget.node, widget.pageCss);
 
-    paddingLeft = getRuleValue(rules, "padding-left");
-    paddingRight = getRuleValue(rules, "padding-right");
-    paddingTop = getRuleValue(rules, "padding-top");
-    paddingBottom = getRuleValue(rules, "padding-bottom");
-    fontSize = getRuleValue(rules, "font-size");
-    color = getRuleValue(rules, 'color');
-    cssColor = fromCssColor(color);
+    paddingLeft = widget.getRuleValueEx(rules, "padding-left");
+    paddingRight = widget.getRuleValueEx(rules, "padding-right");
+    paddingTop = widget.getRuleValueEx(rules, "padding-top");
+    paddingBottom = widget.getRuleValueEx(rules, "padding-bottom");
+    fontSize = widget.getRuleValueEx(rules, "font-size");
+    color = widget.getRuleValueEx(rules, 'color');
+    cssColor = widget.fromCssColor(color);
 
-    var hintTextColor = getRuleValue(rules, 'hint-text-color');
+    var hintTextColor = widget.getRuleValueEx(rules, 'hint-text-color');
     if (hintTextStyle != null) {
-      hintTextStyle = TextStyle(color: fromCssColor(hintTextColor));
+      hintTextStyle = TextStyle(color: widget.fromCssColor(hintTextColor));
     }
 
     String type = getAttr(widget.node, 'type');
@@ -105,18 +104,17 @@ class OwlInputState extends State<OwlInput> {
     return TextField(
         controller: this.editingController,
         obscureText: obscureText,
-        style: DefaultTextStyle.of(context)
-            .style
-            .merge(TextStyle(color: cssColor, fontSize: lp(fontSize, null))),
+        style: DefaultTextStyle.of(context).style.merge(
+            TextStyle(color: cssColor, fontSize: widget.lp(fontSize, null))),
         decoration: InputDecoration(
             border: InputBorder.none,
             enabled: enabled,
             hintText: placeholder,
             hintStyle: hintTextStyle,
             contentPadding: EdgeInsets.only(
-                left: lp(paddingLeft, 0.0),
-                right: lp(paddingRight, 0.0),
-                top: lp(paddingTop, 0.0),
-                bottom: lp(paddingBottom, 0.0))));
+                left: widget.lp(paddingLeft, 0.0),
+                right: widget.lp(paddingRight, 0.0),
+                top: widget.lp(paddingTop, 0.0),
+                bottom: widget.lp(paddingBottom, 0.0))));
   }
 }

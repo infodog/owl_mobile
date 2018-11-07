@@ -28,7 +28,14 @@ function getAttr(node, attrName) {
 function getNodeRules(node,pageCss){
     var cssClass = getAttr(node, "class");
     var style = getAttr(node, "style");
-    console.log("class=" + cssClass + ";style=" + style);
+    if(cssClass && cssClass.indexOf("{{")>=-1){
+        node.dclass = true;
+        return [];
+    }
+    else if(style && style.indexOf("{{")){
+        node.dstyle = true;
+    }
+
     var rules = getEffectiveCssRules(cssClass, style, pageCss);
     return rules;
 }

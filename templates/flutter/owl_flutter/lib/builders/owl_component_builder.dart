@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:owl_flutter/components/owl_componet.dart';
+import 'package:owl_flutter/components/owl_statefulcomponent.dart';
 
 import '../components/owl_center.dart';
 import '../components/owl_column.dart';
@@ -15,7 +17,42 @@ import '../components/owl_view.dart';
 import '../components/owl_wrap.dart';
 import '../model/ScreenModel.dart';
 import '../utils/json_util.dart';
-import '../utils/uitools.dart';
+
+Widget wrapGestureDetector(Widget widget, dynamic node, ScreenModel model) {
+  var bindtap = getAttr(node, 'bindtap');
+  if (bindtap == null) {
+    return widget;
+  }
+  var pageBindTap = model.pageJs[bindtap];
+  if (pageBindTap != null) {
+    GestureTapUpCallback _onTapHandler = (TapUpDetails details) {
+      Map dataset = getDataSet(node);
+      dataset = dataset.map((k, v) {
+        if (widget is OwlComponent) {
+          v = (widget as OwlComponent).renderText(v);
+        } else if (widget is OwlStatefulComponent) {
+          v = (widget as OwlStatefulComponent).renderText(v);
+        }
+        return MapEntry(k, v);
+      });
+
+      var id = getAttr(node, "id");
+      var event = {
+        'type': 'tap',
+        'target': {"id": id, "dataset": dataset},
+        'currentTarget': {"id": id, 'dataset': dataset},
+        'detail': {
+          'x': details.globalPosition.dx,
+          'y': details.globalPosition.dy
+        }
+      };
+      pageBindTap(event);
+    };
+    return GestureDetector(child: widget, onTapUp: _onTapHandler);
+  } else {
+    return widget;
+  }
+}
 
 class OwlComponentBuilder {
   static Widget build(

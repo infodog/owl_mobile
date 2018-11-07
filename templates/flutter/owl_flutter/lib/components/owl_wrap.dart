@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../builders/owl_component_builder.dart';
 import '../components/owl_componet.dart';
-import '../utils/uitools.dart';
 
 class OwlWrap extends OwlComponent {
   OwlWrap(
@@ -28,11 +27,11 @@ class OwlWrap extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
-    List rules = getNodeCssRules(node, pageCss);
+    List rules = getNodeCssRulesEx(node, pageCss);
     //搜索width和height
-    String flexDirection = getRuleValue(rules, "flex-direction");
-    String justifyContent = getRuleValue(rules, "justify-content");
-    String alignItems = getRuleValue(rules, "align-items");
+    String flexDirection = getRuleValueEx(rules, "flex-direction");
+    String justifyContent = getRuleValueEx(rules, "justify-content");
+    String alignItems = getRuleValueEx(rules, "align-items");
 
     TextDirection textDirection = TextDirection.ltr;
     switch (flexDirection) {
