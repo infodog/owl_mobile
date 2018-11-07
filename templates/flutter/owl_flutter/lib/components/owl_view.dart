@@ -175,14 +175,30 @@ class OwlView extends OwlComponent {
       var lineHeight = getRuleValue(rules, 'line-height');
       var textAlign = getRuleValue(rules, 'text-align');
 
-      TextStyle style = TextStyle(
-          color: textcolor,
-          fontWeight: getFontWeight(fontWeight),
-          fontSize: lp(fontSize, null),
-          fontFamily: fontFamily,
-          letterSpacing: lp(letterSpacing, null),
-          fontStyle:
-              fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
+      TextStyle style;
+
+      if(lineHeight!=null) {
+        double effectiveFontSize = lp(fontSize, null)??DefaultTextStyle.of(context).style.fontSize;
+        double height = lp(lineHeight, null) / effectiveFontSize;
+        style = TextStyle(
+            color: textcolor,
+            fontWeight: getFontWeight(fontWeight),
+            fontSize: lp(fontSize, null),
+            fontFamily: fontFamily,
+            height: height,
+            letterSpacing: lp(letterSpacing, null),
+            fontStyle: fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
+
+      }
+      else{
+        style = TextStyle(
+            color: textcolor,
+            fontWeight: getFontWeight(fontWeight),
+            fontSize: lp(fontSize, null),
+            fontFamily: fontFamily,
+            letterSpacing: lp(letterSpacing, null),
+            fontStyle: fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
+      }
 
       realView = DefaultTextStyle(
           child: container,
