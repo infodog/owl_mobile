@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:owl_flutter/utils/uitools.dart';
 
 import '../components/owl_statefulcomponent.dart';
 import '../utils/json_util.dart';
@@ -63,11 +64,11 @@ class OwlInputState extends State<OwlInput> {
     paddingBottom = widget.getRuleValueEx(rules, "padding-bottom");
     fontSize = widget.getRuleValueEx(rules, "font-size");
     color = widget.getRuleValueEx(rules, 'color');
-    cssColor = widget.fromCssColor(color);
+    cssColor = fromCssColor(color);
 
     var hintTextColor = widget.getRuleValueEx(rules, 'hint-text-color');
     if (hintTextStyle != null) {
-      hintTextStyle = TextStyle(color: widget.fromCssColor(hintTextColor));
+      hintTextStyle = TextStyle(color: fromCssColor(hintTextColor));
     }
 
     String type = getAttr(widget.node, 'type');

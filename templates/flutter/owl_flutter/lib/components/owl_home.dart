@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/components/owl_statefulcomponent.dart';
+import 'package:owl_flutter/utils/uitools.dart';
 
 import '../owl_generated/owl_route.dart';
 import '../utils/owl.dart';
@@ -56,9 +57,9 @@ class OwlHomeState extends State<OwlHome> with TickerProviderStateMixin {
       return null;
     }
 
-    Color activeColor = widget.fromCssColor(selectedColor);
-    Color itemColor = widget.fromCssColor(color);
-    Color barBackgroundColor = widget.fromCssColor(backgroundColor);
+    Color activeColor = fromCssColor(selectedColor);
+    Color itemColor = fromCssColor(color);
+    Color barBackgroundColor = fromCssColor(backgroundColor);
 
     List<BottomNavigationBarItem> barItems = [];
     for (int i = 0; i < list.length; i++) {

@@ -1,6 +1,7 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:owl_flutter/utils/uitools.dart';
 
 import '../builders/owl_component_builder.dart';
 import '../components/owl_statefulcomponent.dart';
@@ -99,11 +100,11 @@ class OwlSwiperCarouselState extends State<OwlSwiperCarousel> {
             dotSpacing: 15.0,
             boxFit: BoxFit.fitWidth,
             showIndicator: indicatorDots == 'true',
-            dotColor: widget.fromCssColor(indicatorActiveColor) == null
-                ? widget.fromCssColor("#ffffff")
-                : widget.fromCssColor(indicatorActiveColor),
+            dotColor: fromCssColor(indicatorActiveColor) == null
+                ? fromCssColor("#ffffff")
+                : fromCssColor(indicatorActiveColor),
             indicatorBgPadding: 5.0,
-            dotBgColor: widget.fromCssColor(indicatorColor),
+            dotBgColor: fromCssColor(indicatorColor),
             borderRadius: false,
             autoplay: autoplay == 'true',
             autoplayDuration: Duration(milliseconds: int.parse(interval)),
