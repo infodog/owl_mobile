@@ -122,7 +122,7 @@ class OwlView extends OwlComponent {
 
     Color bColor = fromCssColor(backgroundColor);
     Border border = getBorder(rules);
-    String className = getAttr(node, 'class');
+    String className = getAttr(node, 'class'); //{{aaaa}} => 1
 
     String flexDirection = getRuleValue(rules, "flex-direction");
     String justifyContent = getRuleValue(rules, "justify-content");
@@ -177,8 +177,9 @@ class OwlView extends OwlComponent {
 
       TextStyle style;
 
-      if(lineHeight!=null) {
-        double effectiveFontSize = lp(fontSize, null)??DefaultTextStyle.of(context).style.fontSize;
+      if (lineHeight != null) {
+        double effectiveFontSize =
+            lp(fontSize, null) ?? DefaultTextStyle.of(context).style.fontSize;
         double height = lp(lineHeight, null) / effectiveFontSize;
         style = TextStyle(
             color: textcolor,
@@ -187,17 +188,17 @@ class OwlView extends OwlComponent {
             fontFamily: fontFamily,
             height: height,
             letterSpacing: lp(letterSpacing, null),
-            fontStyle: fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
-
-      }
-      else{
+            fontStyle:
+                fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
+      } else {
         style = TextStyle(
             color: textcolor,
             fontWeight: getFontWeight(fontWeight),
             fontSize: lp(fontSize, null),
             fontFamily: fontFamily,
             letterSpacing: lp(letterSpacing, null),
-            fontStyle: fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
+            fontStyle:
+                fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
       }
 
       realView = DefaultTextStyle(

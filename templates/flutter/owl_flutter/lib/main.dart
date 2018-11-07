@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -6,20 +8,30 @@ import 'owl_generated/owl_route.dart';
 import 'utils/owl.dart';
 
 void main() {
-  appMain();
+  initPageUrls();
+  var homeUrl = home_route;
+  appMain(homeUrl);
+  int index = 0;
+  Timer.periodic(Duration(seconds: 3), (timer) {
+    if (index == pageUrls.length) {
+      index = 0;
+    }
+    String url = pageUrls[index];
+    index++;
+    appMain(url);
+  });
 }
 
-void appMain() {
-  var homeUrl = home_route;
+void appMain(String url) {
   debugPaintSizeEnabled = false;
 //  Widget homeScreen = getScreen(homeUrl, {}, owl.getApplication().appCss);
-  if (owl.isHomeTabUrl(homeUrl)) {
+  if (owl.isHomeTabUrl(url)) {
     runApp(MaterialApp(
       title: 'Owl Applications',
-      home: OwlHome(homeUrl, {}),
+      home: OwlHome(url, {}),
     ));
   } else {
-    Widget homeScreen = getScreen(homeUrl, {}, owl.getApplication().appCss);
+    Widget homeScreen = getScreen(url, {}, owl.getApplication().appCss);
     runApp(MaterialApp(
       title: 'Owl Applications',
       home: homeScreen,

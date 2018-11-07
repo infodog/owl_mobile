@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reflected_mustache/mustache.dart';
 
 import '../components/owl_componet.dart';
 import '../components/owl_statefulcomponent.dart';
@@ -125,9 +126,18 @@ List<dynamic> getNodeCssRules(node, pageCss) {
   return node['rules'];
 }
 
+String renderText(String text, {bool escape = false, var data}) {
+  if (text == null) {
+    return null;
+  }
+  Template template = new Template(text, htmlEscapeValues: escape);
+  return template.renderString(data);
+}
+
 List<dynamic> calcNodeCssRules(node, pageCss) {
   var cssClass = getAttr(node, "class");
   var style = getAttr(node, "style");
+
   List rules = getEffectiveCssRules(cssClass, style, pageCss);
   return rules;
 }
