@@ -23,6 +23,12 @@ class ScreenModel extends Model {
 
   WeiXinAdapter wx;
 
+  setDocBuildContext(BuildContext buildContext){
+    if(wx.docBuildContext==null) {
+      wx.docBuildContext = buildContext;
+    }
+  }
+
   clearDirty() {
     isDirty = false;
   }
