@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import 'owl.dart';
@@ -21,12 +22,12 @@ class WeiXinAdapter {
     owl.switchTab(o, buildContext);
   }
 
-  void showToast(o){
+  void showToast(o) {
     String title = o['title'];
     int duration = o['duration'];
     final snackBar = SnackBar(
       content: Text(title),
-      duration: Duration(milliseconds:duration),
+      duration: Duration(milliseconds: duration),
     );
 
     // Find the Scaffold in the Widget tree and use it to show a SnackBar!

@@ -43,9 +43,10 @@ class OwlView extends OwlComponent {
       if (child[nodeName] is Map) {
         List childRules = getNodeCssRulesEx(child[nodeName], pageCss);
         var position = getRuleValueEx(childRules, 'position');
-        if (position == 'absolute' || position=='fixed') {
-          if(position=='fixed'){
-            print('error position=fixed---------------------'+child[nodeName].toString());
+        if (position == 'absolute' || position == 'fixed') {
+          if (position == 'fixed') {
+            print('error position=fixed---------------------' +
+                child[nodeName].toString());
           }
           fixednodes.add(child);
         } else {
@@ -263,6 +264,7 @@ class OwlView extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
+    model.setDocBuildContext(context);
     if (w != null) {
       return w;
     }
