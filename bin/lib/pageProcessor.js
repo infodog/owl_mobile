@@ -28,11 +28,11 @@ function getAttr(node, attrName) {
 function getNodeRules(node,pageCss){
     var cssClass = getAttr(node, "class");
     var style = getAttr(node, "style");
-    if(cssClass && cssClass.indexOf("{{")>=-1){
+    if(cssClass && cssClass.indexOf("{{") > -1){
         node.dclass = true;
         return [];
     }
-    else if(style && style.indexOf("{{")){
+    else if(style && style.indexOf("{{") > -1){
         node.dstyle = true;
     }
 
