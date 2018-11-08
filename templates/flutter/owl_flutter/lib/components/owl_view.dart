@@ -37,6 +37,10 @@ class OwlView extends OwlComponent {
 
     var fixednodes = [];
     var nonFixedNodes = [];
+    List<Widget> childWidgets = [];
+    List<Widget> fixedWidgets = [];
+    Map<Widget, int> widget2zindex = {};
+
     for (var i = 0; i < children.length; i++) {
       Map<String, dynamic> child = children[i];
       var nodeName = child.keys.first;
@@ -44,73 +48,62 @@ class OwlView extends OwlComponent {
         List childRules = getNodeCssRulesEx(child[nodeName], pageCss);
         var position = getRuleValueEx(childRules, 'position');
         if (position == 'absolute' || position == 'fixed') {
-          if (position == 'fixed') {
-            print('error position=fixed---------------------' +
-                child[nodeName].toString());
-          }
           fixednodes.add(child);
+          print('after add fixed nodes:' + fixednodes.length.toString());
+          var zIndexStr = getRuleValueEx(childRules, 'z-index');
+          int zIndex = 0;
+          if (zIndexStr != null) {
+            zIndex = int.parse(zIndexStr);
+          }
+          print('zIndexStr:$zIndexStr,z-index:' + zIndex.toString());
+          var widgets = OwlComponentBuilder.buildList(
+              node: child,
+              pageCss: pageCss,
+              appCss: appCss,
+              model: model,
+              componentModel: componentModel,
+              parentNode: node,
+              parentWidget: this,
+              cacheContext: cacheContext);
+          fixedWidgets.addAll(widgets);
+
+          for (var j = 0; j < widgets.length; j++) {
+            widget2zindex[widgets[j]] = zIndex;
+          }
         } else {
           nonFixedNodes.add(child);
+          var widgets = OwlComponentBuilder.buildList(
+              node: child,
+              pageCss: pageCss,
+              appCss: appCss,
+              model: model,
+              componentModel: componentModel,
+              parentNode: node,
+              parentWidget: this,
+              cacheContext: cacheContext);
+          childWidgets.addAll(widgets);
         }
       } else {
         nonFixedNodes.add(child);
-        print('$nodeName is not a node');
-      }
-    }
-
-    List<Widget> childWidgets = [];
-    List<Widget> fixedWidgets = [];
-    Map<Widget, int> widget2zindex = {};
-
-    for (var i = 0; i < nonFixedNodes.length; i++) {
-      var childNode = nonFixedNodes[i];
-      var zIndexStr = getRuleValueEx(childNode['rules'], 'z-index');
-      int zIndex = 0;
-      if (zIndexStr != null) {
-        zIndex = int.parse(zIndexStr);
-      }
-
-      var widgets = OwlComponentBuilder.buildList(
-          node: childNode,
-          pageCss: pageCss,
-          appCss: appCss,
-          model: model,
-          componentModel: componentModel,
-          parentNode: node,
-          parentWidget: this,
-          cacheContext: cacheContext);
-      childWidgets.addAll(widgets);
-      for (var j = 0; j < widgets.length; j++) {
-        widget2zindex[widgets[j]] = zIndex;
-      }
-    }
-
-    for (var i = 0; i < fixednodes.length; i++) {
-      var childNode = fixednodes[i];
-      var zIndexStr = getRuleValueEx(childNode['rules'], 'z-index');
-      int zIndex = 0;
-      if (zIndexStr != null) {
-        zIndex = int.parse(zIndexStr);
-      }
-      var widgets = OwlComponentBuilder.buildList(
-          node: childNode,
-          pageCss: pageCss,
-          appCss: appCss,
-          model: model,
-          componentModel: componentModel,
-          parentNode: node,
-          parentWidget: this,
-          cacheContext: cacheContext);
-      fixedWidgets.addAll(widgets);
-
-      for (var j = 0; j < widgets.length; j++) {
-        widget2zindex[widgets[j]] = zIndex;
+        var widgets = OwlComponentBuilder.buildList(
+            node: child,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: node,
+            parentWidget: this,
+            cacheContext: cacheContext);
+        childWidgets.addAll(widgets);
       }
     }
 
     List rules = getNodeCssRulesEx(node, pageCss);
     //搜索width和height
     String width = getRuleValueEx(rules, "width");
+    print("width:$width");
+    double lpWidth = lp(width, null);
+    print("lpWidth:$lpWidth");
     String height = getRuleValueEx(rules, "height");
     String color = getRuleValueEx(rules, "color");
     String backgroundColor = getRuleValueEx(rules, 'background-color');
@@ -248,11 +241,16 @@ class OwlView extends OwlComponent {
     } else {
       //检查下面的子元素是否有position=absolute
       if (fixedWidgets.length > 0) {
+        print("fixedWidgts.length:" + fixedWidgets.length.toString());
         List<Widget> stackChildren = [realView];
         widget2zindex[realView] = 0;
 
         stackChildren.addAll(fixedWidgets);
         stackChildren.sort((w1, w2) {
+          print("w1:widget2zindex[w1],w2:widget2zindex[w2]," +
+              widget2zindex[w1].toString() +
+              ":" +
+              widget2zindex[w2].toString());
           return widget2zindex[w1].compareTo(widget2zindex[w2]);
         });
         return Stack(children: stackChildren);
@@ -264,7 +262,6 @@ class OwlView extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
-    model.setDocBuildContext(context);
     if (w != null) {
       return w;
     }

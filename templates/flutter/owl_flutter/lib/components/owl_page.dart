@@ -81,71 +81,17 @@ class OwlPage extends OwlComponent {
   }
 
   Widget buildBody() {
-    var children = node['view']['children'];
+    var childrenBody = OwlComponentBuilder.buildList(
+        node: node,
+        pageCss: pageCss,
+        appCss: appCss,
+        model: model,
+        componentModel: componentModel,
+        parentNode: node,
+        parentWidget: this,
+        cacheContext: cacheContext);
 
-    var fixednodes = [];
-    var nonFixedNodes = [];
-    for (var i = 0; i < children.length; i++) {
-      Map<String, dynamic> child = children[i];
-      var nodeName = child.keys.first;
-      List rules = getNodeCssRulesEx(child[nodeName], pageCss);
-      var position = getRuleValueEx(rules, 'position');
-      print("i=" +
-          i.toString() +
-          " position=" +
-          (position == null ? 'null' : position));
-      if (position == 'fixed') {
-        fixednodes.add(child);
-      } else {
-        nonFixedNodes.add(child);
-      }
-    }
-    if (fixednodes.length == 0) {
-//      print('fixednodes.lengt=0');
-      return ListView(
-          children: OwlComponentBuilder.buildList(
-              node: node,
-              pageCss: pageCss,
-              appCss: appCss,
-              model: model,
-              componentModel: componentModel,
-              parentNode: node,
-              parentWidget: this,
-              cacheContext: cacheContext));
-    } else {
-//      print('fixednodes.lengt!=0');
-      List<Widget> childWidgets = [];
-      List<Widget> fixedWidgets = [];
-      for (var i = 0; i < nonFixedNodes.length; i++) {
-        var childNode = nonFixedNodes[i];
-        childWidgets.addAll(OwlComponentBuilder.buildList(
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: node,
-            parentWidget: this,
-            cacheContext: cacheContext));
-      }
-
-      for (var i = 0; i < fixednodes.length; i++) {
-        var childNode = fixednodes[i];
-        fixedWidgets.addAll(OwlComponentBuilder.buildList(
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: node,
-            parentWidget: this,
-            cacheContext: cacheContext));
-      }
-
-      List<Widget> stackChildren = [ListView(children: childWidgets)];
-      stackChildren.addAll(fixedWidgets);
-      return Stack(children: stackChildren);
-    }
+    return PageView(children: childrenBody);
   }
 
   Future<void> _refresh() {
