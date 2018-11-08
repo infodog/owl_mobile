@@ -101,7 +101,7 @@ abstract class UiTools {
   List getEffectiveCssRules(String classString, String style, dynamic pageCss) {
     List<Map<dynamic, dynamic>> rules = [];
     if (classString != null) {
-      List<String> classes = classString.split("\\s");
+      List<String> classes = classString.split(RegExp("\\s"));
       var pageRules = pageCss["stylesheet"]["rules"];
       for (int i = 0; i < pageRules.length; i++) {
         var rule = pageRules[i];
@@ -622,7 +622,7 @@ abstract class UiTools {
     String x, y;
     if (backgroundPosition != null) {
       backgroundPosition = backgroundPosition.trim();
-      List<String> parts = backgroundPosition.split("\\s");
+      List<String> parts = backgroundPosition.split(RegExp("\\s"));
       x = parts[0];
       if (parts.length > 1) {
         y = parts[1];
@@ -667,7 +667,6 @@ abstract class UiTools {
     if (text == null) {
       return null;
     }
-
     Template template = new Template(text, htmlEscapeValues: escape);
     if (componentModel != null) {
       if (componentModel['includedScreenModel'] == true) {
@@ -692,8 +691,9 @@ abstract class UiTools {
     String classString = getAttr(node, "class");
     String styleString = getAttr(node, "style");
     if (node.containsKey("dclass")) {
-      classString = renderText(classString);
-      return getEffectiveCssRules(classString, styleString, pageCss);
+      classString = renderText(classString, escape: true);
+      List rules = getEffectiveCssRules(classString, styleString, pageCss);
+      return rules;
     } else {
       return node['rules'];
     }
