@@ -88,8 +88,8 @@ class OwlPage extends OwlComponent {
     for (var i = 0; i < children.length; i++) {
       Map<String, dynamic> child = children[i];
       var nodeName = child.keys.first;
-
-      var position = getRuleValueEx(child[nodeName]['rules'], 'position');
+      List rules = getNodeCssRulesEx(child[nodeName], pageCss);
+      var position = getRuleValueEx(rules, 'position');
       print("i=" +
           i.toString() +
           " position=" +

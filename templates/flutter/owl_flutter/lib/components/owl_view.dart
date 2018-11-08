@@ -40,13 +40,20 @@ class OwlView extends OwlComponent {
     for (var i = 0; i < children.length; i++) {
       Map<String, dynamic> child = children[i];
       var nodeName = child.keys.first;
-      List childRules = getNodeCssRulesEx(child[nodeName], pageCss);
-      var position = getRuleValueEx(childRules, 'position');
-
-      if (position == 'absolute') {
-        fixednodes.add(child);
+      if (child[nodeName] is Map) {
+        List childRules = getNodeCssRulesEx(child[nodeName], pageCss);
+        var position = getRuleValueEx(childRules, 'position');
+        if (position == 'absolute' || position=='fixed') {
+          if(position=='fixed'){
+            print('error position=fixed---------------------'+child[nodeName].toString());
+          }
+          fixednodes.add(child);
+        } else {
+          nonFixedNodes.add(child);
+        }
       } else {
         nonFixedNodes.add(child);
+        print('$nodeName is not a node');
       }
     }
 

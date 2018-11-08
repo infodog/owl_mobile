@@ -18,7 +18,9 @@ abstract class OwlComponent extends StatelessWidget with UiTools {
       : super(key: key) {
     this.model = model;
     this.componentModel = componentModel;
-    model.componentModel = componentModel;
+    if (model != null) {
+      model.componentModel = componentModel;
+    }
   }
 
   final Map<String, dynamic> node;
