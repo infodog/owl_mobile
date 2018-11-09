@@ -160,6 +160,12 @@ class OwlView extends OwlComponent {
             maxWidth: lp(maxWidth, double.infinity),
             maxHeight: lp(maxHeight, double.infinity)));
 
+    String flex = getRuleValueEx(rules, "flex");
+    if (flex != null) {
+      int iflex = int.parse(flex);
+      container = Flexible(child: container, fit: FlexFit.tight, flex: iflex);
+    }
+
     Widget realView = null;
     if (hasTextStyles(rules)) {
       Color textcolor = fromCssColor(color);
