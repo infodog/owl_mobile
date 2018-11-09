@@ -710,4 +710,13 @@ abstract class UiTools {
       return ruleValue;
     }
   }
+
+  double parsePercentage(String s) {
+    if (s.endsWith("%")) {
+      s = s.substring(0, s.length - 1);
+      double d = double.parse(s) / 100;
+      return d;
+    }
+    return null;
+  }
 }

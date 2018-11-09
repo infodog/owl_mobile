@@ -24,12 +24,12 @@ abstract class OwlStatefulComponent extends StatefulWidget with UiTools {
     
   }
 
-  final Map<String, dynamic> node;
-  final Map<String, dynamic> pageCss;
-  final Map<String, dynamic> appCss;
-  final Map<String, dynamic> pageJson;
+  final Map<dynamic, dynamic> node;
+  final Map<dynamic, dynamic> pageCss;
+  final Map<dynamic, dynamic> appCss;
+  final Map<dynamic, dynamic> pageJson;
 
-  final Map<String, dynamic> parentNode;
+  final Map<dynamic, dynamic> parentNode;
   final Widget parentWidget;
   Map<dynamic, List<Widget>> cacheContext;
 }

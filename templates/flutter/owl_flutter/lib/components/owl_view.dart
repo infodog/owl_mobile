@@ -101,10 +101,8 @@ class OwlView extends OwlComponent {
     List rules = getNodeCssRulesEx(node, pageCss);
     //搜索width和height
     String width = getRuleValueEx(rules, "width");
-    print("width:$width");
-    double lpWidth = lp(width, null);
-    print("lpWidth:$lpWidth");
     String height = getRuleValueEx(rules, "height");
+
     String color = getRuleValueEx(rules, "color");
     String backgroundColor = getRuleValueEx(rules, 'background-color');
 
@@ -134,14 +132,13 @@ class OwlView extends OwlComponent {
 
     Widget container = Container(
         key: ValueKey(className),
-        child: ClipRect(
-            child: wrapFlex(
-                children: childWidgets,
-                flexDirection: flexDirection,
-                justifyContent: justifyContent,
-                alignItems: alignItems)),
-        width: lp(width, null),
+        child: wrapFlex(
+            children: childWidgets,
+            flexDirection: flexDirection,
+            justifyContent: justifyContent,
+            alignItems: alignItems),
         height: lp(height, null),
+        width: lp(width, null),
 //        alignment: Alignment.topLeft,
         padding: getPadding(rules),
         margin: getMargin(rules),

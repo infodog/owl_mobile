@@ -67,6 +67,7 @@ function addOrReplaceRule(rules, rule) {
     for (var i = 0; i < rules.length; i++) {
         if (rules[i]['property'] == rule['property']) {
             rules[i] = rule;
+            console.log('rule replaced........' + rule['property']);
             return;
         }
     }
@@ -105,7 +106,7 @@ function getEffectiveCssRules(classString, style,  pageCss) {
                     "property": pair[0].trim(),
                     "value": pair[1].trim()
                 };
-                rules.push(rule);
+                addOrReplaceRule(rules, rule);
             }
         }
     }
@@ -115,7 +116,7 @@ function getEffectiveCssRules(classString, style,  pageCss) {
 
 function preProcessNode(pageNode, pageCss){
     var nodeName = Object.keys(pageNode)[0];
-    console.log(nodeName);
+    // console.log(nodeName);
     if(nodeName=='_text'){
         return;
     }
@@ -145,7 +146,7 @@ var pageProcessor = {
         var pageJsonFile = path.join(wxAppPath,pageName + ".json");
         var pageJsFile = path.join(wxAppPath,pageName + ".js");
         var pageJsContent = fs.readFileSync(pageJsFile,{encoding: 'utf-8'});
-        console.log(pageJsFile);
+        // console.log(pageJsFile);
 
         var beginPos = pageJsContent.indexOf("//dartbegin");
         if(beginPos>-1){
@@ -156,6 +157,7 @@ var pageProcessor = {
 
         var pageNode = xmlutil.parseFile(pageWxmlFile);
         var pageCss = cssutil.parseFile(pageWxssFile);
+        console.log(pageWxmlFile);
         preProcessNode(pageNode,pageCss);
 
         var pageJsonContent = fs.readFileSync(pageJsonFile,{encoding: 'utf-8'});
