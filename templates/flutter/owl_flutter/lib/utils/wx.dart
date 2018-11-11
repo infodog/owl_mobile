@@ -9,17 +9,16 @@ int parseInt(String s) {
 }
 
 class WeiXinAdapter {
-  WeiXinAdapter(this.buildContext);
+  WeiXinAdapter();
 
-  BuildContext buildContext;
   BuildContext docBuildContext = null;
 
   void navigateTo(o) {
-    owl.navigateTo(o, buildContext);
+    owl.navigateTo(o, docBuildContext);
   }
 
   void switchTab(o) {
-    owl.switchTab(o, buildContext);
+    owl.switchTab(o, docBuildContext);
   }
 
   void showToast(o) {
@@ -35,7 +34,7 @@ class WeiXinAdapter {
   }
 
   void navigateBack(o) {
-    owl.navigateBack(o, buildContext);
+    owl.navigateBack(o, docBuildContext);
   }
 
   request(o) {
