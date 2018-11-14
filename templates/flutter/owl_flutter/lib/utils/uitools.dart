@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owl_flutter/utils/json_util.dart';
 import 'package:reflected_mustache/mustache.dart';
 
 import '../model/ScreenModel.dart';
@@ -603,6 +604,11 @@ abstract class UiTools {
     if (backgroundImage == null) {
       return null;
     }
+
+    if (backgroundImage.startsWith('url(')) {
+      backgroundImage = getMiddle(backgroundImage, "(", ")");
+    }
+
     if (backgroundImage.startsWith('http')) {
       image = NetworkImage(backgroundImage);
     } else {
@@ -611,7 +617,6 @@ abstract class UiTools {
       assetKey = 'assets/' + backgroundImage.substring(pos);
       image = AssetImage(assetKey);
     }
-
     //backgroundPosition目前只支持%号定位
     //css:
     //x% y%	The first value is the horizontal position and the second value is the vertical.

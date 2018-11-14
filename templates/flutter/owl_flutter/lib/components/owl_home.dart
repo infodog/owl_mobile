@@ -33,7 +33,7 @@ class OwlHomeState extends State<OwlHome> with TickerProviderStateMixin {
   }
 
   printAni() {
-    print(ani.value);
+//    print(ani.value);
   }
 
   @override

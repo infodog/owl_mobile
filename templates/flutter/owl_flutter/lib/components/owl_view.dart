@@ -29,7 +29,6 @@ class OwlView extends OwlComponent {
   bool isStack;
   Widget w = null;
   Widget _buildWidget(BuildContext context) {
-    print("...build");
     setScreenWidth(context);
     String alignment = getAttr(node, 'alignment');
     var children = node['children'];
@@ -48,13 +47,11 @@ class OwlView extends OwlComponent {
         var position = getRuleValueEx(childRules, 'position');
         if (position == 'absolute' || position == 'fixed') {
           fixednodes.add(child);
-          print('after add fixed nodes:' + fixednodes.length.toString());
           var zIndexStr = getRuleValueEx(childRules, 'z-index');
           int zIndex = 0;
           if (zIndexStr != null) {
             zIndex = int.parse(zIndexStr);
           }
-          print('zIndexStr:$zIndexStr,z-index:' + zIndex.toString());
           var widgets = OwlComponentBuilder.buildList(
               node: child,
               pageCss: pageCss,
@@ -263,16 +260,11 @@ class OwlView extends OwlComponent {
     } else {
       //检查下面的子元素是否有position=absolute
       if (fixedWidgets.length > 0) {
-        print("fixedWidgts.length:" + fixedWidgets.length.toString());
         List<Widget> stackChildren = [realView];
         widget2zindex[realView] = 0;
 
         stackChildren.addAll(fixedWidgets);
         stackChildren.sort((w1, w2) {
-          print("w1:widget2zindex[w1],w2:widget2zindex[w2]," +
-              widget2zindex[w1].toString() +
-              ":" +
-              widget2zindex[w2].toString());
           return widget2zindex[w1].compareTo(widget2zindex[w2]);
         });
         return Stack(children: stackChildren);

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_scroll_view.dart';
-import 'package:owl_flutter/utils/json_util.dart';
 
 import '../components/owl_componet.dart';
 import '../owl_generated/owl_app.dart';
@@ -83,7 +82,6 @@ class OwlPage extends OwlComponent {
   }
 
   Widget _buildWidget(BuildContext context) {
-    print("...build");
     setScreenWidth(context);
     String alignment = getAttr(node, 'alignment');
 
@@ -107,13 +105,11 @@ class OwlPage extends OwlComponent {
         var position = getRuleValueEx(childRules, 'position');
         if (position == 'absolute' || position == 'fixed') {
           fixednodes.add(child);
-          print('after add fixed nodes:' + fixednodes.length.toString());
           var zIndexStr = getRuleValueEx(childRules, 'z-index');
           int zIndex = 0;
           if (zIndexStr != null) {
             zIndex = int.parse(zIndexStr);
           }
-          print('zIndexStr:$zIndexStr,z-index:' + zIndex.toString());
           var widgets = OwlComponentBuilder.buildList(
               node: child,
               pageCss: pageCss,
@@ -159,9 +155,7 @@ class OwlPage extends OwlComponent {
     List rules = getNodeCssRulesEx(node[rootNodeName], pageCss);
     //搜索width和height
     String width = getRuleValueEx(rules, "width");
-    print("width:$width");
     double lpWidth = lp(width, null);
-    print("lpWidth:$lpWidth");
     String height = getRuleValueEx(rules, "height");
     String color = getRuleValueEx(rules, "color");
     String backgroundColor = getRuleValueEx(rules, 'background-color');
@@ -287,16 +281,11 @@ class OwlPage extends OwlComponent {
     }
     //检查下面的子元素是否有position=absolute
     if (fixedWidgets.length > 0) {
-      print("fixedWidgts.length:" + fixedWidgets.length.toString());
       List<Widget> stackChildren = [v];
       widget2zindex[v] = 0;
 
       stackChildren.addAll(fixedWidgets);
       stackChildren.sort((w1, w2) {
-        print("w1:widget2zindex[w1],w2:widget2zindex[w2]," +
-            widget2zindex[w1].toString() +
-            ":" +
-            widget2zindex[w2].toString());
         return widget2zindex[w1].compareTo(widget2zindex[w2]);
       });
       return Stack(children: stackChildren);

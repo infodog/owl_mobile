@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../components/owl_componet.dart';
-import '../utils/json_util.dart';
 
 class OwlSwiperItem extends OwlComponent {
   OwlSwiperItem(
@@ -40,7 +39,6 @@ class OwlSwiperItem extends OwlComponent {
         int pos = src.indexOf('img');
         if (pos > -1) {
           assetKey = 'assets/' + src.substring(pos);
-          print(assetKey);
           return AssetImage(assetKey);
         } else {
           return null;
