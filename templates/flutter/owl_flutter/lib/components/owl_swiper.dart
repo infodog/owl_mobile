@@ -5,7 +5,6 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 
 import '../builders/owl_component_builder.dart';
 import '../components/owl_statefulcomponent.dart';
-import '../utils/json_util.dart';
 
 class OwlSwiper extends OwlStatefulComponent {
   OwlSwiper(
@@ -60,23 +59,30 @@ class OwlSwiperState extends State<OwlSwiper> {
     }
 
     String indicatorDots =
-        widget.renderText(getAttr(widget.node, "indicator-dots"));
+        widget.renderText(widget.getAttr(widget.node, "indicator-dots"));
     String indicatorColor =
-        widget.renderText(getAttr(widget.node, "inicator-color"));
-    String indicatorActiveColor =
-        widget.renderText(getAttr(widget.node, "indicator-active-color"));
-    String autoplay = widget.renderText(getAttr(widget.node, "autoplay"));
-    String current = widget.renderText(getAttr(widget.node, "current"));
-    String interval = widget.renderText(getAttr(widget.node, "interval"));
-    String duration = widget.renderText(getAttr(widget.node, "duration"));
-    String circular = widget.renderText(getAttr(widget.node, "circular"));
-    String vertical = widget.renderText(getAttr(widget.node, "vertical"));
+        widget.renderText(widget.getAttr(widget.node, "inicator-color"));
+    String indicatorActiveColor = widget
+        .renderText(widget.getAttr(widget.node, "indicator-active-color"));
+    String autoplay =
+        widget.renderText(widget.getAttr(widget.node, "autoplay"));
+    String current = widget.renderText(widget.getAttr(widget.node, "current"));
+    String interval =
+        widget.renderText(widget.getAttr(widget.node, "interval"));
+    String duration =
+        widget.renderText(widget.getAttr(widget.node, "duration"));
+    String circular =
+        widget.renderText(widget.getAttr(widget.node, "circular"));
+    String vertical =
+        widget.renderText(widget.getAttr(widget.node, "vertical"));
     String previousMargin =
-        widget.renderText(getAttr(widget.node, "previous-margin"));
-    String nextMargin = widget.renderText(getAttr(widget.node, "next-margin"));
-    String displayMultipleItems =
-        widget.renderText(getAttr(widget.node, "display-multiple-items"));
-    String bindchange = widget.renderText(getAttr(widget.node, "bindchange"));
+        widget.renderText(widget.getAttr(widget.node, "previous-margin"));
+    String nextMargin =
+        widget.renderText(widget.getAttr(widget.node, "next-margin"));
+    String displayMultipleItems = widget
+        .renderText(widget.getAttr(widget.node, "display-multiple-items"));
+    String bindchange =
+        widget.renderText(widget.getAttr(widget.node, "bindchange"));
 
     if (interval == null) {
       interval = '5000';

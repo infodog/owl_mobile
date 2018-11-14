@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:reflected_mustache/mustache.dart';
 
 import '../model/ScreenModel.dart';
-import '../utils/json_util.dart';
 
 double screenWidth;
 double px_rpx_ratio = 0.0;
@@ -718,5 +717,143 @@ abstract class UiTools {
       return d;
     }
     return null;
+  }
+
+  dynamic getAttr(node, attrName) {
+    if (node is String) {
+      return null;
+    }
+    List attrs = node['attrs'];
+    if (attrs == null) {
+      return null;
+    }
+    for (int i = 0; i < attrs.length; i++) {
+      var attr = attrs[i];
+      if (attr['name'] == attrName) {
+        String result = attr['value'];
+        if (result == null) {
+          return null;
+        }
+        if (result.indexOf("{{") > -1) {
+          return renderText(result);
+        } else {
+          return result;
+        }
+      }
+    }
+    return null;
+  }
+
+  Map getDataSet(node) {
+    if (node is String) {
+      return null;
+    }
+    var result = {};
+    List attrs = node['attrs'];
+    if (attrs == null) {
+      return null;
+    }
+    for (int i = 0; i < attrs.length; i++) {
+      var attr = attrs[i];
+      if (attr['name'] != null) {
+        String attrName = attr['name'];
+        if (attrName.startsWith('data-')) {
+          var dataName = attrName.substring(5);
+          result[dataName] = attr['value'];
+        }
+      }
+    }
+    return result;
+  }
+
+  TextDecoration getTextDecorationLine(String line) {
+    switch (line) {
+      case 'line-through':
+        return TextDecoration.lineThrough;
+      case 'overline':
+        return TextDecoration.overline;
+      case 'underline':
+        return TextDecoration.underline;
+      case 'none':
+        return TextDecoration.none;
+    }
+    return null;
+  }
+
+  TextDecorationStyle getTextDecorationStyle(String line) {
+    switch (line) {
+      case 'solid':
+        return TextDecorationStyle.solid;
+      case 'double':
+        return TextDecorationStyle.double;
+      case 'dotted':
+        return TextDecorationStyle.dotted;
+      case 'dashed':
+        return TextDecorationStyle.dashed;
+      case 'wavy':
+        return TextDecorationStyle.wavy;
+    }
+    return null;
+  }
+
+  TextStyle parseTextDecoration(String textDecoration) {
+    TextDecoration decoration = null;
+    TextDecorationStyle decorationStyle = null;
+    Color color = null;
+
+    if (textDecoration == null) {
+      return null;
+    }
+    List<String> parts = textDecoration.split(RegExp("\\s"));
+
+    if (parts.length >= 1) {
+      decoration = getTextDecorationLine(parts[0]);
+    }
+    if (decoration == null) {
+      return null;
+    }
+    if (parts.length >= 2) {
+      decorationStyle = getTextDecorationStyle(parts[1]);
+    }
+    if (parts.length >= 3) {
+      color = fromCssColor(parts[3]);
+    }
+
+    return TextStyle(
+        decoration: decoration,
+        decorationStyle: decorationStyle,
+        decorationColor: color);
+  }
+
+  Widget wrapGestureDetector(Widget widget, dynamic node, ScreenModel model) {
+    var bindtap = getAttr(node, 'bindtap');
+    if (bindtap == null) {
+      return widget;
+    }
+    var pageBindTap = model.pageJs[bindtap];
+    if (pageBindTap != null) {
+      GestureTapUpCallback _onTapHandler = (TapUpDetails details) {
+        Map dataset = getDataSet(node);
+        dataset = dataset.map((k, v) {
+          v = renderText(v);
+          return MapEntry(k, v);
+        });
+
+        var id = getAttr(node, "id");
+        var event = {
+          'type': 'tap',
+          'target': {"id": id, "dataset": dataset},
+          'currentTarget': {"id": id, 'dataset': dataset},
+          'detail': {
+            'x': details.globalPosition.dx,
+            'y': details.globalPosition.dy
+          }
+        };
+        pageBindTap(event);
+      };
+      return GestureDetector(child: widget, onTapUp: _onTapHandler);
+    } else {
+      return widget;
+    }
   }
 }

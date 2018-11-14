@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../builders/owl_component_builder.dart';
 import '../components/owl_componet.dart';
-import '../utils/json_util.dart';
 import '../utils/uitools.dart';
 
 class OwlView extends OwlComponent {
@@ -178,6 +177,10 @@ class OwlView extends OwlComponent {
       var maxLines = getRuleValueEx(rules, "max-lines");
       var lineHeight = getRuleValueEx(rules, 'line-height');
       var textAlign = getRuleValueEx(rules, 'text-align');
+      var textDecoration = getRuleValueEx(rules, 'text-decoration');
+      var textDecorationLine = getRuleValueEx(rules, 'text-decoration-line');
+      var textDecorationStyle = getRuleValueEx(rules, 'text-decoration-style');
+      var textDecorationColor = getRuleValueEx(rules, 'text-decoration-color');
 
       TextStyle style;
 
@@ -205,6 +208,22 @@ class OwlView extends OwlComponent {
                 fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
       }
 
+      if (textDecoration != null) {
+        TextStyle decorationStyle = parseTextDecoration(textDecoration);
+        style = style.merge(decorationStyle);
+      }
+      if (textDecorationLine != null) {
+        style = style.merge(
+            TextStyle(decoration: getTextDecorationLine(textDecorationLine)));
+      }
+      if (textDecorationStyle != null) {
+        style = style.merge(TextStyle(
+            decorationStyle: getTextDecorationStyle(textDecorationStyle)));
+      }
+      if (textDecorationColor != null) {
+        style = style.merge(
+            TextStyle(decorationColor: fromCssColor(textDecorationColor)));
+      }
       realView = DefaultTextStyle(
           child: container,
           textAlign: getTextAlign(textAlign) == null
@@ -265,6 +284,7 @@ class OwlView extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
+    model.setDocBuildContext(context);
     if (w != null) {
       return w;
     }
