@@ -124,6 +124,19 @@ class OwlComponentBuilder {
             parentWidget: parentWidget,
             cacheContext: cacheContext);
         break;
+      case "textarea":
+        widget = OwlInput(
+            key: key,
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget,
+            cacheContext: cacheContext,
+            maxLines: 999);
+        break;
       case "center":
         widget = OwlCenter(
             key: key,

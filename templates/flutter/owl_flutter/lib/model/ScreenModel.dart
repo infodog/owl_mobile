@@ -162,4 +162,10 @@ class ScreenModel extends Model {
       f({});
     }
   }
+
+  void onLoad() {
+    if (this.pageJs['onLoad'] != null) {
+      this.pageJs['onLoad'](this.params);
+    }
+  }
 }

@@ -148,4 +148,16 @@ class owl {
       Navigator.pop(context);
     }
   }
+
+  static void addToList(arr, elem) {
+    arr.push(elem);
+  }
+
+  static void removeFromList(arr, index) {
+    arr.splice(arr, index, 1);
+  }
+
+  static void insert(arr, index, elem) {
+    arr.splice(arr, index, 0, elem);
+  }
 }
