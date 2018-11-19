@@ -164,6 +164,6 @@ class __ScreenModel extends ScreenModel {
   __ScreenModel(params) : super(params) {
     this.pageJs = __pageJs;
     this.data = pageJs['data'];
-    this.data['params'] = params;
+//    this.data['params'] = params;
   }
 }

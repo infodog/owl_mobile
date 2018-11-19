@@ -150,14 +150,14 @@ class owl {
   }
 
   static void addToList(arr, elem) {
-    arr.push(elem);
+    arr.add(elem);
   }
 
   static void removeFromList(arr, index) {
-    arr.splice(arr, index, 1);
+    arr.removeAt(index);
   }
 
   static void insert(arr, index, elem) {
-    arr.splice(arr, index, 0, elem);
+    arr.insert(index, elem);
   }
 }
