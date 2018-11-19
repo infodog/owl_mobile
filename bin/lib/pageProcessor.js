@@ -157,7 +157,7 @@ var pageProcessor = {
 
         var pageNode = xmlutil.parseFile(pageWxmlFile);
         var pageCss = cssutil.parseFile(pageWxssFile);
-        console.log(pageWxmlFile);
+        // console.log(pageWxmlFile);
         preProcessNode(pageNode,pageCss);
 
         var pageJsonContent = fs.readFileSync(pageJsonFile,{encoding: 'utf-8'});
