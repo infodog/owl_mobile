@@ -6,10 +6,14 @@ import 'package:scoped_model/scoped_model.dart';
 import '../utils/wx.dart';
 
 class ScreenModel extends Model {
-  ScreenModel(this.params, BuildContext buildContext) {
-    wx = WeiXinAdapter(buildContext);
+  static int maxInstanceId = 0;
+
+  ScreenModel(this.params) {
+    wx = WeiXinAdapter();
     componentModel = {};
     widgetCaches = {};
+    instanceId = maxInstanceId;
+    maxInstanceId++;
   }
 
   var pageModel;
@@ -19,14 +23,14 @@ class ScreenModel extends Model {
   var componentModel;
   bool isDirty;
 
+  int instanceId;
+
   Map<dynamic, List<Widget>> widgetCaches;
 
   WeiXinAdapter wx;
 
-  setDocBuildContext(BuildContext buildContext){
-    if(wx.docBuildContext==null) {
-      wx.docBuildContext = buildContext;
-    }
+  setDocBuildContext(BuildContext buildContext) {
+    wx.docBuildContext = buildContext;
   }
 
   clearDirty() {
@@ -34,7 +38,7 @@ class ScreenModel extends Model {
   }
 
   setDirty() {
-    widgetCaches.clear();
+    widgetCaches = {};
     isDirty = true;
   }
 

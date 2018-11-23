@@ -12,18 +12,30 @@ import '../utils/owl.dart';
 import '../utils/uitools.dart';
 import '../utils/wx.dart';
 
-class __pageName extends StatelessWidget {
+class __pageName extends StatefulWidget {
   __pageName({this.params, this.appCss, this.url});
+  var appCss;
+  var url;
+  Map<dynamic, dynamic> params;
 
+  @override
+  __pageNameState createState() {
+    // TODO: implement createState
+    return __pageNameState(this.params);
+  }
+}
+
+class __pageNameState extends State<__pageName> {
+  __pageNameState(Map<dynamic, dynamic> params) {
+    model = __ScreenModel(params);
+  }
   var pageNode = __pageNode;
   var pageCss = __pageCss;
   var pageJson = __pageConfig;
   var appJson;
-  var appCss;
-  var appNavigationBottomBar;
-  var url;
+  __ScreenModel model;
 
-  Map<dynamic, dynamic> params;
+  var appNavigationBottomBar;
 
   Widget buildTabBar(BuildContext context) {
     var tabBar = owl.getApplication().appJson['tabBar'];
@@ -43,7 +55,7 @@ class __pageName extends StatelessWidget {
 
     for (int i = 0; i < list.length; i++) {
       var item = list[i];
-      if (item['pagePath'] == url) {
+      if (item['pagePath'] == widget.url) {
         currentIndex = i;
       }
     }
@@ -105,8 +117,9 @@ class __pageName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    model.setDocBuildContext(context);
     return ScopedModel<__ScreenModel>(
-      model: __ScreenModel(this.params, context),
+      model: model,
       child: ScopedModelDescendant<__ScreenModel>(
         builder: (context, child, model) {
           return new OwlPage(
@@ -114,7 +127,7 @@ class __pageName extends StatelessWidget {
             key: Key('__pageName'),
             pageJson: pageJson,
             pageCss: pageCss,
-            appCss: appCss,
+            appCss: widget.appCss,
             model: model,
             cacheContext: model.widgetCaches,
           );
@@ -144,8 +157,7 @@ class __ScreenModel extends ScreenModel {
     return modelConfig;
   }
 
-  __ScreenModel(params, BuildContext buildContext)
-      : super(params, buildContext) {
+  __ScreenModel(params) : super(params) {
     this.pageJs = __pageJs;
     this.data = pageJs['data'];
   }

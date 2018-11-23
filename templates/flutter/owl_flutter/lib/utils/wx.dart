@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'owl.dart';
@@ -8,25 +9,24 @@ int parseInt(String s) {
 }
 
 class WeiXinAdapter {
-  WeiXinAdapter(this.buildContext);
+  WeiXinAdapter();
 
-  BuildContext buildContext;
   BuildContext docBuildContext = null;
 
   void navigateTo(o) {
-    owl.navigateTo(o, buildContext);
+    owl.navigateTo(o, docBuildContext);
   }
 
   void switchTab(o) {
-    owl.switchTab(o, buildContext);
+    owl.switchTab(o, docBuildContext);
   }
 
-  void showToast(o){
+  void showToast(o) {
     String title = o['title'];
     int duration = o['duration'];
     final snackBar = SnackBar(
       content: Text(title),
-      duration: Duration(milliseconds:duration),
+      duration: Duration(milliseconds: duration),
     );
 
     // Find the Scaffold in the Widget tree and use it to show a SnackBar!
@@ -34,7 +34,7 @@ class WeiXinAdapter {
   }
 
   void navigateBack(o) {
-    owl.navigateBack(o, buildContext);
+    owl.navigateBack(o, docBuildContext);
   }
 
   request(o) {

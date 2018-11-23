@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:owl_flutter/utils/uitools.dart';
 
 import '../components/owl_statefulcomponent.dart';
-import '../utils/json_util.dart';
 
 class OwlInput extends OwlStatefulComponent {
   OwlInput(
@@ -50,8 +49,8 @@ class OwlInputState extends State<OwlInput> {
 
   @override
   void initState() {
-    String disabled = getAttr(widget.node, 'disabled');
-    placeholder = getAttr(widget.node, 'placeholder');
+    String disabled = widget.getAttr(widget.node, 'disabled');
+    placeholder = widget.getAttr(widget.node, 'placeholder');
 
     if (disabled == 'true') {
       enabled = false;
@@ -67,11 +66,11 @@ class OwlInputState extends State<OwlInput> {
     cssColor = fromCssColor(color);
 
     var hintTextColor = widget.getRuleValueEx(rules, 'hint-text-color');
-    if (hintTextStyle != null) {
+    if (hintTextColor != null) {
       hintTextStyle = TextStyle(color: fromCssColor(hintTextColor));
     }
 
-    String type = getAttr(widget.node, 'type');
+    String type = widget.getAttr(widget.node, 'type');
     if (type != null) {
       type = type.toLowerCase();
       if (type == 'password') {
@@ -80,15 +79,15 @@ class OwlInputState extends State<OwlInput> {
     }
 
     ///设置事件处理程序
-    String initValue = getAttr(widget.node, 'value');
-    String name = getAttr(widget.node, 'name');
-    String key = getAttr(widget.node, 'key');
+    String initValue = widget.getAttr(widget.node, 'value');
+    String name = widget.getAttr(widget.node, 'name');
+    String key = widget.getAttr(widget.node, 'key');
     if (key == null) {
       key = name;
     }
     editingController = new TextEditingController();
     this.editingController.text = widget.renderText(initValue);
-    String bindinput = getAttr(widget.node, 'bindinput');
+    String bindinput = widget.getAttr(widget.node, 'bindinput');
     if (bindinput != null) {
       Function(dynamic) f = widget.model.pageJs[bindinput];
       this.editingController.addListener(() {

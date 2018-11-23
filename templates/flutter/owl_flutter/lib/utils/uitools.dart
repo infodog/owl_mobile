@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:owl_flutter/utils/json_util.dart';
 import 'package:reflected_mustache/mustache.dart';
 
 import '../model/ScreenModel.dart';
-import '../utils/json_util.dart';
 
 double screenWidth;
 double px_rpx_ratio = 0.0;
@@ -101,7 +101,7 @@ abstract class UiTools {
   List getEffectiveCssRules(String classString, String style, dynamic pageCss) {
     List<Map<dynamic, dynamic>> rules = [];
     if (classString != null) {
-      List<String> classes = classString.split("\\s");
+      List<String> classes = classString.split(RegExp("\\s"));
       var pageRules = pageCss["stylesheet"]["rules"];
       for (int i = 0; i < pageRules.length; i++) {
         var rule = pageRules[i];
@@ -604,6 +604,11 @@ abstract class UiTools {
     if (backgroundImage == null) {
       return null;
     }
+
+    if (backgroundImage.startsWith('url(')) {
+      backgroundImage = getMiddle(backgroundImage, "(", ")");
+    }
+
     if (backgroundImage.startsWith('http')) {
       image = NetworkImage(backgroundImage);
     } else {
@@ -612,7 +617,6 @@ abstract class UiTools {
       assetKey = 'assets/' + backgroundImage.substring(pos);
       image = AssetImage(assetKey);
     }
-
     //backgroundPosition目前只支持%号定位
     //css:
     //x% y%	The first value is the horizontal position and the second value is the vertical.
@@ -622,7 +626,7 @@ abstract class UiTools {
     String x, y;
     if (backgroundPosition != null) {
       backgroundPosition = backgroundPosition.trim();
-      List<String> parts = backgroundPosition.split("\\s");
+      List<String> parts = backgroundPosition.split(RegExp("\\s"));
       x = parts[0];
       if (parts.length > 1) {
         y = parts[1];
@@ -667,10 +671,7 @@ abstract class UiTools {
     if (text == null) {
       return null;
     }
-    if (!escape) {
-      text = "{" + text + "}";
-    }
-    Template template = new Template(text);
+    Template template = new Template(text, htmlEscapeValues: escape);
     if (componentModel != null) {
       if (componentModel['includedScreenModel'] == true) {
         //do nothing
@@ -694,8 +695,9 @@ abstract class UiTools {
     String classString = getAttr(node, "class");
     String styleString = getAttr(node, "style");
     if (node.containsKey("dclass")) {
-      classString = renderText(classString);
-      return getEffectiveCssRules(classString, styleString, pageCss);
+      classString = renderText(classString, escape: true);
+      List rules = getEffectiveCssRules(classString, styleString, pageCss);
+      return rules;
     } else {
       return node['rules'];
     }
@@ -710,6 +712,153 @@ abstract class UiTools {
       return renderText(ruleValue);
     } else {
       return ruleValue;
+    }
+  }
+
+  double parsePercentage(String s) {
+    if (s.endsWith("%")) {
+      s = s.substring(0, s.length - 1);
+      double d = double.parse(s) / 100;
+      return d;
+    }
+    return null;
+  }
+
+  dynamic getAttr(node, attrName) {
+    if (node is String) {
+      return null;
+    }
+    List attrs = node['attrs'];
+    if (attrs == null) {
+      return null;
+    }
+    for (int i = 0; i < attrs.length; i++) {
+      var attr = attrs[i];
+      if (attr['name'] == attrName) {
+        String result = attr['value'];
+        if (result == null) {
+          return null;
+        }
+        if (result.indexOf("{{") > -1) {
+          return renderText(result);
+        } else {
+          return result;
+        }
+      }
+    }
+    return null;
+  }
+
+  Map getDataSet(node) {
+    if (node is String) {
+      return null;
+    }
+    var result = {};
+    List attrs = node['attrs'];
+    if (attrs == null) {
+      return null;
+    }
+    for (int i = 0; i < attrs.length; i++) {
+      var attr = attrs[i];
+      if (attr['name'] != null) {
+        String attrName = attr['name'];
+        if (attrName.startsWith('data-')) {
+          var dataName = attrName.substring(5);
+          result[dataName] = attr['value'];
+        }
+      }
+    }
+    return result;
+  }
+
+  TextDecoration getTextDecorationLine(String line) {
+    switch (line) {
+      case 'line-through':
+        return TextDecoration.lineThrough;
+      case 'overline':
+        return TextDecoration.overline;
+      case 'underline':
+        return TextDecoration.underline;
+      case 'none':
+        return TextDecoration.none;
+    }
+    return null;
+  }
+
+  TextDecorationStyle getTextDecorationStyle(String line) {
+    switch (line) {
+      case 'solid':
+        return TextDecorationStyle.solid;
+      case 'double':
+        return TextDecorationStyle.double;
+      case 'dotted':
+        return TextDecorationStyle.dotted;
+      case 'dashed':
+        return TextDecorationStyle.dashed;
+      case 'wavy':
+        return TextDecorationStyle.wavy;
+    }
+    return null;
+  }
+
+  TextStyle parseTextDecoration(String textDecoration) {
+    TextDecoration decoration = null;
+    TextDecorationStyle decorationStyle = null;
+    Color color = null;
+
+    if (textDecoration == null) {
+      return null;
+    }
+    List<String> parts = textDecoration.split(RegExp("\\s"));
+
+    if (parts.length >= 1) {
+      decoration = getTextDecorationLine(parts[0]);
+    }
+    if (decoration == null) {
+      return null;
+    }
+    if (parts.length >= 2) {
+      decorationStyle = getTextDecorationStyle(parts[1]);
+    }
+    if (parts.length >= 3) {
+      color = fromCssColor(parts[3]);
+    }
+
+    return TextStyle(
+        decoration: decoration,
+        decorationStyle: decorationStyle,
+        decorationColor: color);
+  }
+
+  Widget wrapGestureDetector(Widget widget, dynamic node, ScreenModel model) {
+    var bindtap = getAttr(node, 'bindtap');
+    if (bindtap == null) {
+      return widget;
+    }
+    var pageBindTap = model.pageJs[bindtap];
+    if (pageBindTap != null) {
+      GestureTapUpCallback _onTapHandler = (TapUpDetails details) {
+        Map dataset = getDataSet(node);
+        dataset = dataset.map((k, v) {
+          v = renderText(v);
+          return MapEntry(k, v);
+        });
+
+        var id = getAttr(node, "id");
+        var event = {
+          'type': 'tap',
+          'target': {"id": id, "dataset": dataset},
+          'currentTarget': {"id": id, 'dataset': dataset},
+          'detail': {
+            'x': details.globalPosition.dx,
+            'y': details.globalPosition.dy
+          }
+        };
+        pageBindTap(event);
+      };
+      return GestureDetector(child: widget, onTapUp: _onTapHandler);
+    } else {
+      return widget;
     }
   }
 }

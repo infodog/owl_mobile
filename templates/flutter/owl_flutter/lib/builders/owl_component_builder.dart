@@ -18,42 +18,6 @@ import '../components/owl_wrap.dart';
 import '../model/ScreenModel.dart';
 import '../utils/json_util.dart';
 
-Widget wrapGestureDetector(Widget widget, dynamic node, ScreenModel model) {
-  var bindtap = getAttr(node, 'bindtap');
-  if (bindtap == null) {
-    return widget;
-  }
-  var pageBindTap = model.pageJs[bindtap];
-  if (pageBindTap != null) {
-    GestureTapUpCallback _onTapHandler = (TapUpDetails details) {
-      Map dataset = getDataSet(node);
-      dataset = dataset.map((k, v) {
-        if (widget is OwlComponent) {
-          v = (widget as OwlComponent).renderText(v);
-        } else if (widget is OwlStatefulComponent) {
-          v = (widget as OwlStatefulComponent).renderText(v);
-        }
-        return MapEntry(k, v);
-      });
-
-      var id = getAttr(node, "id");
-      var event = {
-        'type': 'tap',
-        'target': {"id": id, "dataset": dataset},
-        'currentTarget': {"id": id, 'dataset': dataset},
-        'detail': {
-          'x': details.globalPosition.dx,
-          'y': details.globalPosition.dy
-        }
-      };
-      pageBindTap(event);
-    };
-    return GestureDetector(child: widget, onTapUp: _onTapHandler);
-  } else {
-    return widget;
-  }
-}
-
 class OwlComponentBuilder {
   static Widget build(
       {Key key,
@@ -262,7 +226,15 @@ class OwlComponentBuilder {
             cacheContext: cacheContext);
         break;
     }
-    Widget w = wrapGestureDetector(widget, childNode, model);
+    Widget w = null;
+    if (widget is OwlComponent) {
+      w = (widget as OwlComponent)
+          .wrapGestureDetector(widget, childNode, model);
+    } else if (widget is OwlStatefulComponent) {
+      w = (widget as OwlStatefulComponent)
+          .wrapGestureDetector(widget, childNode, model);
+    }
+
     model.componentModel = oldComponentModel;
     return w;
   }
@@ -323,7 +295,7 @@ class OwlComponentBuilder {
     }
     var childNode = node[nodeName];
 
-    var wxif = getAttr(childNode, 'wx:if');
+    var wxif = getPlainAttr(childNode, 'wx:if');
     if (wxif != null) {
       //获取 {{ xxx }} 中间的xxx部分
       String wxifExpr = getMiddle(wxif, "{{", "}}");
@@ -346,10 +318,10 @@ class OwlComponentBuilder {
       }
     }
 
-    var wxfor = getAttr(childNode, 'wx:for');
+    var wxfor = getPlainAttr(childNode, 'wx:for');
     if (wxfor != null) {
-      var wxforItem = getAttr(childNode, 'wx:for-item');
-      var wxforIndex = getAttr(childNode, 'wx:for-index');
+      var wxforItem = getPlainAttr(childNode, 'wx:for-item');
+      var wxforIndex = getPlainAttr(childNode, 'wx:for-index');
 
       if (wxforItem == null) {
         wxforItem = 'item';

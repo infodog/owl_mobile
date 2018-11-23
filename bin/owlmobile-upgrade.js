@@ -35,6 +35,14 @@ ncp(path.resolve(templatePath,'lib','utils'),path.resolve(flutterPath,'lib','uti
     }
     console.log(path.resolve(flutterPath,'lib','utils') + " upgraded")
 });
+
+ncp(path.resolve(templatePath,'lib','model'),path.resolve(flutterPath,'lib','model'),function(err){
+    if(err){
+        return console.log(err);
+    }
+    console.log(path.resolve(flutterPath,'lib','model') + " upgraded")
+});
+
 ncp(path.resolve(templatePath,'lib','main.dart'),path.resolve(flutterPath,'lib','main.dart'),function(err){
     if(err){
         return console.log(err);
