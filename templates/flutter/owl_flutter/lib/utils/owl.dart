@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/components/owl_home.dart';
 import 'package:owl_flutter/owl_generated/owl_route.dart';
+import 'package:owl_flutter/pageJump/page_jumpper.dart';
 
 import '../owl_generated/owl_app.dart';
 
@@ -16,7 +17,7 @@ class owl {
 
   static bool isHomeTabUrl(url) {
     var tabBar = owl.getApplication().appJson['tabBar'];
-    if (tabBar == null) {
+    if (tabBar == false) {
       return null;
     }
 
@@ -63,28 +64,33 @@ class owl {
       }
     }
     //检查url是否属于tabs, 如果属于则不跳转
-    var tabBar = owl.getApplication().appJson['tabBar'];
-    if (tabBar == null) {
-      return null;
-    }
-    var list = tabBar['list'];
+//    var tabBar = owl.getApplication().appJson['tabBar'];
+//    if (tabBar == null) {
+//      return null;
+//    }
+//    var list = tabBar['list'];
+//
+//    for (int i = 0; i < list.length; i++) {
+//      var tab = list[i];
+//      var pagePath = tab['pagePath'];
+//      if (pagePath == url) {
+//        print(pagePath + " is one of the tab, use wx.switchTab instead");
+//        return null;
+//      }
+//    }
 
-    for (int i = 0; i < list.length; i++) {
-      var tab = list[i];
-      var pagePath = tab['pagePath'];
-      if (pagePath == url) {
-        print(pagePath + " is one of the tab, use wx.switchTab instead");
-        return null;
-      }
-    }
+    Map  map = Map();
+    map["pageType"] = "flutter/"+url;
+    //map["naviBarHidden"] ='1';
+    PageJumpper.notityNativePush(map);
 
-    Widget screen = getScreen(url, params, owl.getApplication().appCss);
-    if (screen != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => screen),
-      );
-    }
+//    Widget screen = getScreen(url, params, owl.getApplication().appCss);
+//    if (screen != null) {
+//      Navigator.push(
+//        context,
+//        MaterialPageRoute(builder: (context) => screen),
+//      );
+//    }
   }
 
   static void switchTab(var obj, BuildContext context) {
@@ -145,7 +151,8 @@ class owl {
   static void navigateBack(var obj, BuildContext context) {
     int delta = obj['delta'];
     for (int i = 0; i < delta; i++) {
-      Navigator.pop(context);
+      //      Navigator.pop(context);
+      PageJumpper.notityNativePop();
     }
   }
 }
