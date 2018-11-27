@@ -17,8 +17,8 @@ class owl {
 
   static bool isHomeTabUrl(url) {
     var tabBar = owl.getApplication().appJson['tabBar'];
-    if (tabBar == false) {
-      return null;
+    if (tabBar == null) {
+      return false;
     }
 
     var list = tabBar['list'];
@@ -63,7 +63,7 @@ class owl {
         }
       }
     }
-    //检查url是否属于tabs, 如果属于则不跳转
+//    检查url是否属于tabs, 如果属于则不跳转
 //    var tabBar = owl.getApplication().appJson['tabBar'];
 //    if (tabBar == null) {
 //      return null;
@@ -82,7 +82,7 @@ class owl {
     Map  map = Map();
     map["pageType"] = "flutter/"+url;
     //map["naviBarHidden"] ='1';
-    PageJumpper.notityNativePush(map);
+    PageJumpper.notityNativePush(map,context: context);
 
 //    Widget screen = getScreen(url, params, owl.getApplication().appCss);
 //    if (screen != null) {
@@ -141,18 +141,28 @@ class owl {
 
     Widget screen = OwlHome(url, params);
     if (screen != null) {
-      Navigator.pushReplacement(
-        context,
-        NoAnimationRoute(builder: (context) => screen),
-      );
+      PageJumpper.notityNativeReplacementPush((context) => screen);
+
     }
   }
 
   static void navigateBack(var obj, BuildContext context) {
     int delta = obj['delta'];
     for (int i = 0; i < delta; i++) {
-      //      Navigator.pop(context);
-      PageJumpper.notityNativePop();
+//      Navigator.pop(context);
+        PageJumpper.notityNativePop();
     }
+  }
+
+  static void addToList(arr, elem) {
+    arr.add(elem);
+  }
+
+  static void removeFromList(arr, index) {
+    arr.removeAt(index);
+  }
+
+  static void insert(arr, index, elem) {
+    arr.insert(index, elem);
   }
 }

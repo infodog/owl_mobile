@@ -14,7 +14,8 @@ class OwlInput extends OwlStatefulComponent {
       componentModel,
       parentNode,
       parentWidget,
-      cacheContext})
+      cacheContext,
+      this.maxLines = 1})
       : super(
             key: key,
             node: node,
@@ -30,6 +31,8 @@ class OwlInput extends OwlStatefulComponent {
   OwlInputState createState() {
     return new OwlInputState();
   }
+
+  int maxLines = 1;
 }
 
 class OwlInputState extends State<OwlInput> {
@@ -43,9 +46,13 @@ class OwlInputState extends State<OwlInput> {
   String placeholder;
   bool enabled = true;
   bool obscureText = false;
-  TextStyle hintTextStyle = null;
+  TextStyle hintTextStyle;
+
+  String inputtype;
 
   Color cssColor;
+
+  TextInputType textInputType;
 
   @override
   void initState() {
@@ -61,6 +68,7 @@ class OwlInputState extends State<OwlInput> {
     paddingRight = widget.getRuleValueEx(rules, "padding-right");
     paddingTop = widget.getRuleValueEx(rules, "padding-top");
     paddingBottom = widget.getRuleValueEx(rules, "padding-bottom");
+
     fontSize = widget.getRuleValueEx(rules, "font-size");
     color = widget.getRuleValueEx(rules, 'color');
     cssColor = fromCssColor(color);
@@ -70,12 +78,42 @@ class OwlInputState extends State<OwlInput> {
       hintTextStyle = TextStyle(color: fromCssColor(hintTextColor));
     }
 
-    String type = widget.getAttr(widget.node, 'type');
-    if (type != null) {
-      type = type.toLowerCase();
-      if (type == 'password') {
-        obscureText = true;
-      }
+    String password = widget.getAttr(widget.node, 'password');
+
+    if (password != null && password == 'true') {
+      obscureText = true;
+    } else {
+      obscureText = false;
+    }
+
+    /*
+    text	文本输入键盘
+number	数字输入键盘
+idcard	身份证输入键盘
+digit
+     */
+
+    inputtype = widget.getAttr(widget.node, 'type');
+    switch (inputtype) {
+      case 'text':
+        textInputType = TextInputType.text;
+        break;
+      case 'number':
+        textInputType = TextInputType.number;
+        break;
+      case 'digit':
+        textInputType =
+            TextInputType.numberWithOptions(decimal: true, signed: true);
+        break;
+      case 'idcard':
+        textInputType = TextInputType.text;
+        break;
+      default:
+        textInputType = TextInputType.text;
+    }
+
+    if (widget.maxLines > 1) {
+      textInputType = TextInputType.multiline;
     }
 
     ///设置事件处理程序
@@ -85,6 +123,7 @@ class OwlInputState extends State<OwlInput> {
     if (key == null) {
       key = name;
     }
+
     editingController = new TextEditingController();
     this.editingController.text = widget.renderText(initValue);
     String bindinput = widget.getAttr(widget.node, 'bindinput');
@@ -102,6 +141,8 @@ class OwlInputState extends State<OwlInput> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+        maxLines: widget.maxLines,
+        keyboardType: textInputType,
         controller: this.editingController,
         obscureText: obscureText,
         style: DefaultTextStyle.of(context).style.merge(

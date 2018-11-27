@@ -1,12 +1,15 @@
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'ole_const.dart';
-
+import "../ole_model/ole_method_channel.dart";
 class OleNetWork{
 
 
   static int _requestID = 0;
-  static MethodChannel _methodChannel =  const MethodChannel(OleConsts.CHANNEL_NETWORK);
+  static OleMethodChannel _methodChannel =  OleMethodChannel(OleConsts.CHANNEL_NETWORK,handler:methodCallBack);
+  static OleMethodChannel channel(){
+    return _methodChannel;
+  }
 
   static Map _requestStack = {};
 

@@ -18,7 +18,7 @@ import '../components/owl_wrap.dart';
 import '../model/ScreenModel.dart';
 import '../utils/json_util.dart';
 
-class OwlComponentBuilder {
+class OwlActionBuilder {
   static Widget build(
       {Key key,
       Map<String, dynamic> node,
@@ -40,196 +40,10 @@ class OwlComponentBuilder {
     model.componentModel = componentModel;
 
     switch (nodeName) {
-      case "page":
-        widget = OwlPage(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "view":
+      case "action":
         widget = OwlView(
             key: key,
             node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "column":
-        widget = OwlColumn(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "row":
-        widget = OwlRow(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "wrap":
-        widget = OwlWrap(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "form":
-        widget = OwlForm(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "input":
-        widget = OwlInput(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "textarea":
-        widget = OwlInput(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext,
-            maxLines: 999);
-        break;
-      case "center":
-        widget = OwlCenter(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "middle":
-        widget = OwlCenter(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "expanded":
-        widget = OwlExpanded(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-
-      case "scroll-view":
-        widget = OwlScrollView(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "cover_view":
-        break;
-      case "bottom_navigator_bar":
-        break;
-      case "image":
-        widget = OwlImage(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "swiper":
-        widget = OwlSwiper(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "swiper-item":
-        widget = OwlView(
-            key: key,
-            node: childNode,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
-        break;
-      case "_text":
-        widget = OwlText(
-            key: key,
-            node: node,
             pageCss: pageCss,
             appCss: appCss,
             model: model,
@@ -354,7 +168,7 @@ class OwlComponentBuilder {
           }
           newComponentModel[wxforItem] = item;
           newComponentModel[wxforIndex] = i;
-          Widget widget = OwlComponentBuilder.build(
+          Widget widget = OwlActionBuilder.build(
               node: node,
               pageCss: pageCss,
               appCss: appCss,
@@ -372,7 +186,7 @@ class OwlComponentBuilder {
       }
     } else {
       //no for statement
-      Widget widget = OwlComponentBuilder.build(
+      Widget widget = OwlActionBuilder.build(
           node: node,
           pageCss: pageCss,
           appCss: appCss,

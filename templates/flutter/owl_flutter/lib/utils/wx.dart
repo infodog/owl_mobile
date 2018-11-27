@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:flutter/material.dart';
+
 import 'owl.dart';
 
 int parseInt(String s) {

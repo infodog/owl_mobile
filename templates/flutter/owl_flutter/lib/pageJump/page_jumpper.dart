@@ -9,16 +9,18 @@ import 'ole_device_info.dart';
 import '../owl_generated/owl_route.dart';
 import '../utils/owl.dart';
 import "ole_route.dart";
+import "../ole_model/ole_method_channel.dart";
 class PageJumpper extends Object {
 
-    static const _channel = const MethodChannel(OleConsts.CHANNEL_PAGE_JUMP);
+    static OleMethodChannel _channel = OleMethodChannel(OleConsts.CHANNEL_PAGE_JUMP,handler: methodCallBack);
     static BuildContext __context;
     static void setUp(BuildContext context){
-      _channel.setMethodCallHandler(methodCallBack);
       __context = context;
     }
 
-
+    static OleMethodChannel channel(){
+      return _channel;
+    }
 
     static void notityNativePop({BuildContext context}){//这个通知原生pop掉flutter界面
         //原生pop完了,自己的堆栈也要处理掉
@@ -38,7 +40,7 @@ class PageJumpper extends Object {
        String type = pageData["pageType"];
        if(type.startsWith("flutter/")){
          String url = getFlutterRoute(type);
-         String id =  doFlutterPushNamed(url);
+         String id =  doFlutterPushNamed(url,context: context);
          pageData["pageId"] = id;
        }
 
@@ -63,6 +65,9 @@ class PageJumpper extends Object {
 
 
     static String doFlutterPushNamed(String name,{BuildContext context}){
+      if(__context == null ){
+         __context = context;
+      }
       WidgetBuilder builder = (BuildContext context) => getScreen(name, {}, owl.getApplication().appCss);
 
       Widget widget = builder(context??__context);
@@ -175,7 +180,14 @@ class PageJumpper extends Object {
       }
     }
 
+    static Future<dynamic> requestDeviceInfo() async {
+      try{
 
+        _channel.invokeMethod(OleConsts.METHOD_INFO_SYNC,{});
+      }on PlatformException catch(e){
+
+      }
+    }
 
 
 }

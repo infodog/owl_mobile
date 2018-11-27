@@ -39,7 +39,6 @@ class OleDeviceInfo {
   }
 
   static double bottomMargin(){
-    print("sa ==== ${safeAreaBottom + tabBarHeight}");
     return safeAreaBottom + tabBarHeight;
   }
 

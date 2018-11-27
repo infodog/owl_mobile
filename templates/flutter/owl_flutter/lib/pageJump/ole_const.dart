@@ -28,4 +28,10 @@ class OleConsts{
   //原生、flutter数据同步方法名
   static const String METHOD_INFO_SYNC = "method_sync_info";
 
+
+  //用户信息管理通道名
+  static const String CHANNEL_USER_ASYNC = "com.crv.ole.user.async";
+
+  static const String METHOD_USER_ASYNC = "method_async_userinfo";
+
 }
