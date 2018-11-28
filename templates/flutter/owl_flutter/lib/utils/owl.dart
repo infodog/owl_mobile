@@ -17,7 +17,7 @@ class owl {
   static bool isHomeTabUrl(url) {
     var tabBar = owl.getApplication().appJson['tabBar'];
     if (tabBar == null) {
-      return null;
+      return false;
     }
 
     var list = tabBar['list'];
