@@ -23,17 +23,33 @@ ncp(path.resolve(templatePath,'lib','builders'),path.resolve(flutterPath,'lib','
         console.log(path.resolve(flutterPath,'lib','builders') + " upgraded")
     }
 });
+
 ncp(path.resolve(templatePath,'lib','components'),path.resolve(flutterPath,'lib','components'),function(err){
     if(err){
         return console.log(err);
     }
     console.log(path.resolve(flutterPath,'lib','components') + " upgraded")
 });
+
 ncp(path.resolve(templatePath,'lib','utils'),path.resolve(flutterPath,'lib','utils'),function(err){
     if(err){
         return console.log(err);
     }
     console.log(path.resolve(flutterPath,'lib','utils') + " upgraded")
+});
+
+ncp(path.resolve(templatePath,'lib','widgets'),path.resolve(flutterPath,'lib','widgets'),function(err){
+    if(err){
+        return console.log(err);
+    }
+    console.log(path.resolve(flutterPath,'lib','widgets') + " upgraded")
+});
+
+ncp(path.resolve(templatePath,'assets'),path.resolve(flutterPath,'assets'),function(err){
+    if(err){
+        return console.log(err);
+    }
+    console.log(path.resolve(flutterPath,'assets') + " upgraded")
 });
 
 ncp(path.resolve(templatePath,'lib','model'),path.resolve(flutterPath,'lib','model'),function(err){

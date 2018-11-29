@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:owl_flutter/owl_generated/owl_app.dart';
 
 import './components/owl_home.dart';
 import 'owl_generated/owl_route.dart';
@@ -14,6 +13,7 @@ void main() {
   initPageUrls();
   Map<String,WidgetBuilder> routes = initRoutes();
   var homeUrl = home_route;
+  OwlApp.init();
   appMain(homeUrl,routes);
 //  int index = 0;
 //  Timer.periodic(Duration(seconds: 3), (timer) {
@@ -24,7 +24,7 @@ void main() {
 //    index++;
 //    appMain(url);
 //  });
-}
+
 
 void appMain(String url,Map<String,WidgetBuilder> routes) {
   debugPaintSizeEnabled = false;

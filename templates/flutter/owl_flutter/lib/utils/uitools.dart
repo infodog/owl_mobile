@@ -724,6 +724,28 @@ abstract class UiTools {
     return null;
   }
 
+  dynamic getPlainAttr(node, attrName) {
+    if (node is String) {
+      return null;
+    }
+    List attrs = node['attrs'];
+    if (attrs == null) {
+      return null;
+    }
+    for (int i = 0; i < attrs.length; i++) {
+      var attr = attrs[i];
+      if (attr['name'] == attrName) {
+        String result = attr['value'];
+        if (result == null) {
+          return null;
+        }
+
+        return result;
+      }
+    }
+    return null;
+  }
+
   dynamic getAttr(node, attrName) {
     if (node is String) {
       return null;

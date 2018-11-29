@@ -27,6 +27,16 @@ class OwlApp {
   init_app_object() {
     __appJs;
   }
+
+  static Map regionsMap;
+  static void init() {
+    if (regionsMap == null) {
+      Future<String> future = rootBundle.loadString('assets/regions.json');
+      future.then((String regionsJson) {
+        regionsMap = json.decode(regionsJson);
+      });
+    }
+  }
 }
 
 class NoAnimationRoute<T> extends MaterialPageRoute<T> {

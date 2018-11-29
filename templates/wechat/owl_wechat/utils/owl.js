@@ -80,6 +80,19 @@ function getApplication(){
     return getApp(); //wechat api
 }
 
+function addToList(arr,elem){
+    arr.push(elem);
+}
+
+
+function removeFromList(arr, index){
+    arr.splice(arr,index,1);
+}
+
+function insert(arr,index,elem){
+    arr.splice(arr,index,0,elem);
+}
+
 module.exports = {
     login,
     getUserInfo,

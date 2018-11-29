@@ -116,6 +116,10 @@ class __pageNameState extends State<__pageName> {
         ));
   }
 
+  void initState() {
+    model.onLoad();
+  }
+
   @override
   Widget build(BuildContext context) {
     model.setDocBuildContext(context);
@@ -161,5 +165,6 @@ class __ScreenModel extends ScreenModel {
   __ScreenModel(params) : super(params) {
     this.pageJs = __pageJs;
     this.data = pageJs['data'];
+//    this.data['params'] = params;
   }
 }
