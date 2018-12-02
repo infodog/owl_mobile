@@ -101,7 +101,7 @@ class WxMultiColumnPickerState extends State<WxMultiColumnPicker> {
         label: itemText,
         excludeSemantics: true,
         child: Container(
-          alignment: Alignment.centerRight,
+          alignment: Alignment.center,
           padding: EdgeInsets.only(right: _kPickerPadSize),
           child: Container(
             alignment: Alignment.centerRight,

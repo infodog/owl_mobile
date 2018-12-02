@@ -21,40 +21,40 @@ const text_styles = [
   "text-align"
 ];
 
-Color fromCssColor(String cssColor) {
-  if (cssColor == null) {
-    return null;
-  }
-  if (cssColor.startsWith("#")) {
-    cssColor = cssColor.replaceFirst("#", "");
-    int inColor = int.parse(cssColor, radix: 16);
-    return Color(inColor).withAlpha(0xff);
-  } else {
-    var beginPos = cssColor.indexOf("rgba(");
-    if (beginPos == -1) {
-      return null;
-    }
-    var endPos = cssColor.indexOf(")");
-    if (endPos == -1) {
-      return null;
-    }
-    var args = cssColor.substring(beginPos + 5, endPos);
-    var parts = args.split(",");
-    if (parts.length != 4) {
-      return null;
-    }
-
-    int r = int.parse(parts[0]);
-    int g = int.parse(parts[1]);
-    int b = int.parse(parts[2]);
-    int a = (double.parse(parts[3]) * 255).round();
-    return Color.fromARGB(a, r, g, b);
-  }
-}
-
 abstract class UiTools {
   ScreenModel model;
   Map componentModel;
+
+  Color fromCssColor(String cssColor) {
+    if (cssColor == null) {
+      return null;
+    }
+    if (cssColor.startsWith("#")) {
+      cssColor = cssColor.replaceFirst("#", "");
+      int inColor = int.parse(cssColor, radix: 16);
+      return Color(inColor).withAlpha(0xff);
+    } else {
+      var beginPos = cssColor.indexOf("rgba(");
+      if (beginPos == -1) {
+        return null;
+      }
+      var endPos = cssColor.indexOf(")");
+      if (endPos == -1) {
+        return null;
+      }
+      var args = cssColor.substring(beginPos + 5, endPos);
+      var parts = args.split(",");
+      if (parts.length != 4) {
+        return null;
+      }
+
+      int r = int.parse(parts[0]);
+      int g = int.parse(parts[1]);
+      int b = int.parse(parts[2]);
+      int a = (double.parse(parts[3]) * 255).round();
+      return Color.fromARGB(a, r, g, b);
+    }
+  }
 
   void setScreenWidth(BuildContext context) {
     double w = MediaQuery.of(context).size.width;

@@ -93,10 +93,15 @@ function insert(arr,index,elem){
     arr.splice(arr,index,0,elem);
 }
 
+function containsKey(o,key){
+    return o.hasOwnProperty(key);
+}
+
 module.exports = {
     login,
     getUserInfo,
     canIUse,
     navigateTo,
-    getApplication
+    getApplication,
+    containsKey
 }
