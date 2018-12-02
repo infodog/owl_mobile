@@ -63,9 +63,9 @@ class __pageNameState extends State<__pageName> {
       return null;
     }
 
-    Color activeColor = fromCssColor(selectedColor);
-    Color itemColor = fromCssColor(color);
-    Color barBackgroundColor = fromCssColor(backgroundColor);
+    Color activeColor = UiTools.parseCssColor(selectedColor);
+    Color itemColor = UiTools.parseCssColor(color);
+    Color barBackgroundColor = UiTools.parseCssColor(backgroundColor);
 
     List<BottomNavigationBarItem> barItems = [];
     for (int i = 0; i < list.length; i++) {

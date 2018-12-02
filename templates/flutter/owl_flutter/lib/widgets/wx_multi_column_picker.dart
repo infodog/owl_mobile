@@ -104,7 +104,7 @@ class WxMultiColumnPickerState extends State<WxMultiColumnPicker> {
           alignment: Alignment.center,
           padding: EdgeInsets.only(right: _kPickerPadSize),
           child: Container(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.center,
             // Adds some spaces between words.
             padding: const EdgeInsets.symmetric(horizontal: 2.0),
             child: Text(itemText, maxLines: 1),

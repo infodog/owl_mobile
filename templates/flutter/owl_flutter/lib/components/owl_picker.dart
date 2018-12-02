@@ -230,6 +230,9 @@ class OwlPickerState extends State<OwlPicker> {
 
         String bindCancelName = widget.getAttr(widget.node, "bindcancel");
         bindCancel = widget.model.pageJs[bindCancelName];
+
+        String strColumnsCount = widget.getAttr(widget.node, "columnsCount");
+        columnsCount = int.parse(strColumnsCount);
         break;
     }
   }
@@ -455,6 +458,7 @@ class OwlPickerState extends State<OwlPicker> {
             return _buildBottomPicker(
                 WxRegionsPicker(
                   value: this.value,
+                  columnsCount: columnsCount,
                   changeListener: (e) {
                     setState(() {
                       selectedRegion = e;

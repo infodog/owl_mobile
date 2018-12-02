@@ -25,7 +25,7 @@ abstract class UiTools {
   ScreenModel model;
   Map componentModel;
 
-  Color fromCssColor(String cssColor) {
+  static Color parseCssColor(String cssColor) {
     if (cssColor == null) {
       return null;
     }
@@ -54,6 +54,10 @@ abstract class UiTools {
       int a = (double.parse(parts[3]) * 255).round();
       return Color.fromARGB(a, r, g, b);
     }
+  }
+
+  Color fromCssColor(String cssColor) {
+    return parseCssColor(cssColor);
   }
 
   void setScreenWidth(BuildContext context) {
