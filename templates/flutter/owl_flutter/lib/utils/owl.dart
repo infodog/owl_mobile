@@ -65,16 +65,15 @@ class owl {
     //检查url是否属于tabs, 如果属于则不跳转
     var tabBar = owl.getApplication().appJson['tabBar'];
     if (tabBar == null) {
-      return null;
-    }
-    var list = tabBar['list'];
+      var list = tabBar['list'];
 
-    for (int i = 0; i < list.length; i++) {
-      var tab = list[i];
-      var pagePath = tab['pagePath'];
-      if (pagePath == url) {
-        print(pagePath + " is one of the tab, use wx.switchTab instead");
-        return null;
+      for (int i = 0; i < list.length; i++) {
+        var tab = list[i];
+        var pagePath = tab['pagePath'];
+        if (pagePath == url) {
+          print(pagePath + " is one of the tab, use wx.switchTab instead");
+          return null;
+        }
       }
     }
 

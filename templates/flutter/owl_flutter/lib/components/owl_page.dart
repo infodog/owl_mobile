@@ -2,12 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
-import 'package:owl_flutter/components/owl_scroll_view.dart';
 
 import '../components/owl_componet.dart';
 import '../owl_generated/owl_app.dart';
 import '../utils/owl.dart';
-import '../utils/uitools.dart';
 
 class OwlPage extends OwlComponent {
   OwlPage(
@@ -35,9 +33,27 @@ class OwlPage extends OwlComponent {
             cacheContext: cacheContext);
 
   final Widget bottomBar;
+  bool hasAppBar = false;
   AppBar buildAppBar() {
     OwlApp app = owl.getApplication();
     String title = null;
+
+    if (pageJson == null) {
+      hasAppBar = false;
+      return null;
+    }
+
+    if (pageJson.containsKey('showAppBar') && pageJson['showAppBar'] == false) {
+      hasAppBar = false;
+      return null;
+    }
+
+    if (pageJson.containsKey('showAppBar') == false) {
+      hasAppBar = false;
+      return null;
+    }
+
+    hasAppBar = true;
 
     if (pageJson != null) {
       title = pageJson['navigationBarTitleText'];
@@ -49,6 +65,7 @@ class OwlPage extends OwlComponent {
         title = app.appJson['window']['navigationBarTitleText'];
       }
     }
+
     if (title == null) {
       title = 'owlmobile';
     }
@@ -280,6 +297,7 @@ class OwlPage extends OwlComponent {
       v = SizedBox.expand(child: realView);
     }
     //检查下面的子元素是否有position=absolute
+    Widget finalPage = null;
     if (fixedWidgets.length > 0) {
       List<Widget> stackChildren = [v];
       widget2zindex[v] = 0;
@@ -288,9 +306,18 @@ class OwlPage extends OwlComponent {
       stackChildren.sort((w1, w2) {
         return widget2zindex[w1].compareTo(widget2zindex[w2]);
       });
-      return Stack(children: stackChildren);
+      finalPage = Stack(children: stackChildren);
     } else {
-      return v;
+      finalPage = v;
+    }
+
+    if (hasAppBar) {
+      return finalPage;
+    } else {
+      MediaQueryData mediaQueryData = MediaQuery.of(context);
+      return Padding(
+          child: finalPage,
+          padding: EdgeInsets.only(top: mediaQueryData.padding.top));
     }
   }
 
@@ -301,7 +328,7 @@ class OwlPage extends OwlComponent {
     }
     nodeName = node.keys.first;
     var childNode = node[nodeName];
-    var childrenBody = OwlScrollView(
+    /*var childrenBody = OwlScrollView(
         node: childNode,
         pageCss: pageCss,
         appCss: appCss,
@@ -309,7 +336,7 @@ class OwlPage extends OwlComponent {
         componentModel: componentModel,
         parentNode: node,
         parentWidget: this,
-        cacheContext: cacheContext);
+        cacheContext: cacheContext);*/
 
 //    return childrenBody;
     return _buildWidget(context);

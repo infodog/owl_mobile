@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:owl_flutter/owl_generated/owl_app.dart';
@@ -11,7 +13,7 @@ void main() {
   var homeUrl = home_route;
   OwlApp.init();
   appMain(homeUrl);
-  /*int index = 0;
+  int index = 0;
   Timer.periodic(Duration(seconds: 3), (timer) {
     if (index == pageUrls.length) {
       index = 0;
@@ -19,7 +21,7 @@ void main() {
     String url = pageUrls[index];
     index++;
     appMain(url);
-  });*/
+  });
 }
 
 void appMain(String url) {
