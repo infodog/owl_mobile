@@ -65,12 +65,12 @@ ncp(path.resolve(templatePath,'lib','main.dart'),path.resolve(flutterPath,'lib',
     }
     console.log(path.resolve(flutterPath,'lib','main.dart') + " upgraded")
 });
-ncp(path.resolve(templatePath,'pubspec.yaml'),path.resolve(flutterPath,'pubspec.yaml'),function(err){
-    if(err){
-        return console.log(err);
-    }
-    console.log(path.resolve(flutterPath,'lib','pubspec.yaml') + " upgraded")
-});
+// ncp(path.resolve(templatePath,'pubspec.yaml'),path.resolve(flutterPath,'pubspec.yaml'),function(err){
+//     if(err){
+//         return console.log(err);
+//     }
+//     console.log(path.resolve(flutterPath,'lib','pubspec.yaml') + " upgraded")
+// });
 
 ncp(path.resolve(templatePath,'test_driver'),path.resolve(flutterPath,'test_driver'),function(err){
     if(err){

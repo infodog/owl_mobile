@@ -165,4 +165,8 @@ class owl {
   static void insert(arr, index, elem) {
     arr.insert(index, elem);
   }
+
+  static bool containsKey(map, String key) {
+    return map.containsKey(key);
+  }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:owl_flutter/utils/uitools.dart';
 
 import '../components/owl_statefulcomponent.dart';
 
@@ -71,11 +70,11 @@ class OwlInputState extends State<OwlInput> {
 
     fontSize = widget.getRuleValueEx(rules, "font-size");
     color = widget.getRuleValueEx(rules, 'color');
-    cssColor = fromCssColor(color);
+    cssColor = widget.fromCssColor(color);
 
     var hintTextColor = widget.getRuleValueEx(rules, 'hint-text-color');
     if (hintTextColor != null) {
-      hintTextStyle = TextStyle(color: fromCssColor(hintTextColor));
+      hintTextStyle = TextStyle(color: widget.fromCssColor(hintTextColor));
     }
 
     String password = widget.getAttr(widget.node, 'password');

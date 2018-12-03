@@ -145,7 +145,15 @@ var pageProcessor = {
         var pageWxssFile = path.join(wxAppPath,pageName + ".wxss");
         var pageJsonFile = path.join(wxAppPath,pageName + ".json");
         var pageJsFile = path.join(wxAppPath,pageName + ".js");
-        var pageJsContent = fs.readFileSync(pageJsFile,{encoding: 'utf-8'});
+        var pageDartFile = path.join(wxAppPath,pageName + ".dart");
+
+        if(fs.existsSync(pageDartFile)){
+            var pageJsContent = fs.readFileSync(pageDartFile,{encoding: 'utf-8'});
+        }
+        else{
+            var pageJsContent = fs.readFileSync(pageJsFile,{encoding: 'utf-8'});
+        }
+
         // console.log(pageJsFile);
 
         var beginPos = pageJsContent.indexOf("//dartbegin");

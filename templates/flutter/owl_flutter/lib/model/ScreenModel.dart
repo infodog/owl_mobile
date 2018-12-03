@@ -157,10 +157,10 @@ class ScreenModel extends Model {
   void addListener(VoidCallback listener) {
     super.addListener(listener);
     // update data for every subscriber, especially for the first one
-    Function(dynamic) f = this.pageJs['onLoad'];
-    if (f != null) {
-      f({});
-    }
+//    Function(dynamic) f = this.pageJs['onLoad'];
+//    if (f != null) {
+//      f({});
+//    }
   }
 
   void onLoad() {

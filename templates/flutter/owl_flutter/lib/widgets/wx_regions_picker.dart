@@ -5,7 +5,8 @@ import 'package:owl_flutter/widgets/wx_multi_column_picker.dart';
 typedef RegionChangeListener = void Function(dynamic e);
 
 class WxRegionsPicker extends StatefulWidget {
-  WxRegionsPicker({this.value, this.changeListener});
+  WxRegionsPicker({this.value, this.changeListener, this.columnsCount});
+  int columnsCount;
   List<String> value;
   RegionChangeListener changeListener;
 
@@ -40,6 +41,9 @@ class WxRegionsPickerState extends State<WxRegionsPicker> {
           break;
         }
       }
+    }
+    if (widget.columnsCount > 0) {
+      columnsCount = widget.columnsCount;
     }
   }
 

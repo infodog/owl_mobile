@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:owl_flutter/utils/uitools.dart';
 
 import '../builders/owl_component_builder.dart';
 import '../components/owl_statefulcomponent.dart';
@@ -137,8 +136,8 @@ class OwlSwiperState extends State<OwlSwiper> {
       if (SwiperPaginations == true) {
         return new SwiperPagination(
           builder: DotSwiperPaginationBuilder(
-            activeColor: fromCssColor(indicatoractivecolor),
-            color: fromCssColor(indicatorColor),
+            activeColor: widget.fromCssColor(indicatoractivecolor),
+            color: widget.fromCssColor(indicatorColor),
             activeSize: widget.lp(paginationsize, 12.0),
           ),
           alignment: alignment(),

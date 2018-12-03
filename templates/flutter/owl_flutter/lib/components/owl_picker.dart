@@ -12,6 +12,10 @@ const double _kPickerTopBarLeftPadding = 16.0;
 const double _kPickerTopBarRightPadding = 16.0;
 const double _kPickerItemHeight = 32.0;
 
+const double _kItemFontSize = 14.0;
+
+const double _kBarFontSize = 18.0;
+
 const Color _kCancelTextColor = Color(0xff333333);
 const Color _kOkTextColor = Color(0xff33ff33);
 
@@ -47,6 +51,11 @@ class OwlPicker extends OwlStatefulComponent {
 }
 
 class OwlPickerState extends State<OwlPicker> {
+  double topBarFontSize;
+  double itemFontSize;
+  Color okTextColor;
+  Color cancelTextColor;
+
   String mode;
   dynamic value;
   dynamic start;
@@ -54,11 +63,11 @@ class OwlPickerState extends State<OwlPicker> {
   var range;
   var rangeKey;
   int columnsCount;
+  var selectedRegion;
   Function(dynamic e) bindChange;
   Function(dynamic e) bindCancel;
   Function(dynamic e) bindColumnChange;
   bool disabled;
-  var selectedRegion;
 
   @override
   void initState() {
@@ -71,6 +80,18 @@ class OwlPickerState extends State<OwlPicker> {
     } else {
       disabled = false;
     }
+    topBarFontSize = _kBarFontSize;
+    String strBarFontSize = widget.getAttr(widget.node, "topBarFontSize");
+    topBarFontSize = widget.lp(strBarFontSize, _kBarFontSize);
+
+    String strOkTextColor = widget.getAttr(widget.node, "okColor");
+    String strCancelTextColor = widget.getAttr(widget.node, "cancelColor");
+    okTextColor = widget.fromCssColor(strOkTextColor) ?? _kOkTextColor;
+    cancelTextColor =
+        widget.fromCssColor(strCancelTextColor) ?? _kCancelTextColor;
+
+    String strItemFontSize = widget.getAttr(widget.node, "itemFontSize");
+    this.itemFontSize = widget.lp(strItemFontSize, _kItemFontSize);
 
     switch (mode) {
       case 'selector':
@@ -209,6 +230,9 @@ class OwlPickerState extends State<OwlPicker> {
 
         String bindCancelName = widget.getAttr(widget.node, "bindcancel");
         bindCancel = widget.model.pageJs[bindCancelName];
+
+        String strColumnsCount = widget.getAttr(widget.node, "columnsCount");
+        columnsCount = int.parse(strColumnsCount);
         break;
     }
   }
@@ -236,8 +260,8 @@ class OwlPickerState extends State<OwlPicker> {
               child: Text(
                 "取消",
                 style: DefaultTextStyle.of(context).style.merge(TextStyle(
-                    color: _kCancelTextColor,
-                    fontSize: 22.0,
+                    color: cancelTextColor,
+                    fontSize: topBarFontSize,
                     fontWeight: FontWeight.normal,
                     decoration: TextDecoration.none,
                     shadows: [])),
@@ -273,8 +297,8 @@ class OwlPickerState extends State<OwlPicker> {
               child: Text(
                 "确定",
                 style: DefaultTextStyle.of(context).style.merge(TextStyle(
-                    color: _kOkTextColor,
-                    fontSize: 22.0,
+                    color: okTextColor,
+                    fontSize: topBarFontSize,
                     fontWeight: FontWeight.normal,
                     decoration: TextDecoration.none,
                     shadows: [])),
@@ -293,10 +317,8 @@ class OwlPickerState extends State<OwlPicker> {
         buildTopBar(context),
         Expanded(
             child: DefaultTextStyle(
-          style: const TextStyle(
-            color: CupertinoColors.black,
-            fontSize: 22.0,
-          ),
+          style:
+              TextStyle(color: CupertinoColors.black, fontSize: itemFontSize),
           child: GestureDetector(
             // Blocks taps from propagating to the modal sheet and popping.
             onTap: () {},
@@ -436,6 +458,7 @@ class OwlPickerState extends State<OwlPicker> {
             return _buildBottomPicker(
                 WxRegionsPicker(
                   value: this.value,
+                  columnsCount: columnsCount,
                   changeListener: (e) {
                     setState(() {
                       selectedRegion = e;
