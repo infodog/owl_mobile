@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import 'owl.dart';
 
@@ -37,36 +39,87 @@ class WeiXinAdapter {
     owl.navigateBack(o, docBuildContext);
   }
 
-  request(o) {
+//  request(o) {
+//    var method = o['method'];
+//    if (method == null) {
+//      method = 'GET';
+//    }
+//    var url = o['url'];
+//    var data = o['data'];
+//    Map<String, String> header = o['header'];
+//    Request req = Request(method, url);
+//    if (data is String) {
+//      req.body = data;
+//    } else {
+//      req.bodyFields = data;
+//    }
+//
+//    Map<String, String> headers = req.headers;
+//    for (MapEntry<String, String> entry in header.entries) {
+//      headers[entry.key] = entry.value;
+//    }
+//
+//    var client = new Client();
+//    client.send(req).then((StreamedResponse response) {
+//      var res = {};
+//      response.stream.bytesToString().then((String body) {
+//        var res = {};
+//        res['data'] = body;
+//        res['statusCode'] = response.statusCode;
+//        res['header'] = response.headers;
+//        o['success'](res);
+//      }, onError: o['failed']);
+//    }, onError: o['failed']).whenComplete(o['complete']);
+//  }
+
+  static String getApi(String url){
+    return url;
+  }
+
+  request(o) async{
     var method = o['method'];
     if (method == null) {
       method = 'GET';
     }
     var url = o['url'];
     var data = o['data'];
-    Map<String, String> header = o['header'];
-    Request req = Request(method, url);
-    if (data is String) {
-      req.body = data;
-    } else {
-      req.bodyFields = data;
-    }
 
-    Map<String, String> headers = req.headers;
-    for (MapEntry<String, String> entry in header.entries) {
-      headers[entry.key] = entry.value;
-    }
-
-    var client = new Client();
-    client.send(req).then((StreamedResponse response) {
-      var res = {};
-      response.stream.bytesToString().then((String body) {
-        var res = {};
-        res['data'] = body;
+    var client = new http.Client();
+    //api
+    url = getApi(url);
+    var res={};
+    try {
+      http.Response response;
+      if(method == "GET"){
+        response = await client.get(url);
+      }else{
+        if(data != null){
+          response = await client.post(url,body: data );
+        }else{
+          response = await client.post(url);
+        }
+      }
+      if (response.statusCode == 200) {
+        String body = response.body.toString();
+        res['data'] = jsonDecode(body);
         res['statusCode'] = response.statusCode;
         res['header'] = response.headers;
-        o['success'](res);
-      }, onError: o['failed']);
-    }, onError: o['failed']).whenComplete(o['complete']);
+        if(o['success']!=null && o['success'] is Function){
+          o['success'](res);
+        }
+      } else {
+        res['data'] = 'error code : ${response.statusCode}';
+        res['statusCode'] = response.statusCode;
+        res['header'] = response.headers;
+        if(o['failed']!=null && o['failed'] is Function){
+          o['failed'](res);
+        }
+      }
+    } catch (exception) {
+      res['data'] = '网络异常';
+      if(o['complete']!=null && o['complete'] is Function){
+        o['complete'](res);
+      }
+    }
   }
 }
