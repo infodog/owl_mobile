@@ -10,12 +10,13 @@ function isEmpty(dir){
     }
     return false
 }
-function createFlutterProject(dir){
+function createFlutterProject(dir,projectName){
+
     if(!isEmpty(dir)){
         console.log(dir + " is not empty, exit.")
         return;
     }
-    spawnSync("flutter",["create","."],{cwd:dir,stdio: 'inherit'}); 
+    spawnSync("flutter",["create","--project-name",projectName,"-i", "swift", "-a", "kotlin", dir],{cwd:dir,stdio: 'inherit'}); 
 }
 
 module.exports = createFlutterProject

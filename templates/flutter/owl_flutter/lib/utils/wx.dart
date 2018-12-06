@@ -8,6 +8,11 @@ int parseInt(String s) {
   return int.parse(s);
 }
 
+typedef ChooseImageSucessListener = void Function(
+    List<String> pathes, List<dynamic> fileObjects);
+typedef ChooseImageFailListener = void Function(dynamic e);
+typedef ChooseImageCompleteListener = void Function(dynamic e);
+
 class WeiXinAdapter {
   WeiXinAdapter();
 
@@ -68,5 +73,14 @@ class WeiXinAdapter {
         o['success'](res);
       }, onError: o['failed']);
     }, onError: o['failed']).whenComplete(o['complete']);
+  }
+
+  chooseImage(Map params) {
+    int count = params['count'];
+    List sizeType = params['sizeType'];
+    List sourceType = params['sourceType'];
+    ChooseImageSucessListener success = params['success'];
+    ChooseImageFailListener fail = params['fail'];
+    ChooseImageCompleteListener complete = params['complete'];
   }
 }
