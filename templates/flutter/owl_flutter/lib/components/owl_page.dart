@@ -96,8 +96,6 @@ class OwlPage extends OwlComponent {
           title: TextStyle(
               color: titleColor, fontSize: 18.0, fontWeight: FontWeight.bold)),
     );
-
-
   }
 
   Widget _buildWidget(BuildContext context) {
@@ -357,7 +355,7 @@ class OwlPage extends OwlComponent {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: buildAppBar(context),
+        appBar: buildAppBar(),
         body: RefreshIndicator(onRefresh: _refresh, child: buildBody(context)),
         backgroundColor: Color(0xffffffff),
         bottomNavigationBar: bottomBar);

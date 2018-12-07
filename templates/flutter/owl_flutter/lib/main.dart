@@ -13,10 +13,10 @@ import 'ole_view/ole_home_page_wraper.dart';
 
 void main() {
   initPageUrls();
-  Map<String,WidgetBuilder> routes = initRoutes();
+  Map<String, WidgetBuilder> routes = initRoutes();
   var homeUrl = home_route;
   OwlApp.init();
-  appMain(homeUrl,routes);
+  appMain(homeUrl, routes);
 //  int index = 0;
 //  Timer.periodic(Duration(seconds: 3), (timer) {
 //    if (index == pageUrls.length) {
@@ -26,7 +26,7 @@ void main() {
 //    index++;
 //    appMain(url);
 //  });
-
+}
 
 void appMain(String url,Map<String,WidgetBuilder> routes) {
   debugPaintSizeEnabled = false;

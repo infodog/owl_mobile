@@ -5,6 +5,11 @@ class OleConsts{
   //网络请求方法名
   static const String METHOD_NETWORK = "method_network";
 
+  //支付请求
+  static const String METHOD_PAYMENT = "method_payment";
+  //分享请求
+  static const String METHOD_SHARE_VENDOR = "method_share_vendor";
+
   //进度条显示
   static const String METHOD_PROGRESS_SHOW = "method_show_progress";
 

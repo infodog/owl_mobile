@@ -7,6 +7,7 @@ class Page2 extends StatelessWidget {
     //跳转界面
      PageJumpper.jump({"pageType":"productDetail","value":"p_5600694"});
 
+
   }
   void _popPage(){
     PageJumpper.notityNativePop();

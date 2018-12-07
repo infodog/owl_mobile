@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -72,30 +73,37 @@ class WeiXinAdapter {
 //    }, onError: o['failed']).whenComplete(o['complete']);
 //  }
 
-  static String getApi(String url){
+  static String getApi(String url) {
     return url;
   }
 
-  request(o) async{
+  request(o) async {
     var method = o['method'];
     if (method == null) {
       method = 'GET';
     }
     var url = o['url'];
     var data = o['data'];
+    Map<String, String> header = o['header'];
+    Request req = Request(method, url);
+    if (data is String) {
+      req.body = data;
+    } else {
+      req.bodyFields = data;
+    }
 
     var client = new http.Client();
     //api
     url = getApi(url);
-    var res={};
+    var res = {};
     try {
       http.Response response;
-      if(method == "GET"){
+      if (method == "GET") {
         response = await client.get(url);
-      }else{
-        if(data != null){
-          response = await client.post(url,body: data );
-        }else{
+      } else {
+        if (data != null) {
+          response = await client.post(url, body: data);
+        } else {
           response = await client.post(url);
         }
       }
@@ -104,20 +112,18 @@ class WeiXinAdapter {
         res['data'] = jsonDecode(body);
         res['statusCode'] = response.statusCode;
         res['header'] = response.headers;
-        if(o['success']!=null && o['success'] is Function){
+        if (o['success'] != null && o['success'] is Function) {
           o['success'](res);
         }
       } else {
         res['data'] = 'error code : ${response.statusCode}';
-        res['statusCode'] = response.statusCode;
-        res['header'] = response.headers;
-        if(o['failed']!=null && o['failed'] is Function){
+        if (o['failed'] != null && o['failed'] is Function) {
           o['failed'](res);
         }
       }
     } catch (exception) {
       res['data'] = '网络异常';
-      if(o['complete']!=null && o['complete'] is Function){
+      if (o['complete'] != null && o['complete'] is Function) {
         o['complete'](res);
       }
     }
