@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_image_picker/asset.dart';
+import 'package:owl_flutter/widgets/asset_view.dart';
 
 import '../components/owl_componet.dart';
 import '../utils/json_util.dart';
@@ -29,8 +31,7 @@ class OwlImage extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
-    String src = getAttr(node, "src");
-    src = renderText(src);
+
     var mode = getAttr(node, "mode");
     List rules = getNodeCssRulesEx(node, pageCss);
     //搜索width和height
@@ -58,18 +59,38 @@ class OwlImage extends OwlComponent {
       default:
         fit = BoxFit.cover;
     }
-    if (src.startsWith('http')) {
-      return CachedNetworkImage(
-          imageUrl: src,
-          width: lp(width, null),
-          height: lp(height, null),
-          fit: fit);
-    } else {
-      String assetKey = null;
-      int pos = src.indexOf('img');
-      assetKey = 'assets/' + src.substring(pos);
-      return Image.asset(assetKey,
-          width: lp(width, null), height: lp(height, null), fit: fit);
+
+    String src = getPlainAttr(node, "src");
+    print("src is : " + src);
+    print(src);
+    var srcObj;
+    if (src.indexOf("{{") == 0) {
+      src = getMiddle(src, "{{", "}}");
     }
+    print(src);
+    srcObj = model.getData(src);
+    if(srcObj is String){
+      src = srcObj;
+      if (src.startsWith('http')) {
+        return CachedNetworkImage(
+            imageUrl: src,
+            width: lp(width, null),
+            height: lp(height, null),
+            fit: fit);
+      } else {
+        String assetKey = null;
+        int pos = src.indexOf('img');
+        assetKey = 'assets/' + src.substring(pos);
+        return Image.asset(assetKey,
+            width: lp(width, null), height: lp(height, null), fit: fit);
+      }
+    }
+    else if(srcObj is Asset){
+      Asset _asset = srcObj;
+      double w = lp(width,300.0);
+      double h = lp(height,300.0);
+      return AssetView(_asset,w,h,fit:fit);
+    }
+    return Container();
   }
 }

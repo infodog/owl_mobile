@@ -26,9 +26,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  http: ^0.12.0
+  dio: ^1.0.9
   date_format: ^1.0.5
-#  image_picker: ^0.4.10
   multi_image_picker: ^2.2.55
 
 
@@ -85,3 +84,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
+
+  fonts:
+    - family: pingfang
+      fonts: 
+        - asset: assets/fonts/PingFangSC-Medium.ttf
+        - asset: assets/fonts/PingFangSC-Regular.ttf
+
+

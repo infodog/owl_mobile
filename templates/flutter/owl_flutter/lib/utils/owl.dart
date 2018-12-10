@@ -64,7 +64,7 @@ class owl {
     }
     //检查url是否属于tabs, 如果属于则不跳转
     var tabBar = owl.getApplication().appJson['tabBar'];
-    if (tabBar == null) {
+    if (tabBar != null) {
       var list = tabBar['list'];
 
       for (int i = 0; i < list.length; i++) {
@@ -76,7 +76,9 @@ class owl {
         }
       }
     }
+    
 
+    print("navigating to $url, params=$params");
     Widget screen = getScreen(url, params, owl.getApplication().appCss);
     if (screen != null) {
       Navigator.push(
