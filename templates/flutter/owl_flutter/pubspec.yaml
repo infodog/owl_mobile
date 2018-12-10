@@ -29,6 +29,7 @@ dependencies:
   dio: ^1.0.9
   date_format: ^1.0.5
   multi_image_picker: ^2.2.55
+  flutter_wechat: "^0.1.5"
 
 
 
