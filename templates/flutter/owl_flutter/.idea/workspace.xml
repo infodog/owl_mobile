@@ -21,10 +21,7 @@
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="286">
-              <caret line="11" column="17" lean-forward="true" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-              </folding>
+              <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -44,8 +41,8 @@
       <file leaf-file-name="owl_app.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/owl_generated/owl_app.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="603">
-              <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
+            <state relative-caret-position="936">
+              <caret line="44" selection-start-line="44" selection-end-line="44" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -62,19 +59,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="owl_component_builder.dart" pinned="false" current-in-tab="true">
+      <file leaf-file-name="owl_component_builder.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/builders/owl_component_builder.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+            <state relative-caret-position="416">
+              <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wx.dart" pinned="false" current-in-tab="false">
+      <file leaf-file-name="wx.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/utils/wx.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1326">
+            <state relative-caret-position="-1635">
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -85,14 +82,14 @@
       <file leaf-file-name="statefulListView.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/widgets/statefulListView.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-983" />
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="uitools.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/utils/uitools.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1794">
+            <state>
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -103,8 +100,8 @@
       <file leaf-file-name="owl.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/utils/owl.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1903">
-              <caret line="146" column="8" lean-forward="true" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="8" />
+            <state relative-caret-position="3640">
+              <caret line="146" column="3" selection-start-line="146" selection-start-column="3" selection-end-line="146" selection-end-column="3" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -115,7 +112,7 @@
       <file leaf-file-name="json_util.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/utils/json_util.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-385">
+            <state>
               <caret column="8" selection-start-column="8" selection-end-column="8" />
             </state>
           </provider>
@@ -169,7 +166,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="20" />
     <option name="width" value="1920" />
     <option name="height" value="1060" />
@@ -179,6 +176,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -195,14 +194,29 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="owl_flutter" type="b2602c69:ProjectViewProjectNode" />
               <item name="owl_flutter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="owl_flutter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="owl_flutter" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="owl_flutter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="owl_flutter" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="owl_flutter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="owl_flutter" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="widgets" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -335,7 +349,7 @@
     <option name="totallyTimeSpent" value="83444000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
@@ -354,7 +368,7 @@
       <window_info id="Captures" order="2" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2272118" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22453083" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
@@ -481,20 +495,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/components/owl_form.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/components/owl_home.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/components/owl_image.dart">
@@ -506,11 +512,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/components/owl_input.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-390">
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-390" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/components/owl_scroll_view.dart">
@@ -529,17 +531,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/model/ScreenModel.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-546">
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-546" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/owl_generated/owl_app.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
-          <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
+        <state relative-caret-position="936">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>
@@ -565,24 +563,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ole_view/ole_home_page_wraper.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/utils/json_util.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-385">
+        <state>
           <caret column="8" selection-start-column="8" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/utils/owl.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1903">
-          <caret line="146" column="8" lean-forward="true" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="8" />
+        <state relative-caret-position="3640">
+          <caret line="146" column="3" selection-start-line="146" selection-start-column="3" selection-end-line="146" selection-end-column="3" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
@@ -591,41 +585,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/utils/uitools.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1794">
+        <state>
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/utils/wx.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1326">
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/widgets/statefulListView.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-983" />
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
-          <caret line="11" column="17" lean-forward="true" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/builders/owl_component_builder.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+        <state relative-caret-position="416">
+          <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/utils/wx.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1635">
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
