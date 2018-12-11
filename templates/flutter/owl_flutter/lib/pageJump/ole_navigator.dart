@@ -14,6 +14,8 @@ class OleNavigator{
 
   static List stackPages(){
     return new List.from(_navigator._routeStack);
+
+
   }
 
 
@@ -45,6 +47,8 @@ class OleNavigator{
     NavigatorState navState = OleRoutes.globalState;
     if(context != null){
       navState = Navigator.of(context);
+
+//      Navigator.pop(context,"返回前一个页面数据");
     }
     print("nav state"+ navState.toString());
     OleRoute oleRoute = new OleRoute(page);

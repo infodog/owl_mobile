@@ -29,9 +29,10 @@ class WeiXinAdapter {
     owl.switchTab(o, docBuildContext);
   }
 
-  void showToast(o) {
+  void showToast(o) async{
     String title = o['title'];
     int duration = o['duration'];
+
     final snackBar = SnackBar(
       content: Text(title),
       duration: Duration(milliseconds: duration),
@@ -39,6 +40,12 @@ class WeiXinAdapter {
 
     // Find the Scaffold in the Widget tree and use it to show a SnackBar!
     Scaffold.of(docBuildContext).showSnackBar(snackBar);
+
+
+
+    if(o['success']!=null && o['success'] is Function){
+      o['success'](o);
+    }
   }
 
   void navigateBack(o) {
@@ -78,9 +85,7 @@ class WeiXinAdapter {
 //    }, onError: o['failed']).whenComplete(o['complete']);
 //  }
 
-  static String getApi(String url) {
-    return url;
-  }
+
 
   request(o) async {
     var method = o['method'];
@@ -96,10 +101,7 @@ class WeiXinAdapter {
     } else {
       req.bodyFields = data;
     }
-
     var client = new http.Client();
-    //api
-    url = getApi(url);
     var res = {};
     try {
       http.Response response;
@@ -107,7 +109,7 @@ class WeiXinAdapter {
         response = await client.get(url);
       } else {
         if (data != null) {
-          response = await client.post(url, body: data);
+          response = await client.post(url, body: data,headers: header);
         } else {
           response = await client.post(url);
         }
