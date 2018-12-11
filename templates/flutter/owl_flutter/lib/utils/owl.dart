@@ -63,27 +63,28 @@ class owl {
         }
       }
     }
-//    检查url是否属于tabs, 如果属于则不跳转
-//    var tabBar = owl.getApplication().appJson['tabBar'];
-//    if (tabBar == null) {
-//      return null;
-//    }
-//    var list = tabBar['list'];
-//
-//    for (int i = 0; i < list.length; i++) {
-//      var tab = list[i];
-//      var pagePath = tab['pagePath'];
-//      if (pagePath == url) {
-//        print(pagePath + " is one of the tab, use wx.switchTab instead");
-//        return null;
-//      }
-//    }
+    //检查url是否属于tabs, 如果属于则不跳转
+    var tabBar = owl.getApplication().appJson['tabBar'];
+    if (tabBar != null) {
+      var list = tabBar['list'];
+
+      for (int i = 0; i < list.length; i++) {
+        var tab = list[i];
+        var pagePath = tab['pagePath'];
+        if (pagePath == url) {
+          print(pagePath + " is one of the tab, use wx.switchTab instead");
+          return null;
+        }
+      }
+    }
 
     Map  map = Map();
     map["pageType"] = "flutter/"+url;
     //map["naviBarHidden"] ='1';
     PageJumpper.notityNativePush(map,context: context);
 
+
+//    print("navigating to $url, params=$params");
 //    Widget screen = getScreen(url, params, owl.getApplication().appCss);
 //    if (screen != null) {
 //      Navigator.push(

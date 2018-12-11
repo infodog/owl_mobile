@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:multi_image_picker/asset.dart';
+import 'package:multi_image_picker/picker.dart';
+import 'package:dio/dio.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -11,8 +13,7 @@ int parseInt(String s) {
   return int.parse(s);
 }
 
-typedef ChooseImageSucessListener = void Function(
-    List<String> pathes, List<dynamic> fileObjects);
+typedef ChooseImageSucessListener = void Function(dynamic e);
 typedef ChooseImageFailListener = void Function(dynamic e);
 typedef ChooseImageCompleteListener = void Function(dynamic e);
 
@@ -22,6 +23,7 @@ class WeiXinAdapter {
   BuildContext docBuildContext = null;
 
   void navigateTo(o) {
+    print("owl navigate, $o");
     owl.navigateTo(o, docBuildContext);
   }
 
@@ -52,87 +54,48 @@ class WeiXinAdapter {
     owl.navigateBack(o, docBuildContext);
   }
 
-//  request(o) {
-//    var method = o['method'];
-//    if (method == null) {
-//      method = 'GET';
-//    }
-//    var url = o['url'];
-//    var data = o['data'];
-//    Map<String, String> header = o['header'];
-//    Request req = Request(method, url);
-//    if (data is String) {
-//      req.body = data;
-//    } else {
-//      req.bodyFields = data;
-//    }
-//
-//    Map<String, String> headers = req.headers;
-//    for (MapEntry<String, String> entry in header.entries) {
-//      headers[entry.key] = entry.value;
-//    }
-//
-//    var client = new Client();
-//    client.send(req).then((StreamedResponse response) {
-//      var res = {};
-//      response.stream.bytesToString().then((String body) {
-//        var res = {};
-//        res['data'] = body;
-//        res['statusCode'] = response.statusCode;
-//        res['header'] = response.headers;
-//        o['success'](res);
-//      }, onError: o['failed']);
-//    }, onError: o['failed']).whenComplete(o['complete']);
-//  }
-
-
-
   request(o) async {
-    var method = o['method'];
+    String method = o['method'];
     if (method == null) {
       method = 'GET';
     }
+    method = method.toUpperCase();
     var url = o['url'];
     var data = o['data'];
     Map<String, String> header = o['header'];
-    Request req = Request(method, url);
-    if (data is String) {
-      req.body = data;
-    } else {
-      req.bodyFields = data;
+    var response;
+    var dio = new Dio();
+    if(header!=null){
+      dio.options.headers = header;
     }
-    var client = new http.Client();
-    var res = {};
+
     try {
-      http.Response response;
-      if (method == "GET") {
-        response = await client.get(url);
+      if (method == 'GET') {
+        response = await dio.get(url);
       } else {
-        if (data != null) {
-          response = await client.post(url, body: data,headers: header);
-        } else {
-          response = await client.post(url);
-        }
+        response = await dio.post(url, data: data);
+
       }
-      if (response.statusCode == 200) {
-        String body = response.body.toString();
-        res['data'] = jsonDecode(body);
-        res['statusCode'] = response.statusCode;
-        res['header'] = response.headers;
-        if (o['success'] != null && o['success'] is Function) {
-          o['success'](res);
-        }
+      var res = {};
+      res['data'] = response.data;
+      res['statusCode'] = response.statusCode;
+      res['header'] = response.headers;
+      if (o['success'] != null) {
+        o['success'](res);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print(e.response.data);
+        print(e.response.headers);
+        print(e.response.request);
       } else {
-        res['data'] = 'error code : ${response.statusCode}';
-        if (o['failed'] != null && o['failed'] is Function) {
-          o['failed'](res);
-        }
+        // Something happened in setting up or sending the request that triggered an Error
+        print(e.message);
       }
-    } catch (exception) {
-      res['data'] = '网络异常';
-      if (o['complete'] != null && o['complete'] is Function) {
-        o['complete'](res);
+      if (o['failed'] != null) {
+        o['failed']({'msg': e.message});
       }
+      return;
     }
   }
 
@@ -143,5 +106,63 @@ class WeiXinAdapter {
     ChooseImageSucessListener success = params['success'];
     ChooseImageFailListener fail = params['fail'];
     ChooseImageCompleteListener complete = params['complete'];
+    Future<List<Asset>> f =
+        MultiImagePicker.pickImages(maxImages: count, enableCamera: true);
+    f.then((List<Asset> assets) {
+      if (success != null) {
+        success({"tempFilePaths": assets});
+      }
+    });
+  }
+
+  uploadFile(Map object) async {
+    String url = object['url']; //	string		是	开发者服务器地址
+    dynamic filePathOrAsset = object['filePath']; //string		是	要上传文件资源的路径
+    String name =
+        object['name']; //string		是	文件对应的 key，开发者在服务端可以通过这个 key 获取文件的二进制内容
+    Map header =
+        object['header']; //	Object		否	HTTP 请求 Header，Header 中不能设置 Referer
+    Map formData = object['formData']; //Object		否	HTTP 请求中其他额外的 form data
+    dynamic success = object['success']; //	function		否	接口调用成功的回调函数
+    dynamic fail = object['fail']; //	function		否	接口调用失败的回调函数
+    dynamic complete =
+        object['complete']; //	function		否	接口调用结束的回调函数（调用成功、失败都会执行）
+
+    try {
+      if (filePathOrAsset is Asset) {
+        Asset _asset = filePathOrAsset;
+        await _asset.requestOriginal(quality:80);
+        formData[name] = new UploadFileInfo.fromBytes(
+            _asset.imageData.buffer.asUint8List(), name);
+        var dio = new Dio();
+        if(header!=null){
+            dio.options.headers = header;
+        }
+        Response response = await dio.post(url, data: formData);
+        _asset.releaseOriginal();
+        var res = {"data": response.data, "statusCode": response.statusCode};
+        if (success != null) {
+          success(res);
+        }
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print(e.response.data);
+        print(e.response.headers);
+        print(e.response.request);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        print(e.message);
+      }
+      if (fail != null) {
+        fail({'msg': e.message});
+      }
+      return;
+    }
+    finally{
+      if(complete!=null){
+        complete({});
+      }
+    }
   }
 }
