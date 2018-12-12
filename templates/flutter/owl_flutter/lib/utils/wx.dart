@@ -59,17 +59,17 @@ class WeiXinAdapter {
     if(header!=null){
       dio.options.headers = header;
     }
-    if(header!=null){
-      String contentType = header['Content-Type'];
-      dio.options.contentType= ContentType.parse(contentType);
-    }
+   
 
     try {
       if (method == 'GET') {
         response = await dio.get(url);
       } else {
+        if(header!=null){
+          String contentType = header['Content-Type'];
+          dio.options.contentType= ContentType.parse(contentType);
+        }
         response = await dio.post(url, data: data);
-        
       }
       var res = {};
       res['data'] = response.data;
