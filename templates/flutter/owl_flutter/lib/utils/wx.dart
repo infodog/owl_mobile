@@ -1,9 +1,10 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/asset.dart';
 import 'package:multi_image_picker/picker.dart';
 import 'package:dio/dio.dart';
-
+import 'dart:io';
 import 'owl.dart';
 
 int parseInt(String s) {
@@ -58,7 +59,11 @@ class WeiXinAdapter {
     if(header!=null){
       dio.options.headers = header;
     }
-    
+    if(header!=null){
+      String contentType = header['Content-Type'];
+      dio.options.contentType= ContentType.parse(contentType);
+    }
+
     try {
       if (method == 'GET') {
         response = await dio.get(url);

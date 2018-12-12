@@ -13,15 +13,15 @@ void main() {
   var homeUrl = home_route;
   OwlApp.init();
   appMain(homeUrl);
-  int index = 0;
-  Timer.periodic(Duration(seconds: 3), (timer) {
-    if (index == pageUrls.length) {
-      index = 0;
-    }
-    String url = pageUrls[index];
-    index++;
-    appMain(url);
-  });
+  // int index = 0;
+  // Timer.periodic(Duration(seconds: 3), (timer) {
+  //   if (index == pageUrls.length) {
+  //     index = 0;
+  //   }
+  //   String url = pageUrls[index];
+  //   index++;
+  //   appMain(url);
+  // });
 }
 
 void appMain(String url) {

@@ -1,14 +1,13 @@
-
 function login(app) {
     wx.login({
         success: res => {
             // 发送 res.code 到后台换取 openId, sessionKey, unionId
-            console.log("login return:",res);
+            console.log("login return:", res);
         }
     })
 }
 
-function getUserInfo(app,page) {
+function getUserInfo(app, page) {
     if (app.globalData.userInfo) {
         page.setData({
             userInfo: app.globalData.userInfo,
@@ -16,11 +15,11 @@ function getUserInfo(app,page) {
         })
         return;
     }
-    if(!page){
+    if (!page) {
         //在app.js中调用
         wx.getSetting({
             success: res => {
-                console.log('owlGetUserInfo success',res);
+                console.log('owlGetUserInfo success', res);
                 if (res.authSetting['scope.userInfo']) {
                     // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
                     wx.getUserInfo({
@@ -37,12 +36,13 @@ function getUserInfo(app,page) {
                 }
             }
         })
-    }
-    else{
+    } else {
         //在page中调用
         var canIUse = wx.canIUse('button.open-type.getUserInfo')
-        page.setData({canIUse:canIUse});
-        if (canIUse){
+        page.setData({
+            canIUse: canIUse
+        });
+        if (canIUse) {
             // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
             // 所以此处加入 callback 以防止这种情况
             app.userInfoReadyCallback = res => {
@@ -67,34 +67,36 @@ function getUserInfo(app,page) {
 
 }
 
-function canIUse(buttonName){
+function canIUse(buttonName) {
     //wx.canIUse('button.open-type.getUserInfo')
     return wx.canIUse(buttonName);
 }
 
-function navigateTo(url){
-    return wx.navigateTo({url:url});
+function navigateTo(url) {
+    return wx.navigateTo({
+        url: url
+    });
 }
 
-function getApplication(){
+function getApplication() {
     return getApp(); //wechat api
 }
 
-function addToList(arr,elem){
+function addToList(arr, elem) {
     arr.push(elem);
 }
 
 
-function removeFromList(arr, index){
-    arr.splice(arr,index,1);
+function removeFromList(arr, index) {
+    arr.splice(arr, index, 1);
 }
 
-function insert(arr,index,elem){
-    arr.splice(arr,index,0,elem);
+function insert(arr, index, elem) {
+    arr.splice(arr, index, 0, elem);
 }
 
-function containsKey(o,key){
-    return o.hasOwnProperty(key);
+function owlcontainsKey(arr, key) {
+    return arr.hasOwnProperty(key);
 }
 
 module.exports = {
@@ -103,5 +105,9 @@ module.exports = {
     canIUse,
     navigateTo,
     getApplication,
-    containsKey
+    addToList,
+    removeFromList,
+    insert,
+    owlcontainsKey
+
 }
