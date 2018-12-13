@@ -18,6 +18,7 @@ import '../components/owl_view.dart';
 import '../components/owl_wrap.dart';
 import '../model/ScreenModel.dart';
 import '../utils/json_util.dart';
+import '../components/owl_video.dart';
 
 class OwlComponentBuilder {
   static Widget build(
@@ -217,6 +218,18 @@ class OwlComponentBuilder {
         break;
       case "swiper-item":
         widget = OwlView(
+            key: key,
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
+        break;
+      case "video":
+        widget = OwlVideo(
             key: key,
             node: childNode,
             pageCss: pageCss,
