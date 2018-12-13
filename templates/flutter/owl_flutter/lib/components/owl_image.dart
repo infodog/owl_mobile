@@ -5,7 +5,6 @@ import 'package:owl_flutter/widgets/asset_view.dart';
 
 import '../components/owl_componet.dart';
 import '../utils/json_util.dart';
-import '../utils/uitools.dart';
 
 class OwlImage extends OwlComponent {
   OwlImage(
@@ -31,10 +30,8 @@ class OwlImage extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
-
     var mode = getAttr(node, "mode");
     List rules = getNodeCssRulesEx(node, pageCss);
-    //搜索width和height
     String width = getRuleValueEx(rules, "width");
     String height = getRuleValueEx(rules, "height");
 
@@ -66,10 +63,16 @@ class OwlImage extends OwlComponent {
     var srcObj;
     if (src.indexOf("{{") == 0) {
       src = getMiddle(src, "{{", "}}");
+      print(src);
+      srcObj = model.getData(src);
+    } else {
+      srcObj = src;
+      if (srcObj.indexOf("{{") > -1) {
+        srcObj = renderText(srcObj);
+      }
     }
-    print(src);
-    srcObj = model.getData(src);
-    if(srcObj is String){
+
+    if (srcObj is String) {
       src = srcObj;
       if (src.startsWith('http')) {
         return CachedNetworkImage(
@@ -84,12 +87,11 @@ class OwlImage extends OwlComponent {
         return Image.asset(assetKey,
             width: lp(width, null), height: lp(height, null), fit: fit);
       }
-    }
-    else if(srcObj is Asset){
+    } else if (srcObj is Asset) {
       Asset _asset = srcObj;
-      double w = lp(width,300.0);
-      double h = lp(height,300.0);
-      return AssetView(_asset,w,h,fit:fit);
+      double w = lp(width, 300.0);
+      double h = lp(height, 300.0);
+      return AssetView(_asset, w, h, fit: fit);
     }
     return Container();
   }
