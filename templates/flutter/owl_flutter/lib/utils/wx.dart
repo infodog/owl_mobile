@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_image_picker/asset.dart';
 import 'package:multi_image_picker/picker.dart';
 import 'package:dio/dio.dart';
-
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
+import 'dart:io';
 import 'owl.dart';
 
 int parseInt(String s) {
@@ -72,6 +69,10 @@ class WeiXinAdapter {
       if (method == 'GET') {
         response = await dio.get(url);
       } else {
+        if(header!=null){
+          String contentType = header['Content-Type'];
+          dio.options.contentType= ContentType.parse(contentType);
+        }
         response = await dio.post(url, data: data);
       }
       var res = {};
