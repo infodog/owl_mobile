@@ -19,18 +19,9 @@ class OpenApi{
   static request(String apiId, Map<String,dynamic> requestData, Function callback) async{
 //    OleNetWork.request(apiId,requestData,callback);
 
-    Map<String,dynamic> data = requestData['data'];
-    String method = requestData['method'];
-//    if(method==null){
-//      method = "POST";
-//    }
-//    Map<String,String> header = {"":""};
-    var header;
-    if(requestData['header'] !=null && requestData['header'] is Map<String,String>){
-      header = requestData['header'];
-    };
+    var data = requestData['data'];
     String Time_Stamp = formatDate(new DateTime.now());
-    print("======Time_Stamp"+Time_Stamp);
+    print("======Time_Stamp====="+Time_Stamp);
     var sign = "1c76e21f733cf731d35a18065ac41d24";
     var appToken = "27e3002a7d299b78ee99a02087831cdb";
     var serialNo = "d42sa5af-9b78-6320-9a79-327cb00ea561";
@@ -38,38 +29,25 @@ class OpenApi{
     String data_json = data.toString();
 
     WeiXinAdapter wx = WeiXinAdapter();
-    Map<dynamic , dynamic> o = {
-      "url": "http://10.0.147.163/api/rest",
-      "method": method,
+    Map<String , dynamic> o = {
+      "url": "http://o2otrue.crv.com.cn/api/rest",
+      "method": "POST",
       "success":callback,
-      "header":header
+      "header":requestData['header'],
+      "data":{
+        "REQUEST_ATTRS": {
+          "Api_ID": apiId,
+          "App_Token": appToken,
+          "signMethod": signMethod,
+          "Time_Stamp": Time_Stamp,
+          "Sign": hexMD5('Api_ID=$apiId&App_Token=$appToken&REQUEST_DATA=$data_json&Serial_No=$serialNo&Sign_Method=$signMethod&Time_Stamp=$Time_Stamp&$sign').toString().toUpperCase(),
+          "Serial_No": serialNo
+        },
+        "REQUEST_DATA":data,
+      }
     };
-    var loginId = "xinjingtest001";
-    var password = "123456";
-    Map<String,dynamic> d = {
-      "REQUEST_ATTRS": {
-        "Api_ID": apiId,
-        "App_Token": appToken,
-        "signMethod": signMethod,
-        "Time_Stamp": Time_Stamp,
-        "Sign": hexMD5('Api_ID=$apiId&App_Token=$appToken&REQUEST_DATA=$data_json&Serial_No=$serialNo&Sign_Method=$signMethod&Time_Stamp=$Time_Stamp&$sign').toString().toUpperCase(),
-        "Serial_No": serialNo
-      },
-      "REQUEST_DATA":{
-        "loginId": loginId,
-        "password": password
-      },
-    };
-    o['data'] = d;
 
-    var dio = new Dio();
-    print("88888");
-    var url = "http://10.0.147.163/api/rest";
-    FormData formData = new FormData.from(d);
-    Response response = await dio.post(url,data:formData);
-    print("66666666");
-    print(response.toString());
-//    wx.request(o);
+    wx.request(o);
   }
 
   static String formatDate(DateTime t){

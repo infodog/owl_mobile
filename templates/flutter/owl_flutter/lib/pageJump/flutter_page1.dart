@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owl_flutter/owl_generated/owl_route.dart';
 import 'page_jumpper.dart';
 import 'dart:convert';
 import 'ole_routers.dart';
@@ -13,7 +14,7 @@ class _Page1State extends State<Page1>{
 
     Map  map = Map();
 //      String jumpTo = "pages/vip_center/vip_center";//point
-    String jumpTo = "pages/member_index/member_index";//point
+    String jumpTo = home_route;//point
     map["pageType"] = "flutter/"+jumpTo;
     //map["naviBarHidden"] ='1';
     PageJumpper.notityNativePush(map);

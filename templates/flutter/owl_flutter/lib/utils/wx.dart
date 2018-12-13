@@ -51,7 +51,7 @@ class WeiXinAdapter {
     owl.navigateBack(o, docBuildContext);
   }
 
-  request(o) async {
+  request(o) async{
     String method = o['method'];
     if (method == null) {
       method = 'GET';
@@ -59,7 +59,7 @@ class WeiXinAdapter {
     method = method.toUpperCase();
     var url = o['url'];
     var data = o['data'];
-    Map<String, String> header = o['header'];
+    var header = o['header'];
     Response response;
     var dio = new Dio();
     if(header!=null){
@@ -69,11 +69,11 @@ class WeiXinAdapter {
       if (method == 'GET') {
         response = await dio.get(url);
       } else {
-        if(header!=null){
+        if(header!=null && header['Content-Type']!=null){
           String contentType = header['Content-Type'];
           dio.options.contentType= ContentType.parse(contentType);
         }
-        response = await dio.post(url, data: data);
+        response =  await dio.post(url, data: data);
       }
       var res = {};
       res['data'] = response.data;

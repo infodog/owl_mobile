@@ -13,3 +13,5 @@ node_modules
 .idea/libraries/Dart_SDK.xml
 .idea/workspace.xml
 .idea/libraries/Dart_Packages.xml
+templates/flutter/owl_flutter/.idea/workspace.xml
+templates/flutter/owl_flutter/.idea/workspace.xml
