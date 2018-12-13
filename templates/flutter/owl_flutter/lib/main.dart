@@ -35,7 +35,9 @@ void appMain(String url,Map<String,WidgetBuilder> routes) {
   if (owl.isHomeTabUrl(url)) {
     runApp(MaterialApp(
       title: 'Owl Applications',
-      home: OwlHome(url, {}),
+//      home: OwlHome(url, {}),
+      home:  new OleHomePageWraper(OwlHome(url, {})),
+      routes: routes,
     ));
   } else {
     Widget homeScreen = getScreen(url, {}, owl.getApplication().appCss);

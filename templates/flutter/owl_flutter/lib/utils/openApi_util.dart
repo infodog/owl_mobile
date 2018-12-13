@@ -1,42 +1,88 @@
-import 'package:http/http.dart' as http;
+
 import 'dart:convert';
+import 'dart:math';
+import 'package:dio/dio.dart';
+import 'package:owl_flutter/pageJump/ole_network.dart';
+
+import 'wx.dart';
+import 'package:crypto/crypto.dart';
+import 'package:convert/convert.dart';
+import 'date_util.dart';
 class OpenApi{
 
-  static request(String apiId, Map<String,dynamic> o, [Function callback]) async{
-    var client = new http.Client();
-    var baseUrl = "http://o2otrue.crv.com.cn/api/rest";
-    var method ="";
-    String sessionId = "";
-    Map<String,String> headers = {"sessionId":sessionId};
-    Map data = {};
-    var res={};
-    try{
-      http.Response response;
-      if (method == "GET") {
-        response = await client.get(baseUrl);
-      } else {
-        response = await client.post(baseUrl, body: data,headers:headers);
-        if (response.statusCode == 200) {
-          String body = response.body.toString();
-          res['data'] = jsonDecode(body);
-          res['statusCode'] = response.statusCode;
-          res['header'] = response.headers;
-          if (o['success'] != null && o['success'] is Function) {
-            o['success'](res);
-          }
-        } else {
-          res['data'] = 'error code : ${response.statusCode}';
-          if (o['failed'] != null && o['failed'] is Function) {
-            o['failed'](res);
-          }
-        }
-      }
+  static String hexMD5(String data){
+    var content = new Utf8Encoder().convert(data);
+    var digest = md5.convert(content);
+    return hex.encode(digest.bytes);
+  }
 
-    }catch(e){
-      res['data'] = '网络异常';
-      if (o['complete'] != null && o['complete'] is Function) {
-        o['complete'](res);
-      }
-    }
+  static request(String apiId, Map<String,dynamic> requestData, Function callback) async{
+//    OleNetWork.request(apiId,requestData,callback);
+
+    Map<String,dynamic> data = requestData['data'];
+    String method = requestData['method'];
+//    if(method==null){
+//      method = "POST";
+//    }
+//    Map<String,String> header = {"":""};
+    var header;
+    if(requestData['header'] !=null && requestData['header'] is Map<String,String>){
+      header = requestData['header'];
+    };
+    String Time_Stamp = formatDate(new DateTime.now());
+    print("======Time_Stamp"+Time_Stamp);
+    var sign = "1c76e21f733cf731d35a18065ac41d24";
+    var appToken = "27e3002a7d299b78ee99a02087831cdb";
+    var serialNo = "d42sa5af-9b78-6320-9a79-327cb00ea561";
+    var signMethod = "MD5";
+    String data_json = data.toString();
+
+    WeiXinAdapter wx = WeiXinAdapter();
+    Map<dynamic , dynamic> o = {
+      "url": "http://10.0.147.163/api/rest",
+      "method": method,
+      "success":callback,
+      "header":header
+    };
+    var loginId = "xinjingtest001";
+    var password = "123456";
+    Map<String,dynamic> d = {
+      "REQUEST_ATTRS": {
+        "Api_ID": apiId,
+        "App_Token": appToken,
+        "signMethod": signMethod,
+        "Time_Stamp": Time_Stamp,
+        "Sign": hexMD5('Api_ID=$apiId&App_Token=$appToken&REQUEST_DATA=$data_json&Serial_No=$serialNo&Sign_Method=$signMethod&Time_Stamp=$Time_Stamp&$sign').toString().toUpperCase(),
+        "Serial_No": serialNo
+      },
+      "REQUEST_DATA":{
+        "loginId": loginId,
+        "password": password
+      },
+    };
+    o['data'] = d;
+
+    var dio = new Dio();
+    print("88888");
+    var url = "http://10.0.147.163/api/rest";
+    FormData formData = new FormData.from(d);
+    Response response = await dio.post(url,data:formData);
+    print("66666666");
+    print(response.toString());
+//    wx.request(o);
+  }
+
+  static String formatDate(DateTime t){
+    return YYYYMMDD(t)+" "+HHMMssSSS(t);
+  }
+
+  static guid() {
+    return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4();
+  }
+
+  // 随机生成一个4位字符
+  static S4() {
+//    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+//    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
   }
 }

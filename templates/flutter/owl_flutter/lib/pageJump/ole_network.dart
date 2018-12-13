@@ -93,7 +93,7 @@ class OleNetWork{
     String key = params[_networkidPrefix()];
 
     if(onResult !=null){
-      _requestStack[key] = onResult ;
+      _requestStack[key] = onResult;
     }
 
     _methodChannel.invokeMethod(OleConsts.METHOD_PAYMENT,params);

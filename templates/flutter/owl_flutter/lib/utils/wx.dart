@@ -63,18 +63,16 @@ class WeiXinAdapter {
     var url = o['url'];
     var data = o['data'];
     Map<String, String> header = o['header'];
-    var response;
+    Response response;
     var dio = new Dio();
     if(header!=null){
       dio.options.headers = header;
     }
-
     try {
       if (method == 'GET') {
         response = await dio.get(url);
       } else {
         response = await dio.post(url, data: data);
-
       }
       var res = {};
       res['data'] = response.data;

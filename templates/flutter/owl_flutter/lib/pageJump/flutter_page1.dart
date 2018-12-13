@@ -12,7 +12,8 @@ class _Page1State extends State<Page1>{
   void _openNewPage(){
 
     Map  map = Map();
-    String jumpTo = "pages/vip_center/vip_center";//point
+//      String jumpTo = "pages/vip_center/vip_center";//point
+    String jumpTo = "pages/member_index/member_index";//point
     map["pageType"] = "flutter/"+jumpTo;
     //map["naviBarHidden"] ='1';
     PageJumpper.notityNativePush(map);
