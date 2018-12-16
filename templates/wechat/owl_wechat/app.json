@@ -1,20 +1,8 @@
 {
   "pages": [
-    "pages/shop_cart/shop_cart",
-    "pages/classifly/classifly",
-    "pages/home/home2",
-    
-    "pages/my_center/my_center",
-    "pages/order/order",
-    
-    "pages/search/search",
-    "pages/product_details/product_details",
-    "pages/brand/brand",
-    "pages/classifly_mz/classifly_mz",
-    "pages/shop_list_show/shop_list_show",
-    "pages/examples/products/productList",
-    "pages/index/index"
-    
+    "pages/example/test",
+    "pages/example/testParams",
+    "pages/example/video_player"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -29,28 +17,22 @@
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/home/home2",
-        "text": "首页",
+        "pagePath": "pages/example/test",
+        "text": "测试",
         "iconPath": "img/home.png",
-        "selectedIconPath": "img/homeh.png"
+        "selectedIconPath": "img/home.png"
       },
       {
-        "pagePath": "pages/classifly/classifly",
-        "text": "分类",
+        "pagePath": "pages/example/testParams",
+        "text": "传参",
         "iconPath": "img/class.png",
-        "selectedIconPath": "img/classh.png"
+        "selectedIconPath": "img/class.png"
       },
       {
-        "pagePath": "pages/shop_cart/shop_cart",
-        "text": "购物车",
+        "pagePath": "pages/example/video_player",
+        "text": "视频",
         "iconPath": "img/cart.png",
-        "selectedIconPath": "img/carth.png"
-      },
-      {
-        "pagePath": "pages/order/order",
-        "text": "我的",
-        "iconPath": "img/myb.png",
-        "selectedIconPath": "img/my.png"
+        "selectedIconPath": "img/cshouc.png"
       }
     ]
   }

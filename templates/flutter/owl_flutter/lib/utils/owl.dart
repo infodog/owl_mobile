@@ -1,21 +1,27 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/components/owl_home.dart';
 import 'package:owl_flutter/owl_generated/owl_route.dart';
+import 'package:owl_flutter/utils/wx.dart';
 
 import '../owl_generated/owl_app.dart';
 
-class owl {
-  static void login(app) {}
+class Owl {
+  BuildContext docBuildContext;
+  WeiXinAdapter wx;
 
-  static void getUserInfo(app, page) {}
+  void login(app) {}
 
-  static bool canIUse(buttonName) {
+  void getUserInfo(app, page) {}
+
+  bool canIUse(buttonName) {
     return true;
   }
 
   static bool isHomeTabUrl(url) {
-    var tabBar = owl.getApplication().appJson['tabBar'];
+    var tabBar = getApplication().appJson['tabBar'];
     if (tabBar == null) {
       return false;
     }
@@ -35,6 +41,7 @@ class owl {
   }
 
   static OwlApp owlapp = OwlApp();
+
   static OwlApp getApplication() {
     return owlapp;
   }
@@ -63,7 +70,7 @@ class owl {
       }
     }
     //检查url是否属于tabs, 如果属于则不跳转
-    var tabBar = owl.getApplication().appJson['tabBar'];
+    var tabBar = getApplication().appJson['tabBar'];
     if (tabBar != null) {
       var list = tabBar['list'];
 
@@ -76,10 +83,9 @@ class owl {
         }
       }
     }
-    
 
-    print("navigating to $url, params=$params");
-    Widget screen = getScreen(url, params, owl.getApplication().appCss);
+//    print("navigating to $url, params=$params");
+    Widget screen = getScreen(url, params, getApplication().appCss);
     if (screen != null) {
       Navigator.push(
         context,
@@ -95,7 +101,7 @@ class owl {
     }
 
     //判断url是否属于某个tab
-    var tabBar = owl.getApplication().appJson['tabBar'];
+    var tabBar = getApplication().appJson['tabBar'];
     if (tabBar == null) {
       return null;
     }
@@ -150,19 +156,67 @@ class owl {
     }
   }
 
-  static void addToList(arr, elem) {
+  void addToList(arr, elem) {
     arr.add(elem);
   }
 
-  static void removeFromList(arr, index) {
+  void removeFromList(arr, index) {
     arr.removeAt(index);
   }
 
-  static void insert(arr, index, elem) {
+  void insert(arr, index, elem) {
     arr.insert(index, elem);
   }
 
-  static bool containsKey(map, String key) {
+  bool containsKey(map, String key) {
     return map.containsKey(key);
+  }
+
+  void uploadFiles(url, pictures, onSuccess, onFailed) {
+    var uploaded = 0;
+    var failed = false;
+
+    var total = pictures.length;
+    List uploadedPictures = new List(total);
+    wx.showLoading({
+      "title": "上传中:" + uploaded.toString() + "/" + total.toString(),
+      "mask": true
+    });
+    for (var i = 0; i < pictures.length; i++) {
+      var item = pictures[i];
+      wx.uploadFile({
+        "url": url,
+        "filePath": item,
+        "name": "pic",
+        "formData": {},
+        "success": (res) {
+          //console.log(res);
+          uploaded = uploaded + 1;
+          print("uploaded index:$i");
+          uploadedPictures[i] = json.decode(res["data"]);
+          wx.showLoading({
+            "title": "上传中:" + uploaded.toString() + "/" + total.toString(),
+            "mask": true
+          });
+          if (uploaded == total) {
+            wx.hideLoading({});
+            wx.showToast({"title": "上传成功。", "icon": "success"});
+            if (onSuccess != null) {
+              if (!failed) {
+                onSuccess(uploadedPictures);
+              }
+            }
+          }
+        },
+        "fail": (e) {
+          wx.hideLoading({});
+          wx.showToast({"title": "上传出错"});
+          if (onFailed && !failed) {
+            failed = true;
+            onFailed({"index": i});
+          }
+        }
+      });
+    }
   }
 }

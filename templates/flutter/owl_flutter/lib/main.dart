@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:owl_flutter/owl_generated/owl_app.dart';
@@ -27,16 +25,16 @@ void main() {
 void appMain(String url) {
   debugPaintSizeEnabled = false;
 //  Widget homeScreen = getScreen(homeUrl, {}, owl.getApplication().appCss);
-  if (owl.isHomeTabUrl(url)) {
+  if (Owl.isHomeTabUrl(url)) {
     runApp(MaterialApp(
-      title: 'Owl Applications',
-      home: OwlHome(url, {}),
-    ));
+        title: 'Owl Applications',
+        home: OwlHome(url, {}),
+        theme: ThemeData(fontFamily: 'pingfang')));
   } else {
-    Widget homeScreen = getScreen(url, {}, owl.getApplication().appCss);
+    Widget homeScreen = getScreen(url, {}, Owl.getApplication().appCss);
     runApp(MaterialApp(
-      title: 'Owl Applications',
-      home: homeScreen,
-    ));
+        title: 'Owl Applications',
+        home: homeScreen,
+        theme: ThemeData(fontFamily: 'pingfang')));
   }
 }

@@ -1,0 +1,12 @@
+<view>
+  <video id="myVideo" style="height:500rpx;" src="{{src}}" danmu-list="{{danmuList}}"  danmu-btn="{{danmubtn}}" 
+   controls="{{controls}}" autoplay="{{autoplay}}" autoInitialize="{{autoInitialize}}"
+   progress-colors="{{progresscolors}}" fullScreenByDefault="{{fullScreenByDefault}}"
+  loop="{{loop}}" >
+</video>
+  <view class="btn-area">
+    <button bindtap="bindButtonTap">获取视频</button>
+    <input bindblur="bindInputBlur"/>
+    <button bindtap="bindSendDanmu">发送弹幕</button>
+  </view>
+</view>

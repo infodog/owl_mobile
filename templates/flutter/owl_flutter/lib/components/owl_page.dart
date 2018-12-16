@@ -35,7 +35,7 @@ class OwlPage extends OwlComponent {
   final Widget bottomBar;
   bool hasAppBar = false;
   AppBar buildAppBar() {
-    OwlApp app = owl.getApplication();
+    OwlApp app = Owl.getApplication();
     String title = null;
 
     if (pageJson == null) {
@@ -69,12 +69,13 @@ class OwlPage extends OwlComponent {
     if (title == null) {
       title = 'owlmobile';
     }
-    String backgroundColor;
+    String appBarBackgroundColor;
     if (app.appJson['window'] != null) {
-      backgroundColor = app.appJson['window']['navigationBarBackgroundColor'];
+      appBarBackgroundColor =
+          app.appJson['window']['navigationBarBackgroundColor'];
     }
     if (pageJson['navigationBarBackgroundColor'] != null) {
-      backgroundColor = pageJson['navigationBarBackgroundColor'];
+      appBarBackgroundColor = pageJson['navigationBarBackgroundColor'];
     }
 
     String navigationBarTextStyle =
@@ -90,7 +91,7 @@ class OwlPage extends OwlComponent {
 
     return AppBar(
       title: new Text(title),
-      backgroundColor: fromCssColor(backgroundColor),
+      backgroundColor: fromCssColor(appBarBackgroundColor),
       elevation: 0.0,
       textTheme: TextTheme(
           title: TextStyle(
@@ -314,10 +315,7 @@ class OwlPage extends OwlComponent {
     if (hasAppBar) {
       return finalPage;
     } else {
-      MediaQueryData mediaQueryData = MediaQuery.of(context);
-      return Padding(
-          child: finalPage,
-          padding: EdgeInsets.only(top: mediaQueryData.padding.top));
+      return SafeArea(child: finalPage);
     }
   }
 
@@ -352,10 +350,19 @@ class OwlPage extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
+    OwlApp app = Owl.getApplication();
+    String backgroundColor;
+    if (app.appJson['window'] != null) {
+      backgroundColor = app.appJson['window']['backgroundColor'];
+    }
+    if (pageJson['backgroundColor'] != null) {
+      backgroundColor = pageJson['backgroundColor'];
+    }
+
     return new Scaffold(
         appBar: buildAppBar(),
         body: RefreshIndicator(onRefresh: _refresh, child: buildBody(context)),
-        backgroundColor: Color(0xffffffff),
+        backgroundColor: fromCssColor(backgroundColor),
         bottomNavigationBar: bottomBar);
   }
 }

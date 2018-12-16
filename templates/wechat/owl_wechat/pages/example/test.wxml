@@ -1,0 +1,40 @@
+<!--pages/test.wxml-->
+<view>
+
+
+  <picker range="{{colors}}" value="2" bindchange="setColor" mode="selector">
+    <view style='font-size:64rpx;margin:32rpx'>color:{{selectedColor}}</view>
+  </picker>
+      
+    
+  <picker mode="date" value="{{theDate}}" bindchange="setTheDate">
+    <view style='font-size:64rpx;margin:32rpx'>选择日期{{theDate}}</view>
+  </picker>
+
+  <picker mode="time" value="{{curTime}}" bindchange="setCurTime">
+    <view style='font-size:64rpx;margin:32rpx'>选择时间:{{curTime}}</view>
+  </picker>
+
+
+
+  <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" range-key='name' columnsCount='2'>
+    <view style='font-size:64rpx;margin:32rpx'>
+      级联选择：{{multiIndex}}
+    </view>
+  </picker>
+
+  <picker mode="region" bindchange="setRegion" value="{{theregion}}"  itemFontSize='14px' okColor='rgba(0,0,0,0.7)' cancelColor='rgba(0,0,0,0.7)' topBarFontSize='16px' columnsCount='2'>
+    <view style='font-size:64rpx;margin:32rpx'>
+      地区选择：{{theregion}}
+    </view>
+  </picker>
+  <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='selectPictures'>选择图片</view>
+  <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='go' data-link="/pages/testParams?id=cccc" >测试页面传参数</view>
+  <view wx:for="{{pictures}}">
+    <image src='{{item}}'></image>
+  </view>
+  <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='goGetRequest'>测试wx.request get</view>
+  <view>{{responseData}}</view>
+   <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='goPostRequest'>测试wx.request post</view>
+   <view>{{postResponseData}}</view>
+</view>

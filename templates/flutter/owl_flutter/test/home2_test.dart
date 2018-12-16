@@ -6,7 +6,7 @@ import '../lib/utils/owl.dart';
 
 void main() {
   testWidgets('home2 smoke test', (WidgetTester tester) async {
-    var app = owl.getApplication();
+    var app = Owl.getApplication();
     // var home2 = pages_home_home2(params:{}, appCss:app.appCss,url:'pages/home/home2');
 
     var home = MaterialApp(

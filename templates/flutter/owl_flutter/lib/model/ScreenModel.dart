@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
+import 'package:owl_flutter/utils/owl.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../utils/wx.dart';
@@ -10,6 +11,7 @@ class ScreenModel extends Model {
 
   ScreenModel(this.params) {
     wx = WeiXinAdapter();
+    owl = Owl();
     componentModel = {};
     widgetCaches = {};
     instanceId = maxInstanceId;
@@ -28,9 +30,12 @@ class ScreenModel extends Model {
   Map<dynamic, List<Widget>> widgetCaches;
 
   WeiXinAdapter wx;
+  Owl owl;
 
   setDocBuildContext(BuildContext buildContext) {
     wx.docBuildContext = buildContext;
+    owl.docBuildContext = buildContext;
+    owl.wx = wx;
   }
 
   clearDirty() {
