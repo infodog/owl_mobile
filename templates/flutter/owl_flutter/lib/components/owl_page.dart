@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
+import 'package:owl_flutter/components/owl_statefulcomponent.dart';
+import "package:pull_to_refresh/pull_to_refresh.dart";
 
-import '../components/owl_componet.dart';
 import '../owl_generated/owl_app.dart';
 import '../utils/owl.dart';
 
-class OwlPage extends OwlComponent {
+class OwlPage extends OwlStatefulComponent {
   OwlPage(
       {Key key,
       node,
@@ -33,30 +34,70 @@ class OwlPage extends OwlComponent {
             cacheContext: cacheContext);
 
   final Widget bottomBar;
+
+  @override
+  OwlPageState createState() {
+    // TODO: implement createState
+    return OwlPageState();
+  }
+}
+
+class OwlPageState extends State<OwlPage> {
   bool hasAppBar = false;
+
+  RefreshController _refreshController;
+
+  Widget _buildHeader(context, mode) {
+    return new ClassicIndicator(
+        mode: mode,
+        releaseText: "放手刷新",
+        refreshingText: "刷新中",
+        completeText: "刷新完成",
+        noDataText: "无更多数据",
+        failedText: "刷新失败",
+        idleText: "下拉刷新");
+  }
+
+  Widget _buildFooter(context, mode) {
+    return new ClassicIndicator(
+        mode: mode,
+        releaseText: "放手获取更多",
+        refreshingText: "刷新中",
+        completeText: "刷新完成",
+        noDataText: "无更多数据",
+        failedText: "刷新失败",
+        idleText: "上拉下载更多");
+  }
+
+  initState() {
+    _refreshController = RefreshController();
+    widget.model.refreshController = _refreshController;
+  }
+
   AppBar buildAppBar() {
     OwlApp app = Owl.getApplication();
     String title = null;
 
-    if (pageJson == null) {
+    if (widget.pageJson == null) {
       hasAppBar = false;
       return null;
     }
 
-    if (pageJson.containsKey('showAppBar') && pageJson['showAppBar'] == false) {
+    if (widget.pageJson.containsKey('showAppBar') &&
+        widget.pageJson['showAppBar'] == false) {
       hasAppBar = false;
       return null;
     }
 
-    if (pageJson.containsKey('showAppBar') == false) {
+    if (widget.pageJson.containsKey('showAppBar') == false) {
       hasAppBar = false;
       return null;
     }
 
     hasAppBar = true;
 
-    if (pageJson != null) {
-      title = pageJson['navigationBarTitleText'];
+    if (widget.pageJson != null) {
+      title = widget.pageJson['navigationBarTitleText'];
     }
 
     if (title == null) {
@@ -74,24 +115,24 @@ class OwlPage extends OwlComponent {
       appBarBackgroundColor =
           app.appJson['window']['navigationBarBackgroundColor'];
     }
-    if (pageJson['navigationBarBackgroundColor'] != null) {
-      appBarBackgroundColor = pageJson['navigationBarBackgroundColor'];
+    if (widget.pageJson['navigationBarBackgroundColor'] != null) {
+      appBarBackgroundColor = widget.pageJson['navigationBarBackgroundColor'];
     }
 
     String navigationBarTextStyle =
         app.appJson['window']['navigationBarTextStyle'];
-    if (pageJson['navigationBarTextStyle'] != null) {
-      navigationBarTextStyle = pageJson['navigationBarTextStyle'];
+    if (widget.pageJson['navigationBarTextStyle'] != null) {
+      navigationBarTextStyle = widget.pageJson['navigationBarTextStyle'];
     }
 
-    Color titleColor = fromCssColor("#000000");
+    Color titleColor = widget.fromCssColor("#000000");
     if (navigationBarTextStyle == 'white') {
-      titleColor = fromCssColor("#ffffff");
+      titleColor = widget.fromCssColor("#ffffff");
     }
 
     return AppBar(
       title: new Text(title),
-      backgroundColor: fromCssColor(appBarBackgroundColor),
+      backgroundColor: widget.fromCssColor(appBarBackgroundColor),
       elevation: 0.0,
       textTheme: TextTheme(
           title: TextStyle(
@@ -100,8 +141,8 @@ class OwlPage extends OwlComponent {
   }
 
   Widget _buildWidget(BuildContext context) {
-    setScreenWidth(context);
-    String alignment = getAttr(node, 'alignment');
+    widget.setScreenWidth(context);
+    String alignment = widget.getAttr(widget.node, 'alignment');
 
     var fixednodes = [];
     var nonFixedNodes = [];
@@ -110,33 +151,34 @@ class OwlPage extends OwlComponent {
     Map<Widget, int> widget2zindex = {};
 
     String rootNodeName = "";
-    if (node.keys.length == 0) {
+    if (widget.node.keys.length == 0) {
       return null;
     }
-    rootNodeName = node.keys.first;
-    var children = node[rootNodeName]['children'];
+    rootNodeName = widget.node.keys.first;
+    var children = widget.node[rootNodeName]['children'];
     for (var i = 0; i < children.length; i++) {
       Map<String, dynamic> child = children[i];
       var nodeName = child.keys.first;
       if (child[nodeName] is Map) {
-        List childRules = getNodeCssRulesEx(child[nodeName], pageCss);
-        var position = getRuleValueEx(childRules, 'position');
+        List childRules =
+            widget.getNodeCssRulesEx(child[nodeName], widget.pageCss);
+        var position = widget.getRuleValueEx(childRules, 'position');
         if (position == 'absolute' || position == 'fixed') {
           fixednodes.add(child);
-          var zIndexStr = getRuleValueEx(childRules, 'z-index');
+          var zIndexStr = widget.getRuleValueEx(childRules, 'z-index');
           int zIndex = 0;
           if (zIndexStr != null) {
             zIndex = int.parse(zIndexStr);
           }
           var widgets = OwlComponentBuilder.buildList(
               node: child,
-              pageCss: pageCss,
-              appCss: appCss,
-              model: model,
-              componentModel: componentModel,
-              parentNode: node,
-              parentWidget: this,
-              cacheContext: cacheContext);
+              pageCss: widget.pageCss,
+              appCss: widget.appCss,
+              model: widget.model,
+              componentModel: widget.componentModel,
+              parentNode: widget.node,
+              parentWidget: widget,
+              cacheContext: widget.cacheContext);
           fixedWidgets.addAll(widgets);
 
           for (var j = 0; j < widgets.length; j++) {
@@ -146,64 +188,66 @@ class OwlPage extends OwlComponent {
           nonFixedNodes.add(child);
           var widgets = OwlComponentBuilder.buildList(
               node: child,
-              pageCss: pageCss,
-              appCss: appCss,
-              model: model,
-              componentModel: componentModel,
-              parentNode: node,
-              parentWidget: this,
-              cacheContext: cacheContext);
+              pageCss: widget.pageCss,
+              appCss: widget.appCss,
+              model: widget.model,
+              componentModel: widget.componentModel,
+              parentNode: widget.node,
+              parentWidget: widget,
+              cacheContext: widget.cacheContext);
           childWidgets.addAll(widgets);
         }
       } else {
         nonFixedNodes.add(child);
         var widgets = OwlComponentBuilder.buildList(
             node: child,
-            pageCss: pageCss,
-            appCss: appCss,
-            model: model,
-            componentModel: componentModel,
-            parentNode: node,
-            parentWidget: this,
-            cacheContext: cacheContext);
+            pageCss: widget.pageCss,
+            appCss: widget.appCss,
+            model: widget.model,
+            componentModel: widget.componentModel,
+            parentNode: widget.node,
+            parentWidget: widget,
+            cacheContext: widget.cacheContext);
         childWidgets.addAll(widgets);
       }
     }
 
-    List rules = getNodeCssRulesEx(node[rootNodeName], pageCss);
+    List rules =
+        widget.getNodeCssRulesEx(widget.node[rootNodeName], widget.pageCss);
     //搜索width和height
-    String width = getRuleValueEx(rules, "width");
-    double lpWidth = lp(width, null);
-    String height = getRuleValueEx(rules, "height");
-    String color = getRuleValueEx(rules, "color");
-    String backgroundColor = getRuleValueEx(rules, 'background-color');
+    String width = widget.getRuleValueEx(rules, "width");
+    double lpWidth = widget.lp(width, null);
+    String height = widget.getRuleValueEx(rules, "height");
+    String color = widget.getRuleValueEx(rules, "color");
+    String backgroundColor = widget.getRuleValueEx(rules, 'background-color');
 
-    String minWidth = getRuleValueEx(rules, "min-width");
-    String maxWidth = getRuleValueEx(rules, "max-width");
-    String minHeight = getRuleValueEx(rules, "min-height");
-    String maxHeight = getRuleValueEx(rules, "max-height");
-    String borderRadius = getRuleValueEx(rules, "border-radius");
+    String minWidth = widget.getRuleValueEx(rules, "min-width");
+    String maxWidth = widget.getRuleValueEx(rules, "max-width");
+    String minHeight = widget.getRuleValueEx(rules, "min-height");
+    String maxHeight = widget.getRuleValueEx(rules, "max-height");
+    String borderRadius = widget.getRuleValueEx(rules, "border-radius");
 
-    String backgroundImage = getRuleValueEx(rules, "background-image");
-    String backgroundPosition = getRuleValueEx(rules, "background-position");
-    String backgroundRepeat = getRuleValueEx(rules, "background-repeat");
-    String backgroundSize = getRuleValueEx(rules, 'background-size');
+    String backgroundImage = widget.getRuleValueEx(rules, "background-image");
+    String backgroundPosition =
+        widget.getRuleValueEx(rules, "background-position");
+    String backgroundRepeat = widget.getRuleValueEx(rules, "background-repeat");
+    String backgroundSize = widget.getRuleValueEx(rules, 'background-size');
 
-    String position = getRuleValueEx(rules, "position");
+    String position = widget.getRuleValueEx(rules, "position");
 
-    Color bColor = fromCssColor(backgroundColor);
-    Border border = getBorder(rules);
-    String className = getAttr(node, 'class'); //{{aaaa}} => 1
+    Color bColor = widget.fromCssColor(backgroundColor);
+    Border border = widget.getBorder(rules);
+    String className = widget.getAttr(widget.node, 'class'); //{{aaaa}} => 1
 
-    String flexDirection = getRuleValueEx(rules, "flex-direction");
-    String justifyContent = getRuleValueEx(rules, "justify-content");
-    String alignItems = getRuleValueEx(rules, "align-items");
+    String flexDirection = widget.getRuleValueEx(rules, "flex-direction");
+    String justifyContent = widget.getRuleValueEx(rules, "justify-content");
+    String alignItems = widget.getRuleValueEx(rules, "align-items");
 
-    String boxShadow = getRuleValueEx(rules, 'box-shadow');
-    List<BoxShadow> shadows = parseBoxShadow(boxShadow);
+    String boxShadow = widget.getRuleValueEx(rules, 'box-shadow');
+    List<BoxShadow> shadows = widget.parseBoxShadow(boxShadow);
 
-    String scrollX = getAttr(node, 'scroll-x');
-    String scrollY = getAttr(node, 'scroll-y');
+    String scrollX = widget.getAttr(widget.node, 'scroll-x');
+    String scrollY = widget.getAttr(widget.node, 'scroll-y');
     Axis scrollDirection = Axis.vertical;
     if (scrollX == 'true') {
       scrollDirection = Axis.horizontal;
@@ -213,19 +257,19 @@ class OwlPage extends OwlComponent {
 
     Widget container = Container(
         key: ValueKey(className),
-        child: wrapFlex(
+        child: widget.wrapFlex(
             children: childWidgets,
             flexDirection: flexDirection,
             justifyContent: justifyContent,
             alignItems: alignItems),
-        width: lp(width, null),
-        height: lp(height, null),
+        width: widget.lp(width, null),
+        height: widget.lp(height, null),
 //        alignment: Alignment.topLeft,
-        padding: getPadding(rules),
-        margin: getMargin(rules),
+        padding: widget.getPadding(rules),
+        margin: widget.getMargin(rules),
         decoration: BoxDecoration(
             color: bColor,
-            image: createDecorationImage(
+            image: widget.createDecorationImage(
                 backgroundImage: backgroundImage,
                 backgroundPosition: backgroundPosition,
                 backgroundSize: backgroundSize,
@@ -234,69 +278,97 @@ class OwlPage extends OwlComponent {
             boxShadow: shadows,
             borderRadius: borderRadius == null
                 ? null
-                : BorderRadius.circular(lp(borderRadius, 0.0))),
+                : BorderRadius.circular(widget.lp(borderRadius, 0.0))),
         constraints: BoxConstraints(
-            minWidth: lp(minWidth, 0.0),
-            minHeight: lp(minHeight, 0.0),
-            maxWidth: lp(maxWidth, double.infinity),
-            maxHeight: lp(maxHeight, double.infinity)));
+            minWidth: widget.lp(minWidth, 0.0),
+            minHeight: widget.lp(minHeight, 0.0),
+            maxWidth: widget.lp(maxWidth, double.infinity),
+            maxHeight: widget.lp(maxHeight, double.infinity)));
 
     Widget realView = null;
-    if (hasTextStyles(rules)) {
-      Color textcolor = fromCssColor(color);
-      var fontWeight = getRuleValueEx(rules, "font-weight");
-      var fontSize = getRuleValueEx(rules, "font-size");
-      var fontFamily = getRuleValueEx(rules, "font-family");
-      var letterSpacing = getRuleValueEx(rules, "letter-spacing");
-      var fontStyle = getRuleValueEx(rules, "font-style");
-      var textOverflow = getRuleValueEx(rules, "text-overflow");
-      var maxLines = getRuleValueEx(rules, "max-lines");
-      var lineHeight = getRuleValueEx(rules, 'line-height');
-      var textAlign = getRuleValueEx(rules, 'text-align');
+    if (widget.hasTextStyles(rules)) {
+      Color textcolor = widget.fromCssColor(color);
+      var fontWeight = widget.getRuleValueEx(rules, "font-weight");
+      var fontSize = widget.getRuleValueEx(rules, "font-size");
+      var fontFamily = widget.getRuleValueEx(rules, "font-family");
+      var letterSpacing = widget.getRuleValueEx(rules, "letter-spacing");
+      var fontStyle = widget.getRuleValueEx(rules, "font-style");
+      var textOverflow = widget.getRuleValueEx(rules, "text-overflow");
+      var maxLines = widget.getRuleValueEx(rules, "max-lines");
+      var lineHeight = widget.getRuleValueEx(rules, 'line-height');
+      var textAlign = widget.getRuleValueEx(rules, 'text-align');
 
       TextStyle style;
 
       if (lineHeight != null) {
-        double effectiveFontSize =
-            lp(fontSize, null) ?? DefaultTextStyle.of(context).style.fontSize;
-        double height = lp(lineHeight, null) / effectiveFontSize;
+        double effectiveFontSize = widget.lp(fontSize, null) ??
+            DefaultTextStyle.of(context).style.fontSize;
+        double height = widget.lp(lineHeight, null) / effectiveFontSize;
         style = TextStyle(
             color: textcolor,
-            fontWeight: getFontWeight(fontWeight),
-            fontSize: lp(fontSize, null),
+            fontWeight: widget.getFontWeight(fontWeight),
+            fontSize: widget.lp(fontSize, null),
             fontFamily: fontFamily,
             height: height,
-            letterSpacing: lp(letterSpacing, null),
+            letterSpacing: widget.lp(letterSpacing, null),
             fontStyle:
                 fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
       } else {
         style = TextStyle(
             color: textcolor,
-            fontWeight: getFontWeight(fontWeight),
-            fontSize: lp(fontSize, null),
+            fontWeight: widget.getFontWeight(fontWeight),
+            fontSize: widget.lp(fontSize, null),
             fontFamily: fontFamily,
-            letterSpacing: lp(letterSpacing, null),
+            letterSpacing: widget.lp(letterSpacing, null),
             fontStyle:
                 fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
       }
 
       realView = DefaultTextStyle(
           child: container,
-          textAlign: getTextAlign(textAlign) == null
+          textAlign: widget.getTextAlign(textAlign) == null
               ? DefaultTextStyle.of(context).textAlign
-              : getTextAlign(textAlign),
+              : widget.getTextAlign(textAlign),
           style: DefaultTextStyle.of(context).style.merge(style),
-          overflow: getTextOverflow(textOverflow),
+          overflow: widget.getTextOverflow(textOverflow),
           maxLines: maxLines == null ? null : int.parse(maxLines));
     } else {
       realView = container;
     }
 
-    Widget v = ListView(children: [realView]);
-    String screen = getRuleValueEx(rules, 'screen-mode');
+    Widget v;
+    String screen = widget.getRuleValueEx(rules, 'screen-mode');
     if (screen == 'full') {
       v = SizedBox.expand(child: realView);
+    } else {
+      v = ListView(children: [realView]);
+      bool enablePullDown = false;
+
+      if (widget.pageJson['enablePullDownRefresh'] != null) {
+        var onPullDownRefresh = widget.model.pageJs['onPullDownRefresh'];
+        if (onPullDownRefresh != null) {
+          enablePullDown = true;
+        }
+      }
+      bool enablePullUp = false;
+      var onReachBottom = widget.model.pageJs['onReachBottom'];
+      if (onReachBottom != null) {
+        enablePullUp = true;
+      }
+
+      SmartRefresher _smartRefresher = new SmartRefresher(
+          enablePullDown: enablePullDown,
+          enablePullUp: enablePullUp,
+          onRefresh: _onRefresh,
+          controller: _refreshController,
+          headerBuilder: _buildHeader,
+          footerBuilder: _buildFooter,
+          headerConfig: RefreshConfig(triggerDistance: 70),
+//        onOffsetChange: _onOffsetCallback,
+          child: v);
+      v = _smartRefresher;
     }
+
     //检查下面的子元素是否有position=absolute
     Widget finalPage = null;
     if (fixedWidgets.length > 0) {
@@ -320,32 +392,29 @@ class OwlPage extends OwlComponent {
   }
 
   Widget buildBody(BuildContext context) {
-    String nodeName = "";
-    if (node.keys.length == 0) {
-      return null;
-    }
-    nodeName = node.keys.first;
-    var childNode = node[nodeName];
-    /*var childrenBody = OwlScrollView(
-        node: childNode,
-        pageCss: pageCss,
-        appCss: appCss,
-        model: model,
-        componentModel: componentModel,
-        parentNode: node,
-        parentWidget: this,
-        cacheContext: cacheContext);*/
-
-//    return childrenBody;
     return _buildWidget(context);
   }
 
-  Future<void> _refresh() {
-    var onPullDownRefresh = model.pageJs['onPullDownRefresh'];
-    if (onPullDownRefresh != null) {
-      return Future(onPullDownRefresh);
+  void _onRefresh(bool up) {
+    if (up) {
+      var onPullDownRefresh = widget.model.pageJs['onPullDownRefresh'];
+      if (onPullDownRefresh != null) {
+        onPullDownRefresh();
+      }
+      Timer(Duration(seconds: 1), () {
+        _refreshController.sendBack(up, RefreshStatus.completed);
+      });
+      print("up....");
+    } else {
+      var onReachBottom = widget.model.pageJs['onReachBottom'];
+      if (onReachBottom != null) {
+        onReachBottom();
+      }
+      Timer(Duration(seconds: 1), () {
+        _refreshController.sendBack(up, RefreshStatus.idle);
+      });
+      print("down....");
     }
-    return null;
   }
 
   @override
@@ -355,14 +424,14 @@ class OwlPage extends OwlComponent {
     if (app.appJson['window'] != null) {
       backgroundColor = app.appJson['window']['backgroundColor'];
     }
-    if (pageJson['backgroundColor'] != null) {
-      backgroundColor = pageJson['backgroundColor'];
+    if (widget.pageJson['backgroundColor'] != null) {
+      backgroundColor = widget.pageJson['backgroundColor'];
     }
 
     return new Scaffold(
         appBar: buildAppBar(),
-        body: RefreshIndicator(onRefresh: _refresh, child: buildBody(context)),
-        backgroundColor: fromCssColor(backgroundColor),
-        bottomNavigationBar: bottomBar);
+        body: buildBody(context),
+        backgroundColor: widget.fromCssColor(backgroundColor),
+        bottomNavigationBar: widget.bottomBar);
   }
 }

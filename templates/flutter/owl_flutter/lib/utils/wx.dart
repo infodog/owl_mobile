@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/asset.dart';
 import 'package:multi_image_picker/picker.dart';
+import 'package:owl_flutter/model/ScreenModel.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'owl.dart';
 
@@ -58,8 +60,8 @@ typedef ChooseImageFailListener = void Function(dynamic e);
 typedef ChooseImageCompleteListener = void Function(dynamic e);
 
 class WeiXinAdapter {
-  WeiXinAdapter();
-
+  WeiXinAdapter({this.model});
+  ScreenModel model;
   BuildContext docBuildContext = null;
   LoadingTextProvider loadingTextProvider = new LoadingTextProvider();
 
@@ -240,5 +242,19 @@ class WeiXinAdapter {
     loading = false;
     loadingTextProvider.onChange = null;
     Navigator.pop(docBuildContext);
+  }
+
+  void stopPullDownRefresh() {
+    model.refreshController.sendBack(true, RefreshStatus.completed);
+  }
+
+  void startPullDownRefresh() {
+    if (model.pageJs != null) {
+      var onRefresh = model.pageJs["onPullDownRefresh"];
+      if (onRefresh != null) {
+        model.refreshController.sendBack(true, RefreshStatus.refreshing);
+        onRefresh();
+      }
+    }
   }
 }

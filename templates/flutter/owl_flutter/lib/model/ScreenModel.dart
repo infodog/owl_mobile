@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
 import 'package:owl_flutter/utils/owl.dart';
+import "package:pull_to_refresh/pull_to_refresh.dart";
 import 'package:scoped_model/scoped_model.dart';
 
 import '../utils/wx.dart';
@@ -9,8 +10,9 @@ import '../utils/wx.dart';
 class ScreenModel extends Model {
   static int maxInstanceId = 0;
 
+  RefreshController refreshController;
   ScreenModel(this.params) {
-    wx = WeiXinAdapter();
+    wx = WeiXinAdapter(model: this);
     owl = Owl();
     componentModel = {};
     widgetCaches = {};
