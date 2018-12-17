@@ -211,7 +211,7 @@ class Owl {
         "fail": (e) {
           wx.hideLoading({});
           wx.showToast({"title": "上传出错"});
-          if (onFailed && !failed) {
+          if (onFailed != null && !failed) {
             failed = true;
             onFailed({"index": i});
           }

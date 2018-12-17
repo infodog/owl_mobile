@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/asset.dart';
 import 'package:multi_image_picker/picker.dart';
+import 'package:owl_flutter/components/owl_image_scroll_gallery.dart';
 import 'package:owl_flutter/model/ScreenModel.dart';
+import 'package:owl_flutter/utils/asset_image_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'owl.dart';
@@ -256,5 +258,35 @@ class WeiXinAdapter {
         onRefresh();
       }
     }
+  }
+
+  void previewImage(Map params) {
+    var urls = params["urls"];
+    List<ImageProvider> imgs = [];
+    for (int i = 0; i < urls.length; i++) {
+      var url = urls[i];
+      if (url is Asset) {
+        Asset _asset = url as Asset;
+        ImagePickerAssetImage img = ImagePickerAssetImage(asset: _asset);
+        imgs.add(img);
+      } else if (url is String) {
+        if (url.startsWith("http")) {
+          NetworkImage img = NetworkImage(url);
+          imgs.add(img);
+        } else if (url.startsWith("file")) {
+          FileImage img = FileImage(File(url));
+          imgs.add(img);
+        } else {
+          AssetImage img = AssetImage(url);
+          imgs.add(img);
+        }
+      }
+    }
+    OwlImageScrollGallery gallery = OwlImageScrollGallery(images: imgs);
+
+    Navigator.push(
+      docBuildContext,
+      MaterialPageRoute(builder: (context) => gallery),
+    );
   }
 }
