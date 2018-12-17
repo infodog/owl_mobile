@@ -39,7 +39,7 @@ class __pageNameState extends State<__pageName> {
   var appNavigationBottomBar;
 
   Widget buildTabBar(BuildContext context) {
-    var tabBar = owl.getApplication().appJson['tabBar'];
+    var tabBar = Owl.getApplication().appJson['tabBar'];
     if (tabBar == null) {
       return null;
     }
@@ -111,7 +111,7 @@ class __pageNameState extends State<__pageName> {
           type: BottomNavigationBarType.fixed,
           onTap: (int selected) {
             var item = list[selected];
-            owl.navigateTo({"url": item['pagePath']}, context);
+            Owl.navigateTo({"url": item['pagePath']}, context);
           },
         ));
   }

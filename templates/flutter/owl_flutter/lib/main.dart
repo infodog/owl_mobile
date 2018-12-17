@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:owl_flutter/owl_generated/owl_app.dart';
@@ -34,11 +32,12 @@ void appMain(String url,Map<String,WidgetBuilder> routes) {
   debugPaintSizeEnabled = false;
 
 //  Widget homeScreen = getScreen(homeUrl, {}, owl.getApplication().appCss);
-  if (owl.isHomeTabUrl(url)) {
+  if (Owl.isHomeTabUrl(url)) {
     runApp(MaterialApp(
       title: 'Owl Applications',
 //      home: OwlHome(url, {}),
       home:  new OleHomePageWraper(OwlHome(url, {})),
+      theme: ThemeData(fontFamily: 'pingfang')));
       routes: routes,
     ));
   } else {
@@ -55,6 +54,7 @@ void appMain(String url,Map<String,WidgetBuilder> routes) {
     runApp(MaterialApp(
       title: 'Owl Applications',
       home:  new OleHomePageWraper(new Page1()), //请看清上面的注释
+      theme: ThemeData(fontFamily: 'pingfang')));
       routes: routes,
     ));
   }

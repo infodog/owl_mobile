@@ -1,0 +1,56 @@
+/* pages/test.wxss */
+page{
+  height:100%;
+}
+.red{
+  background-color: #ff0000;
+}
+
+.green{
+  background-color: #00ff00;
+}
+.fullpage{
+  screen-mode:full;
+   background-color: #ffffff;
+   display:flex;
+   flex-direction: column;
+
+}
+
+.vcenterWraper{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  background-color: #00ffff;
+  width:750rpx;
+
+  flex:1;
+}  
+
+.hcenterWraper{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: center;
+  background-color: #005445;
+  /* height:100rpx; */
+  border:1px solid #0fff44;
+  /* max-height:600rpx; */
+}
+
+
+.center{
+  width:200rpx;
+  height:1000rpx;
+}
+
+.background{
+  background-color: #000000;
+  position: fixed;
+  top:50rpx;
+  left:100rpx;
+  width:150rpx;
+  height:150rpx;
+  z-index:1;
+}

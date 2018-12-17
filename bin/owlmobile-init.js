@@ -130,7 +130,15 @@ ncp(wxAppTemplatePath,path.resolve(cwd,config.wxapp),function(err){
     console.log('done');
 });
 
-
+makeDir(path.resolve(flutterPath,'lib','owl_generated'));
+makeDir(path.resolve(flutterPath,'assets','img'));
+makeDir(path.resolve(flutterPath,'assets','img','del'));
+ncp(path.resolve(templatePath,"ios","Runner","Info.plist"),path.resolve(flutterPath,"ios","Runner","Info.plist"),function(err){
+   if(err){
+       return console.err(err);
+   }
+   console.log("Info.plist updated. \n please run <owlmobile-build> to build the example flutter app from included wechat miniprogram ");
+});
 
 
 

@@ -17,6 +17,7 @@ class OwlApp {
   Map<String, dynamic> appJson;
   Map<String, dynamic> appCss;
   List<String> pages;
+  Owl owl = new Owl();
 
   App(o) {
     this.appObject = o;

@@ -42,7 +42,7 @@ class OwlHomeState extends State<OwlHome> with TickerProviderStateMixin {
   }
 
   Widget buildTabBar(BuildContext context) {
-    var tabBar = owl.getApplication().appJson['tabBar'];
+    var tabBar = Owl.getApplication().appJson['tabBar'];
     if (tabBar == null) {
       return null;
     }
@@ -104,7 +104,7 @@ class OwlHomeState extends State<OwlHome> with TickerProviderStateMixin {
   }
 
   Widget tabBuilder(BuildContext context, int index) {
-    var tabBar = owl.getApplication().appJson['tabBar'];
+    var tabBar = Owl.getApplication().appJson['tabBar'];
     if (tabBar == null) {
       return null;
     }
@@ -122,7 +122,7 @@ class OwlHomeState extends State<OwlHome> with TickerProviderStateMixin {
       effectiveParams = widget.params;
     }
     Widget screen =
-        getScreen(url, effectiveParams, owl.getApplication().appCss);
+        getScreen(url, effectiveParams, Owl.getApplication().appCss);
     return screen;
   }
 

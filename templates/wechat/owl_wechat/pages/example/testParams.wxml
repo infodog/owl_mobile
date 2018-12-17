@@ -1,0 +1,4 @@
+<!--pages/testParams.wxml-->
+<view style='font-size:64rpx;margin:32rpx'>
+Id:{{ceshi}}
+</view>

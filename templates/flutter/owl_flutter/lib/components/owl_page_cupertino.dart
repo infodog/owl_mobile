@@ -7,7 +7,6 @@ import '../builders/owl_component_builder.dart';
 import '../components/owl_componet.dart';
 import '../owl_generated/owl_app.dart';
 import '../utils/owl.dart';
-import '../utils/uitools.dart';
 
 class OwlPageCupertino extends OwlComponent {
   OwlPageCupertino(
@@ -37,7 +36,7 @@ class OwlPageCupertino extends OwlComponent {
   final Widget bottomBar;
 
   CupertinoNavigationBar buildAppBar(BuildContext context) {
-    OwlApp app = owl.getApplication();
+    OwlApp app = Owl.getApplication();
     String title = null;
 
     if (pageJson != null) {
