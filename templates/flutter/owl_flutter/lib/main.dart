@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:owl_flutter/owl_generated/owl_app.dart';
+import 'package:owl_flutter/utils/simulate_login.dart';
 
 import './components/owl_home.dart';
 import 'owl_generated/owl_route.dart';
@@ -12,6 +13,7 @@ import 'pageJump/flutter_page1.dart';
 import 'ole_view/ole_home_page_wraper.dart';
 
 void main() {
+  login();//模拟登录
   initPageUrls();
   Map<String, WidgetBuilder> routes = initRoutes();
   var homeUrl = home_route;
