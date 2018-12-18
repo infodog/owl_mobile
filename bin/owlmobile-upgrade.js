@@ -5,7 +5,14 @@ const path = require('path');
 const appProcessor = require('./lib/appProcessor.js')
 const pageProcessor = require('./lib/pageProcessor.js')
 var ncp = require('ncp').ncp;
-
+function makeDir(dir){
+    try{
+        fs.mkdirSync(dir,{recursive:true});
+    }
+    catch(e){
+        console.log(e);
+    }
+}
 //读取owlmoobile.json
 var cwd = process.cwd();
 var configcontent = fs.readFileSync(path.resolve(cwd,'owlmobile.json'));
@@ -65,12 +72,34 @@ ncp(path.resolve(templatePath,'lib','main.dart'),path.resolve(flutterPath,'lib',
     }
     console.log(path.resolve(flutterPath,'lib','main.dart') + " upgraded")
 });
-// ncp(path.resolve(templatePath,'pubspec.yaml'),path.resolve(flutterPath,'pubspec.yaml'),function(err){
-//     if(err){
-//         return console.log(err);
-//     }
-//     console.log(path.resolve(flutterPath,'lib','pubspec.yaml') + " upgraded")
-// });
+
+ncp(path.resolve(templatePath,'pubspec.yaml'),path.resolve(flutterPath,'pubspec.yaml'),function(err){
+    if(err){
+        return console.log(err);
+    }
+    console.log(path.resolve(flutterPath,'lib','pubspec.yaml') + " upgraded")
+});
+
+ncp(path.resolve(templatePath,"android","app","src","main","AndroidManifest.xml"),path.resolve(flutterPath,"android","app","src","main","AndroidManifest.xml"),function(err){
+    if(err){
+        return console.log(err);
+    }
+    console.log("AndroidManifest.xml updated.");
+});
+makeDir(path.resolve(flutterPath,"android","app","src","main","res","xml"));
+ncp(path.resolve(templatePath,"android","app","src","main","res","xml","file_paths_public.xml"),path.resolve(flutterPath,"android","app","src","main","res","xml","file_paths_public.xml"),function(err){
+    if(err){
+        return console.log(err);
+    }
+    console.log("file_paths_public.xml updated. ");
+});
+
+ncp(path.resolve(templatePath,"ios","Runner","Info.plist"),path.resolve(flutterPath,"ios","Runner","Info.plist"),function(err){
+    if(err){
+        return console.log(err);
+    }
+    console.log("Info.plist updated. \n please run <owlmobile-build> to build the example flutter app from included wechat miniprogram ");
+});
 
 ncp(path.resolve(templatePath,'test_driver'),path.resolve(flutterPath,'test_driver'),function(err){
     if(err){

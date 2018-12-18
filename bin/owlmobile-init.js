@@ -133,11 +133,28 @@ ncp(wxAppTemplatePath,path.resolve(cwd,config.wxapp),function(err){
 makeDir(path.resolve(flutterPath,'lib','owl_generated'));
 makeDir(path.resolve(flutterPath,'assets','img'));
 makeDir(path.resolve(flutterPath,'assets','img','del'));
+
+
+ncp(path.resolve(templatePath,"android","app","src","main","AndroidManifest.xml"),path.resolve(flutterPath,"android","app","src","main","AndroidManifest.xml"),function(err){
+    if(err){
+        return console.log(err);
+    }
+    console.log("AndroidManifest.xml updated.");
+});
+
+makeDir(path.resolve(flutterPath,"android","app","src","main","res","xml"));
+ncp(path.resolve(templatePath,"android","app","src","main","res","xml","file_paths_public.xml"),path.resolve(flutterPath,"android","app","src","main","res","xml","file_paths_public.xml"),function(err){
+    if(err){
+        return console.log(err);
+    }
+    console.log("file_paths_public.xml updated. ");
+});
+
 ncp(path.resolve(templatePath,"ios","Runner","Info.plist"),path.resolve(flutterPath,"ios","Runner","Info.plist"),function(err){
-   if(err){
-       return console.err(err);
-   }
-   console.log("Info.plist updated. \n please run <owlmobile-build> to build the example flutter app from included wechat miniprogram ");
+    if(err){
+        return console.log(err);
+    }
+    console.log("Info.plist updated. \n please run <owlmobile-build> to build the example flutter app from included wechat miniprogram ");
 });
 
 

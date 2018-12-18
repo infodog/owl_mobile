@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_statefulcomponent.dart';
 import "package:pull_to_refresh/pull_to_refresh.dart";
@@ -11,27 +12,27 @@ import '../utils/owl.dart';
 class OwlPage extends OwlStatefulComponent {
   OwlPage(
       {Key key,
-      node,
-      pageCss,
-      appCss,
-      pageJson,
-      model,
-      componentModel,
-      parentNode,
-      parentWidget,
-      this.bottomBar,
-      cacheContext})
+        node,
+        pageCss,
+        appCss,
+        pageJson,
+        model,
+        componentModel,
+        parentNode,
+        parentWidget,
+        this.bottomBar,
+        cacheContext})
       : super(
-            key: key,
-            node: node,
-            pageCss: pageCss,
-            appCss: appCss,
-            pageJson: pageJson,
-            model: model,
-            componentModel: componentModel,
-            parentNode: parentNode,
-            parentWidget: parentWidget,
-            cacheContext: cacheContext);
+      key: key,
+      node: node,
+      pageCss: pageCss,
+      appCss: appCss,
+      pageJson: pageJson,
+      model: model,
+      componentModel: componentModel,
+      parentNode: parentNode,
+      parentWidget: parentWidget,
+      cacheContext: cacheContext);
 
   final Widget bottomBar;
 
@@ -113,14 +114,14 @@ class OwlPageState extends State<OwlPage> {
     String appBarBackgroundColor;
     if (app.appJson['window'] != null) {
       appBarBackgroundColor =
-          app.appJson['window']['navigationBarBackgroundColor'];
+      app.appJson['window']['navigationBarBackgroundColor'];
     }
     if (widget.pageJson['navigationBarBackgroundColor'] != null) {
       appBarBackgroundColor = widget.pageJson['navigationBarBackgroundColor'];
     }
 
     String navigationBarTextStyle =
-        app.appJson['window']['navigationBarTextStyle'];
+    app.appJson['window']['navigationBarTextStyle'];
     if (widget.pageJson['navigationBarTextStyle'] != null) {
       navigationBarTextStyle = widget.pageJson['navigationBarTextStyle'];
     }
@@ -161,7 +162,7 @@ class OwlPageState extends State<OwlPage> {
       var nodeName = child.keys.first;
       if (child[nodeName] is Map) {
         List childRules =
-            widget.getNodeCssRulesEx(child[nodeName], widget.pageCss);
+        widget.getNodeCssRulesEx(child[nodeName], widget.pageCss);
         var position = widget.getRuleValueEx(childRules, 'position');
         if (position == 'absolute' || position == 'fixed') {
           fixednodes.add(child);
@@ -213,7 +214,7 @@ class OwlPageState extends State<OwlPage> {
     }
 
     List rules =
-        widget.getNodeCssRulesEx(widget.node[rootNodeName], widget.pageCss);
+    widget.getNodeCssRulesEx(widget.node[rootNodeName], widget.pageCss);
     //搜索width和height
     String width = widget.getRuleValueEx(rules, "width");
     double lpWidth = widget.lp(width, null);
@@ -229,7 +230,7 @@ class OwlPageState extends State<OwlPage> {
 
     String backgroundImage = widget.getRuleValueEx(rules, "background-image");
     String backgroundPosition =
-        widget.getRuleValueEx(rules, "background-position");
+    widget.getRuleValueEx(rules, "background-position");
     String backgroundRepeat = widget.getRuleValueEx(rules, "background-repeat");
     String backgroundSize = widget.getRuleValueEx(rules, 'background-size');
 
@@ -312,7 +313,7 @@ class OwlPageState extends State<OwlPage> {
             height: height,
             letterSpacing: widget.lp(letterSpacing, null),
             fontStyle:
-                fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
+            fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
       } else {
         style = TextStyle(
             color: textcolor,
@@ -321,7 +322,7 @@ class OwlPageState extends State<OwlPage> {
             fontFamily: fontFamily,
             letterSpacing: widget.lp(letterSpacing, null),
             fontStyle:
-                fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
+            fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal);
       }
 
       realView = DefaultTextStyle(
@@ -419,8 +420,10 @@ class OwlPageState extends State<OwlPage> {
 
   @override
   Widget build(BuildContext context) {
-    OwlApp app = Owl.getApplication();
     String backgroundColor;
+    String statusBarColor;
+    OwlApp app = Owl.getApplication();
+    Widget appBar = buildAppBar();
     if (app.appJson['window'] != null) {
       backgroundColor = app.appJson['window']['backgroundColor'];
     }
@@ -428,8 +431,32 @@ class OwlPageState extends State<OwlPage> {
       backgroundColor = widget.pageJson['backgroundColor'];
     }
 
+    if (appBar == null) {
+      statusBarColor = widget.pageJson['statusBarColor'];
+      Color cbar = widget.fromCssColor(statusBarColor);
+      var statusBarBrightness = widget.pageJson['statusBarBrightness'];
+      if (statusBarBrightness == 'light') {
+        if (cbar == null) {
+          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+        } else {
+          SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle.light.copyWith(
+                statusBarColor: cbar, //or set color with: Color(0xFF0000FF)
+              ));
+        }
+      } else {
+        if (cbar == null) {
+          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+        } else {
+          SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle.dark.copyWith(
+                statusBarColor: cbar, //or set color with: Color(0xFF0000FF)
+              ));
+        }
+      }
+    }
     return new Scaffold(
-        appBar: buildAppBar(),
+        appBar: appBar,
         body: buildBody(context),
         backgroundColor: widget.fromCssColor(backgroundColor),
         bottomNavigationBar: widget.bottomBar);
