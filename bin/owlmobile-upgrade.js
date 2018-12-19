@@ -80,12 +80,12 @@ ncp(path.resolve(templatePath,'pubspec.yaml'),path.resolve(flutterPath,'pubspec.
     console.log(path.resolve(flutterPath,'lib','pubspec.yaml') + " upgraded")
 });
 
-ncp(path.resolve(templatePath,"android","app","src","main","AndroidManifest.xml"),path.resolve(flutterPath,"android","app","src","main","AndroidManifest.xml"),function(err){
-    if(err){
-        return console.log(err);
-    }
-    console.log("AndroidManifest.xml updated.");
-});
+// ncp(path.resolve(templatePath,"android","app","src","main","AndroidManifest.xml"),path.resolve(flutterPath,"android","app","src","main","AndroidManifest.xml"),function(err){
+//     if(err){
+//         return console.log(err);
+//     }
+//     console.log("AndroidManifest.xml updated.");
+// });
 makeDir(path.resolve(flutterPath,"android","app","src","main","res","xml"));
 ncp(path.resolve(templatePath,"android","app","src","main","res","xml","file_paths_public.xml"),path.resolve(flutterPath,"android","app","src","main","res","xml","file_paths_public.xml"),function(err){
     if(err){

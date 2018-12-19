@@ -7,7 +7,10 @@
     "middle": "/components/center/center",
     "page": "/components/page/page"
   },
-  "showAppBar":false
-  
+  "showAppBar":false,
+  "backgroundColor": "#ffffff",
+  "enablePullDownRefresh":true, 
+  "statusBarBrightness":"dark",
+  "statusBarColor":"#904311"
 
 }

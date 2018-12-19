@@ -5,35 +5,9 @@
     "pages/example/video_player"
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#44dd44",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#33ffff",
     "navigationBarTitleText": "owl application",
-    "navigationBarTextStyle": "white"
-  },
-  "tabBar": {
-    "color": "#333333",
-    "backgroundColor":"#f7f7f7",
-    "selectedColor": "#FA85D0",
-    "borderStyle": "black",
-    "list": [
-      {
-        "pagePath": "pages/example/test",
-        "text": "测试",
-        "iconPath": "img/home.png",
-        "selectedIconPath": "img/home.png"
-      },
-      {
-        "pagePath": "pages/example/testParams",
-        "text": "传参",
-        "iconPath": "img/class.png",
-        "selectedIconPath": "img/class.png"
-      },
-      {
-        "pagePath": "pages/example/video_player",
-        "text": "视频",
-        "iconPath": "img/cart.png",
-        "selectedIconPath": "img/cshouc.png"
-      }
-    ]
+    "navigationBarTextStyle": "black"
   }
 }

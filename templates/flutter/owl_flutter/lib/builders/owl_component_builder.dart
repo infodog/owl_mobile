@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
 import 'package:owl_flutter/components/owl_picker.dart';
+import 'package:owl_flutter/components/owl_qr.dart';
 import 'package:owl_flutter/components/owl_statefulcomponent.dart';
 
 import '../components/owl_center.dart';
@@ -14,11 +15,11 @@ import '../components/owl_row.dart';
 import '../components/owl_scroll_view.dart';
 import '../components/owl_swiper.dart';
 import '../components/owl_text.dart';
+import '../components/owl_video.dart';
 import '../components/owl_view.dart';
 import '../components/owl_wrap.dart';
 import '../model/ScreenModel.dart';
 import '../utils/json_util.dart';
-import '../components/owl_video.dart';
 
 class OwlComponentBuilder {
   static Widget build(
@@ -254,6 +255,18 @@ class OwlComponentBuilder {
         break;
       case "picker":
         widget = OwlPicker(
+            key: key,
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
+        break;
+      case "qr":
+        widget = OwlQr(
             key: key,
             node: childNode,
             pageCss: pageCss,

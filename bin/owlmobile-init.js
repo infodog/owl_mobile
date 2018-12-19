@@ -135,12 +135,12 @@ makeDir(path.resolve(flutterPath,'assets','img'));
 makeDir(path.resolve(flutterPath,'assets','img','del'));
 
 
-ncp(path.resolve(templatePath,"android","app","src","main","AndroidManifest.xml"),path.resolve(flutterPath,"android","app","src","main","AndroidManifest.xml"),function(err){
-    if(err){
-        return console.log(err);
-    }
-    console.log("AndroidManifest.xml updated.");
-});
+// ncp(path.resolve(templatePath,"android","app","src","main","AndroidManifest.xml"),path.resolve(flutterPath,"android","app","src","main","AndroidManifest.xml"),function(err){
+//     if(err){
+//         return console.log(err);
+//     }
+//     console.log("AndroidManifest.xml updated.");
+// });
 
 makeDir(path.resolve(flutterPath,"android","app","src","main","res","xml"));
 ncp(path.resolve(templatePath,"android","app","src","main","res","xml","file_paths_public.xml"),path.resolve(flutterPath,"android","app","src","main","res","xml","file_paths_public.xml"),function(err){

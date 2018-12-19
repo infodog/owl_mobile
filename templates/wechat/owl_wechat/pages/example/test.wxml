@@ -1,9 +1,9 @@
 <!--pages/test.wxml-->
-<view>
+<view style='background-color:#ffffff'>
 
 
   <picker range="{{colors}}" value="2" bindchange="setColor" mode="selector">
-    <view style='font-size:64rpx;margin:32rpx'>color:{{selectedColor}}</view>
+    <view style='font-size:64rpx'>color:{{selectedColor}}</view>
   </picker>
       
     
@@ -29,10 +29,13 @@
     </view>
   </picker>
   <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='selectPictures'>选择图片</view>
-  <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='go' data-link="/pages/testParams?id=cccc" >测试页面传参数</view>
+  <view wx:if="{{!picturesEmpty}}" bindtap='uploadpics' style='background-color:#33ff33;font-size:34px;color:#ffffff;margin-bottom:5px'>上传图片</view>
   <view wx:for="{{pictures}}">
-    <image src='{{item}}'></image>
+    <image src='{{item}}' bindtap='preview' data-url='{{item}}'></image>
   </view>
+
+  <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='go' data-link="/pages/example/testParams?id=cccc" >测试页面传参数</view>
+   <view style='font-size:48rpx;margin:32rpx;height:94rpx;' bindtap='startPullDownRefresh'>测试startPullDownRefresh</view>
   <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='goGetRequest'>测试wx.request get</view>
   <view>{{responseData}}</view>
    <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='goPostRequest'>测试wx.request post</view>

@@ -95,6 +95,55 @@ function insert(arr, index, elem) {
 function  owlcontainsKey(arr, key) {
     return arr.hasOwnProperty(key);
 }
+
+function  uploadFiles(url,pictures,onSuccess,onFailed)  {
+  var uploaded = 0;
+  var failed = false;
+
+  var total = pictures.length;
+  var uploadedPictures = [];
+  wx.showLoading({
+    "title": "上传中:" + uploaded.toString() + "/" + total.toString(),
+    "mask": true
+  });
+  for (let i = 0; i < pictures.length; i++) {
+    var item = pictures[i];
+    wx.uploadFile({
+      "url": url,
+      "filePath": item,
+      "name": "pic",
+      "formData": {"foo":"bar"},
+      "success": function (res) {
+        //console.log(res);
+        uploaded = uploaded + 1;
+        uploadedPictures[i] = JSON.parse(res.data);
+        wx.showLoading({
+          "title": "上传中:" + uploaded.toString() + "/" + total.toString(),
+          "mask": true
+        });
+        if (uploaded == total) {
+          wx.hideLoading({});
+          wx.showToast({ "title": "上传成功。", "icon": "success" });
+          if(onSuccess){
+            if(!failed){
+              onSuccess(uploadedPictures);
+            }
+            
+          }
+        }
+      },
+      "fail": function (e) {
+        wx.hideLoading({});
+        wx.showToast({ "title": "上传出错" });
+        if(onFailed && !failed){
+          failed = true;
+          onFailed({index:i});
+        }
+      }
+    });
+  }
+}
+
 module.exports = {
     login,
     getUserInfo,
@@ -104,6 +153,7 @@ module.exports = {
     addToList,
     removeFromList,
     insert,
-    owlcontainsKey
+    owlcontainsKey,
+    uploadFiles
 
 }
