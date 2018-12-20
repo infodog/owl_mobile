@@ -1,7 +1,7 @@
 <!--pages/test.wxml-->
 <view style='background-color:#ffffff'>
 
-
+  <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='go' data-link="/pages/example/qr" >二维码</view>
   <picker range="{{colors}}" value="2" bindchange="setColor" mode="selector">
     <view style='font-size:64rpx'>color:{{selectedColor}}</view>
   </picker>
@@ -25,10 +25,10 @@
 
   <picker mode="region" bindchange="setRegion" value="{{theregion}}"  itemFontSize='14px' okColor='rgba(0,0,0,0.7)' cancelColor='rgba(0,0,0,0.7)' topBarFontSize='16px' columnsCount='2'>
     <view style='font-size:64rpx;margin:32rpx'>
-      地区选择：{{theregion}}
+      地区选择：{{theregion}}
     </view>
   </picker>
-  <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='selectPictures'>选择图片</view>
+  <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='selectPictures'>选择图片</view>
   <view wx:if="{{!picturesEmpty}}" bindtap='uploadpics' style='background-color:#33ff33;font-size:34px;color:#ffffff;margin-bottom:5px'>上传图片</view>
   <view wx:for="{{pictures}}">
     <image src='{{item}}' bindtap='preview' data-url='{{item}}'></image>

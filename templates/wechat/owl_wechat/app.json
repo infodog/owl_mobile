@@ -2,7 +2,8 @@
   "pages": [
     "pages/example/test",
     "pages/example/testParams",
-    "pages/example/video_player"
+    "pages/example/video_player",
+    "pages/example/qr"
   ],
   "window": {
     "backgroundTextStyle": "dark",

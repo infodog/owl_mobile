@@ -1,0 +1,7 @@
+<!--pages/example/qr.wxml-->
+<view>
+  <view style='font-size:34rpx'>二维码测试，二维码的值:{{qrdata}}</view>
+  <qr size='400rpx' padding='10rpx' backgroundColor="#56ff66" forgroundColor="#ffffff" value="{{qrdata}}"></qr>
+
+</view>
+
