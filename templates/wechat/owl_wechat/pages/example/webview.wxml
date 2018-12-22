@@ -1,0 +1,17 @@
+<!--pages/example/webview.wxml-->
+<view style='screen-mode:full'>
+  <view style='height:100rpx;padding:20rpx;background-color:#6655ff;width:750rpx'>这里可以放工具条</view>
+  <view style='height:100rpx;padding:20rpx;background-color:#66ffff;width:750rpx'>
+      对于ios，需要在Info.plist file文件中增加一个key: io.flutter.embedded_views_preview 值设为 true.
+  </view>
+
+
+  <view style='flex:1; display:flex; flex-direction:row; background-color:#00ff00'>
+      <view style='flex:1;background-color:#0000ff'>
+        <webwidget src="https://www.baidu.com"></webwidget>
+      </view>
+  </view>
+</view>
+
+
+

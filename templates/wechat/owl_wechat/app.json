@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/example/test",
+    "pages/example/webview",
     "pages/example/testParams",
     "pages/example/video_player",
     "pages/example/qr"

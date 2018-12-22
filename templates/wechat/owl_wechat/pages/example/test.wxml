@@ -2,6 +2,8 @@
 <view style='background-color:#ffffff'>
 
   <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='go' data-link="/pages/example/qr" >二维码</view>
+  <view style='font-size:64rpx;margin:32rpx;height:94rpx;' bindtap='go' data-link="/pages/example/webview" >测试webwidget</view>
+
   <picker range="{{colors}}" value="2" bindchange="setColor" mode="selector">
     <view style='font-size:64rpx'>color:{{selectedColor}}</view>
   </picker>

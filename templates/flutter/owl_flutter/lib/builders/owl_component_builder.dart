@@ -3,6 +3,7 @@ import 'package:owl_flutter/components/owl_componet.dart';
 import 'package:owl_flutter/components/owl_picker.dart';
 import 'package:owl_flutter/components/owl_qr.dart';
 import 'package:owl_flutter/components/owl_statefulcomponent.dart';
+import 'package:owl_flutter/components/owl_webwidget.dart';
 
 import '../components/owl_center.dart';
 import '../components/owl_column.dart';
@@ -267,6 +268,18 @@ class OwlComponentBuilder {
         break;
       case "qr":
         widget = OwlQr(
+            key: key,
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
+        break;
+      case "webwidget":
+        widget = OwlWebWidget(
             key: key,
             node: childNode,
             pageCss: pageCss,
