@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:owl_flutter/components/owl_barcode.dart';
 import 'package:owl_flutter/components/owl_componet.dart';
 import 'package:owl_flutter/components/owl_picker.dart';
 import 'package:owl_flutter/components/owl_qr.dart';
@@ -280,6 +281,18 @@ class OwlComponentBuilder {
         break;
       case "webwidget":
         widget = OwlWebWidget(
+            key: key,
+            node: childNode,
+            pageCss: pageCss,
+            appCss: appCss,
+            model: model,
+            componentModel: componentModel,
+            parentNode: parentNode,
+            parentWidget: parentWidget,
+            cacheContext: cacheContext);
+        break;
+      case "barcode":
+        widget = OwlBarCode(
             key: key,
             node: childNode,
             pageCss: pageCss,
