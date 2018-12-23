@@ -139,7 +139,11 @@ var pageProcessor = {
         var cwd = process.cwd();
         var pageClass = pageName.replace(/\//g,"_");
         var pageClassFile = path.resolve(cwd,flutterPath,'lib/owl_generated',pageClass + ".dart");
-        var pageClassTemplateFile = path.resolve(__dirname,'../../templates/flutter/owl_flutter/lib/owl_generated/owl_screen.dart');
+        var pageClassTemplateFile = path.resolve(cwd,flutterPath,'projectTemplates/owl_generated/owl_screen.dart');
+        if(!fs.existsSync(pageClassTemplateFile)){
+            pageClassTemplateFile = path.resolve(__dirname,'../../templates/flutter/owl_flutter/lib/owl_generated/owl_screen.dart');
+        }
+        // var pageClassTemplateFile = path.resolve(__dirname,'../../templates/flutter/owl_flutter/lib/owl_generated/owl_screen.dart');
 
         var pageWxmlFile = path.join(wxAppPath,pageName + ".wxml");
         var pageWxssFile = path.join(wxAppPath,pageName + ".wxss");

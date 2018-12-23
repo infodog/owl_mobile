@@ -9,7 +9,11 @@ var appProcessor = {
         var appJsonContent = fs.readFileSync(appJsonFile, {encoding: 'utf-8'});
         var appJson = JSON.parse(appJsonContent);
         var pages = appJson.pages;
-        var routesTemplatePath = path.resolve(__dirname,"../../templates/flutter/owl_flutter/lib/owl_generated/owl_route.dart");
+        var routesTemplatePath =  path.resolve(flutterDir,"projectTemplates/owl_generated/owl_route.dart");
+        if(!fs.existsSync(routesTemplatePath)){
+            routesTemplatePath = path.resolve(__dirname,"../../templates/flutter/owl_flutter/lib/owl_generated/owl_route.dart");
+        }
+
         var routesSource = fs.readFileSync(routesTemplatePath, {encoding: 'utf-8'})
         var render= template.compile(routesSource);
 
@@ -35,7 +39,11 @@ var appProcessor = {
         }
         appJsContent = appJsContent.replace(/function/g,"");
 
-        var owlAppTemplatePath = path.resolve(__dirname,"../../templates/flutter/owl_flutter/lib/owl_generated/owl_app.dart");
+        var owlAppTemplatePath = path.resolve(flutterDir,"projectTemplates/owl_generated/owl_app.dart");
+        if(!fs.existsSync(owlAppTemplatePath)){
+            owlAppTemplatePath = path.resolve(__dirname,"../../templates/flutter/owl_flutter/lib/owl_generated/owl_app.dart");
+        }
+
         var owlAppSource =  fs.readFileSync(owlAppTemplatePath, {encoding: 'utf-8'})
 
         owlAppSource = owlAppSource.replace("__appJson",JSON.stringify(appJson));
