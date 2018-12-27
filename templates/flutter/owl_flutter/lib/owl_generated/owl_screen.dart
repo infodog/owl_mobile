@@ -121,6 +121,7 @@ class __pageNameState extends State<__pageName> {
 
   @override
   Widget build(BuildContext context) {
+    UiTools.setScreenWidth(context);
     model.setDocBuildContext(context);
     return ScopedModel<__ScreenModel>(
       model: model,

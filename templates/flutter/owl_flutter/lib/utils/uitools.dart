@@ -63,9 +63,7 @@ abstract class UiTools {
   static void setScreenWidth(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     screenWidth = w;
-    if (px_rpx_ratio == 0.0) {
-      px_rpx_ratio = w / rpx_width;
-    }
+    px_rpx_ratio = w / rpx_width;
   }
 
   bool isRuleEffective(List<String> selectors, List<String> classes) {
