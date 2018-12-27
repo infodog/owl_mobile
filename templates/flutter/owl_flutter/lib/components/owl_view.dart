@@ -29,7 +29,7 @@ class OwlView extends OwlComponent {
   bool isStack;
   Widget w = null;
   Widget _buildWidget(BuildContext context) {
-    setScreenWidth(context);
+    UiTools.setScreenWidth(context);
     String alignment = getAttr(node, 'alignment');
     var children = node['children'];
 
@@ -118,7 +118,7 @@ class OwlView extends OwlComponent {
     Color bColor = fromCssColor(backgroundColor);
     Border border = getBorder(rules);
     String className = getAttr(node, 'class'); //{{aaaa}} => 1
-
+    String safeArea = getAttr(node, "safearea");
     String flexDirection = getRuleValueEx(rules, "flex-direction");
     String justifyContent = getRuleValueEx(rules, "justify-content");
     String alignItems = getRuleValueEx(rules, "align-items");
@@ -126,13 +126,18 @@ class OwlView extends OwlComponent {
     String boxShadow = getRuleValueEx(rules, 'box-shadow');
     List<BoxShadow> shadows = parseBoxShadow(boxShadow);
 
+    Widget c = wrapFlex(
+        children: childWidgets,
+        flexDirection: flexDirection,
+        justifyContent: justifyContent,
+        alignItems: alignItems);
+
+    if (safeArea == 'true') {
+      c = SafeArea(child: c);
+    }
     Widget container = Container(
         key: ValueKey(className),
-        child: wrapFlex(
-            children: childWidgets,
-            flexDirection: flexDirection,
-            justifyContent: justifyContent,
-            alignItems: alignItems),
+        child: c,
         height: lp(height, null),
         width: lp(width, null),
 //        alignment: Alignment.topLeft,

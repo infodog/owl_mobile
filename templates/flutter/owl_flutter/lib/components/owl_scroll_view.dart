@@ -38,7 +38,7 @@ class OwlScrollView extends OwlComponent {
   }
 
   Widget _buildWidget(BuildContext context) {
-    setScreenWidth(context);
+    UiTools.setScreenWidth(context);
     String alignment = getAttr(node, 'alignment');
     var children = node['children'];
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_statefulcomponent.dart';
+import 'package:owl_flutter/utils/uitools.dart';
 import "package:pull_to_refresh/pull_to_refresh.dart";
 
 import '../owl_generated/owl_app.dart';
@@ -142,7 +143,7 @@ class OwlPageState extends State<OwlPage> {
   }
 
   Widget _buildWidget(BuildContext context) {
-    widget.setScreenWidth(context);
+    UiTools.setScreenWidth(context);
     String alignment = widget.getAttr(widget.node, 'alignment');
 
     var fixednodes = [];
@@ -432,9 +433,10 @@ class OwlPageState extends State<OwlPage> {
     }
 
     if (widget.pageJson['showStatusBar'] == false) {
-      SystemChrome.setEnabledSystemUIOverlays([]);
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     } else {
-      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+      SystemChrome.setEnabledSystemUIOverlays(
+          [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     }
 
     if (appBar == null) {

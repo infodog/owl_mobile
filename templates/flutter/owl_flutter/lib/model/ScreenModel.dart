@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
@@ -171,8 +172,10 @@ class ScreenModel extends Model {
   }
 
   void onLoad() {
-    if (this.pageJs['onLoad'] != null) {
-      this.pageJs['onLoad'](this.params);
-    }
+    new Timer(Duration(milliseconds: 10), () {
+      if (this.pageJs['onLoad'] != null) {
+        this.pageJs['onLoad'](this.params);
+      }
+    });
   }
 }

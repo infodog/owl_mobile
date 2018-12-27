@@ -60,7 +60,7 @@ abstract class UiTools {
     return parseCssColor(cssColor);
   }
 
-  void setScreenWidth(BuildContext context) {
+  static void setScreenWidth(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     screenWidth = w;
     if (px_rpx_ratio == 0.0) {

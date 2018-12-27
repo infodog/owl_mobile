@@ -219,4 +219,12 @@ class Owl {
       });
     }
   }
+
+  String jsonEncode(Object v) {
+    return json.encode(v);
+  }
+
+  dynamic jsonDecode(String source) {
+    return json.decode(source);
+  }
 }

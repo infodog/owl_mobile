@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:owl_flutter/builders/owl_component_builder.dart';
 import 'package:owl_flutter/components/owl_statefulcomponent.dart';
 import 'package:owl_flutter/utils/date_util.dart';
 import 'package:owl_flutter/utils/json_util.dart';
@@ -19,8 +18,8 @@ const double _kBarFontSize = 18.0;
 const Color _kCancelTextColor = Color(0xff333333);
 const Color _kOkTextColor = Color(0xff33ff33);
 
-class OwlPicker extends OwlStatefulComponent {
-  OwlPicker(
+class OwlPickerView extends OwlStatefulComponent {
+  OwlPickerView(
       {Key key,
       node,
       pageCss,
@@ -43,14 +42,14 @@ class OwlPicker extends OwlStatefulComponent {
             cacheContext: cacheContext);
 
   @override
-  OwlPickerState createState() {
-    return new OwlPickerState();
+  OwlPickerViewState createState() {
+    return new OwlPickerViewState();
   }
 
   int maxLines = 1;
 }
 
-class OwlPickerState extends State<OwlPicker> {
+class OwlPickerViewState extends State<OwlPickerView> {
   double topBarFontSize;
   double itemFontSize;
   Color okTextColor;
@@ -260,7 +259,7 @@ class OwlPickerState extends State<OwlPicker> {
         children: <Widget>[
           GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+//                Navigator.pop(context);
                 if (bindCancel != null) {
                   bindCancel({});
                 }
@@ -277,7 +276,7 @@ class OwlPickerState extends State<OwlPicker> {
           Expanded(child: Container()),
           GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+//                Navigator.pop(context);
                 if (bindChange != null) {
                   if (mode == 'time') {
                     DateTime t = value;
@@ -316,31 +315,7 @@ class OwlPickerState extends State<OwlPicker> {
     );
   }
 
-  Widget _buildBottomPicker(Widget picker, BuildContext context) {
-    return Container(
-      height: _kPickerSheetHeight,
-      padding: const EdgeInsets.only(top: 6.0),
-      color: CupertinoColors.white,
-      child: Column(children: [
-        buildTopBar(context),
-        Expanded(
-            child: DefaultTextStyle(
-          style:
-              TextStyle(color: CupertinoColors.black, fontSize: itemFontSize),
-          child: GestureDetector(
-            // Blocks taps from propagating to the modal sheet and popping.
-            onTap: () {},
-            child: SafeArea(
-              top: false,
-              child: picker,
-            ),
-          ),
-        ))
-      ]),
-    );
-  }
-
-  Widget buildSingleColumnPicker(Widget displayWidget) {
+  Widget buildSingleColumnPicker() {
     final FixedExtentScrollController scrollController =
         FixedExtentScrollController(initialItem: value);
 
@@ -349,175 +324,119 @@ class OwlPickerState extends State<OwlPicker> {
       var item = range[i];
       if (item is String) {
         listItems.add(Center(child: Text(item)));
+      } else {
+        String text = item[rangeKey];
+        listItems.add(Center(child: Text(text)));
       }
     }
-    return GestureDetector(
-      onTap: () async {
-        await showCupertinoModalPopup<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return _buildBottomPicker(
-                CupertinoPicker(
-                    scrollController: scrollController,
-                    itemExtent: _kPickerItemHeight,
-                    backgroundColor: CupertinoColors.white,
-                    onSelectedItemChanged: (int index) {
-                      setState(() {
-                        value = index;
-                      });
-                    },
-                    children: listItems),
-                context);
-          },
-        );
+    return CupertinoPicker(
+        scrollController: scrollController,
+        itemExtent: _kPickerItemHeight,
+        backgroundColor: CupertinoColors.white,
+        onSelectedItemChanged: (int index) {
+          setState(() {
+            value = index;
+          });
+        },
+        children: listItems);
+  }
+
+  Widget buildDatePicker() {
+    return CupertinoDatePicker(
+      mode: CupertinoDatePickerMode.date,
+      initialDateTime: value,
+      minimumDate: start,
+      maximumDate: end,
+      onDateTimeChanged: (DateTime t) {
+        setState(() {
+          value = t;
+        });
       },
-      child: displayWidget,
     );
   }
 
-  Widget buildDatePicker(Widget widget) {
-    return GestureDetector(
-      onTap: () async {
-        await showCupertinoModalPopup<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return _buildBottomPicker(
-                CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.date,
-                  initialDateTime: value,
-                  minimumDate: start,
-                  maximumDate: end,
-                  onDateTimeChanged: (DateTime t) {
-                    setState(() {
-                      value = t;
-                    });
-                  },
-                ),
-                context);
-          },
-        );
+  Widget buildTimePicker() {
+    return CupertinoDatePicker(
+      mode: CupertinoDatePickerMode.time,
+      initialDateTime: value,
+      minimumDate: start,
+      maximumDate: end,
+      onDateTimeChanged: (DateTime t) {
+        setState(() {
+          print("time picker changes:" + t.toString());
+          value = t;
+        });
       },
-      child: widget,
     );
   }
 
-  Widget buildTimePicker(Widget widget) {
-    return GestureDetector(
-      onTap: () async {
-        await showCupertinoModalPopup<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return _buildBottomPicker(
-                CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.time,
-                  initialDateTime: value,
-                  minimumDate: start,
-                  maximumDate: end,
-                  onDateTimeChanged: (DateTime t) {
-                    setState(() {
-                      print("time picker changes:" + t.toString());
-                      value = t;
-                    });
-                  },
-                ),
-                context);
-          },
-        );
+  Widget buildMultiSelectorPicker() {
+    return WxMultiColumnPicker(
+      range: this.range,
+      value: this.value,
+      rangeKey: rangeKey,
+      columnsCount: columnsCount,
+      columnChangeListener: (int columnIndex, int valueIndex) {
+        setState(() {
+          value[columnIndex] = valueIndex;
+          for (int i = columnIndex + 1; i < columnsCount; i++) {
+            value[i] = 0;
+          }
+        });
       },
-      child: widget,
     );
   }
 
-  Widget buildMultiSelectorPicker(Widget widget) {
-    return GestureDetector(
-      onTap: () async {
-        await showCupertinoModalPopup<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return _buildBottomPicker(
-                WxMultiColumnPicker(
-                  range: this.range,
-                  value: this.value,
-                  rangeKey: rangeKey,
-                  columnsCount: columnsCount,
-                  columnChangeListener: (int columnIndex, int valueIndex) {
-                    setState(() {
-                      value[columnIndex] = valueIndex;
-                      for (int i = columnIndex + 1; i < columnsCount; i++) {
-                        value[i] = 0;
-                      }
-                    });
-                  },
-                ),
-                context);
-          },
-        );
+  Widget buildRegionPicker() {
+    return WxRegionsPicker(
+      value: this.value,
+      columnsCount: columnsCount,
+      changeListener: (e) {
+        setState(() {
+          selectedRegion = e;
+        });
       },
-      child: widget,
-    );
-  }
-
-  Widget buildRegionPicker(Widget widget) {
-    return GestureDetector(
-      onTap: () async {
-        await showCupertinoModalPopup<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return _buildBottomPicker(
-                WxRegionsPicker(
-                  value: this.value,
-                  columnsCount: columnsCount,
-                  changeListener: (e) {
-                    setState(() {
-                      selectedRegion = e;
-                    });
-                  },
-                ),
-                context);
-          },
-        );
-      },
-      child: widget,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-
-    var children = widget.node['children'];
-    if (children == null || children.length != 1) {
-      print("------error---- picker 必须带一个view，也只能有一个view作为它的儿子。");
-      return null;
-    }
-    var child = children[0];
-
-    var widgets = OwlComponentBuilder.buildList(
-        node: child,
-        pageCss: widget.pageCss,
-        appCss: widget.appCss,
-        model: widget.model,
-        componentModel: widget.componentModel,
-        parentNode: widget.node,
-        parentWidget: widget,
-        cacheContext: widget.cacheContext);
-    if (widgets.length > 1) {
-      print("------error---- picker 必须带一个view，也只能有一个view作为它的儿子。");
-      return null;
-    }
-
+    Widget w;
     switch (mode) {
       case 'selector':
-        return buildSingleColumnPicker(widgets[0]);
+        w = buildSingleColumnPicker();
+        break;
       case 'date':
-        return buildDatePicker(widgets[0]);
+        w = buildDatePicker();
+        break;
       case 'time':
-        return buildTimePicker(widgets[0]);
+        w = buildTimePicker();
+        break;
       case 'multiSelector':
-        return buildMultiSelectorPicker(widgets[0]);
+        w = buildMultiSelectorPicker();
+        break;
       case 'region':
-        return buildRegionPicker(widgets[0]);
+        w = buildRegionPicker();
+        break;
     }
-    return null;
+    return Flexible(
+        child: Container(
+            padding: const EdgeInsets.only(top: 6.0),
+            color: CupertinoColors.white,
+            child: Column(children: [
+              buildTopBar(context),
+              Expanded(
+                  child: DefaultTextStyle(
+                      style: TextStyle(
+                          color: CupertinoColors.black, fontSize: itemFontSize),
+                      child: GestureDetector(
+                        // Blocks taps from propagating to the modal sheet and popping.
+                        onTap: () {},
+                        child: w,
+                      )))
+            ])),
+        fit: FlexFit.tight,
+        flex: 1);
   }
 }

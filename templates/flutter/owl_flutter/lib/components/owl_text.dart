@@ -28,7 +28,7 @@ class OwlText extends OwlComponent {
 
   @override
   Widget build(BuildContext context) {
-    setScreenWidth(context);
+    UiTools.setScreenWidth(context);
     List rules = getNodeCssRulesEx(node, pageCss);
 
     String text = node['_text'];
