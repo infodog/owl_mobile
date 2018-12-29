@@ -349,6 +349,9 @@ class OwlPickerState extends State<OwlPicker> {
       var item = range[i];
       if (item is String) {
         listItems.add(Center(child: Text(item)));
+      } else {
+        String text = item[rangeKey];
+        listItems.add(Center(child: Text(text)));
       }
     }
     return GestureDetector(
