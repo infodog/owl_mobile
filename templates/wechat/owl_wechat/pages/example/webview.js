@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   "data": {
-
+    "url":'https://www.baidu.com'
   },
 
   /**
@@ -62,5 +62,10 @@ Page({
    */
   "onShareAppMessage": function () {
 
-  }
+  },
+
+  "openWeb": function (e) {
+    var link = e["currentTarget"]["dataset"]["url"];
+    this.setData({"url":link});
+  },
 })

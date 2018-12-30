@@ -9,7 +9,10 @@ For help getting started with Flutter, view our online
 
 ##生成flutter工程后需要做如下的手工修改
 
-ios:
 
-
+###web-view
+####ios:
+Opt-in to the embedded views preview by adding a boolean property to the app's Info.plist file with the key io.flutter.embedded_views_preview and the value YES.
+####android:
+nothing
 

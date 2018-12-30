@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../components/owl_statefulcomponent.dart';
 
 class OwlInput extends OwlStatefulComponent {
@@ -52,8 +53,9 @@ class OwlInputState extends State<OwlInput> {
 
   TextInputType textInputType;
 
-  @override
-  void initState() {
+  Function(String) onBlur;
+
+  void updateSetting() {
     String disabled = widget.getAttr(widget.node, 'disabled');
     placeholder = widget.getAttr(widget.node, 'placeholder');
 
@@ -122,8 +124,24 @@ digit
       key = name;
     }
 
-    editingController = new TextEditingController();
     this.editingController.text = widget.renderText(initValue);
+  }
+
+  @override
+  void initState() {
+    editingController = new TextEditingController();
+    String bindblur = widget.getAttr(widget.node, 'bindblur');
+
+    if (bindblur != null) {
+      Function(dynamic) f = widget.model.pageJs[bindblur];
+      onBlur = (String v) {
+        var e = {
+          "detail": {"value": v}
+        };
+        f(e);
+      };
+    }
+
     String bindinput = widget.getAttr(widget.node, 'bindinput');
     if (bindinput != null) {
       Function(dynamic) f = widget.model.pageJs[bindinput];
@@ -134,6 +152,11 @@ digit
         f(e);
       });
     }
+    updateSetting();
+  }
+
+  void didUpdateWidget(Widget oldWidget) {
+    updateSetting();
   }
 
   @override
@@ -143,6 +166,7 @@ digit
         keyboardType: textInputType,
         controller: this.editingController,
         obscureText: obscureText,
+        onSubmitted: onBlur,
         style: DefaultTextStyle.of(context).style.merge(
             TextStyle(color: cssColor, fontSize: widget.lp(fontSize, null))),
         decoration: InputDecoration(
