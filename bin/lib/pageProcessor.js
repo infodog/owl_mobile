@@ -173,6 +173,13 @@ var pageProcessor = {
         preProcessNode(pageNode,pageCss);
 
         var pageJsonContent = fs.readFileSync(pageJsonFile,{encoding: 'utf-8'});
+        var pageJson = JSON.parse(pageJsonContent);
+        if(pageJson.owl_classtemplate){
+            pageClassTemplateFile = path.resolve(cwd,flutterPath,'projectTemplates/owl_generated',pageJson.owl_classtemplate);
+            if(!fs.existsSync(pageClassTemplateFile)){
+                pageClassTemplateFile = path.resolve(__dirname,'../../templates/flutter/owl_flutter/lib/owl_generated',pageJson.owl_classtemplate);
+            }
+        }
 
         var pageClassTemplateContent = fs.readFileSync(pageClassTemplateFile, {encoding: 'utf-8'});
 
