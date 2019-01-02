@@ -117,14 +117,12 @@ digit
     }
 
     ///设置事件处理程序
-    String initValue = widget.getAttr(widget.node, 'value');
+
     String name = widget.getAttr(widget.node, 'name');
     String key = widget.getAttr(widget.node, 'key');
     if (key == null) {
       key = name;
     }
-
-    this.editingController.text = widget.renderText(initValue);
   }
 
   @override
@@ -152,6 +150,8 @@ digit
         f(e);
       });
     }
+    String initValue = widget.getAttr(widget.node, 'value');
+    this.editingController.text = widget.renderText(initValue);
     updateSetting();
   }
 
