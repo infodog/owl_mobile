@@ -67,7 +67,7 @@ function addOrReplaceRule(rules, rule) {
     for (var i = 0; i < rules.length; i++) {
         if (rules[i]['property'] == rule['property']) {
             rules[i] = rule;
-            console.log('rule replaced........' + rule['property']);
+            // console.log('rule replaced........' + rule['property']);
             return;
         }
     }
@@ -136,6 +136,7 @@ function preProcessNode(pageNode, pageCss){
 var pageProcessor = {
 
     processPage:function(wxAppPath,flutterPath,pageName){
+        console.log("processing page：" + pageName);
         var cwd = process.cwd();
         var pageClass = pageName.replace(/\//g,"_");
         var pageClassFile = path.resolve(cwd,flutterPath,'lib/owl_generated',pageClass + ".dart");
