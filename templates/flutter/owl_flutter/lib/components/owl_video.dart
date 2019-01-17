@@ -1,8 +1,8 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:chewie/chewie.dart';
+
 import 'owl_statefulcomponent.dart';
-import 'package:owl_flutter/utils/uitools.dart';
 
 class OwlVideo extends OwlStatefulComponent {
   OwlVideo(

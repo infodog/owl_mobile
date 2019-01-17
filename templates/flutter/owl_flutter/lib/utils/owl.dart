@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:owl_flutter/components/owl_home.dart';
 import 'package:owl_flutter/owl_generated/owl_route.dart';
-import 'package:owl_flutter/utils/wx.dart';
+
+import 'package:owl_flutter/pageJump/page_jumpper.dart';
+
 
 import '../owl_generated/owl_app.dart';
 
@@ -84,14 +86,20 @@ class Owl {
       }
     }
 
+    Map  map = Map();
+    map["pageType"] = "flutter/"+url;
+    //map["naviBarHidden"] ='1';
+    PageJumpper.notityNativePush(map,context: context);
+
+
 //    print("navigating to $url, params=$params");
-    Widget screen = getScreen(url, params, getApplication().appCss);
-    if (screen != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => screen),
-      );
-    }
+//    Widget screen = getScreen(url, params, owl.getApplication().appCss);
+//    if (screen != null) {
+//      Navigator.push(
+//        context,
+//        MaterialPageRoute(builder: (context) => screen),
+//      );
+//    }
   }
 
   static void switchTab(var obj, BuildContext context) {
@@ -142,17 +150,16 @@ class Owl {
 
     Widget screen = OwlHome(url, params);
     if (screen != null) {
-      Navigator.pushReplacement(
-        context,
-        NoAnimationRoute(builder: (context) => screen),
-      );
+      PageJumpper.notityNativeReplacementPush((context) => screen);
+
     }
   }
 
   static void navigateBack(var obj, BuildContext context) {
     int delta = obj['delta'];
     for (int i = 0; i < delta; i++) {
-      Navigator.pop(context);
+//      Navigator.pop(context);
+        PageJumpper.notityNativePop();
     }
   }
 

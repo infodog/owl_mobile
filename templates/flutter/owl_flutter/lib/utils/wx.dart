@@ -76,7 +76,7 @@ class WeiXinAdapter {
     Owl.switchTab(o, docBuildContext);
   }
 
-  void showToast(o) {
+  void showToast(o) async{
     String title = o['title'];
     int duration = o['duration'];
     if (duration == null) {
@@ -89,13 +89,19 @@ class WeiXinAdapter {
 
     // Find the Scaffold in the Widget tree and use it to show a SnackBar!
     Scaffold.of(docBuildContext).showSnackBar(snackBar);
+
+
+
+    if(o['success']!=null && o['success'] is Function){
+      o['success'](o);
+    }
   }
 
   void navigateBack(o) {
     Owl.navigateBack(o, docBuildContext);
   }
 
-  request(o) async {
+  request(o) async{
     String method = o['method'];
     if (method == null) {
       method = 'GET';
@@ -103,8 +109,8 @@ class WeiXinAdapter {
     method = method.toUpperCase();
     var url = o['url'];
     var data = o['data'];
-    Map<String, String> header = o['header'];
-    var response;
+    var header = o['header'];
+    Response response;
     var dio = new Dio();
     if (header != null) {
       dio.options.headers = header;
@@ -118,7 +124,7 @@ class WeiXinAdapter {
           String contentType = header['Content-Type'];
           dio.options.contentType = ContentType.parse(contentType);
         }
-        response = await dio.post(url, data: data);
+        response =  await dio.post(url, data: data);
       }
       var res = {};
       res['data'] = response.data;
@@ -136,8 +142,8 @@ class WeiXinAdapter {
         // Something happened in setting up or sending the request that triggered an Error
         print(e.message);
       }
-      if (o['fail'] != null) {
-        o['fail']({'msg': e.message});
+      if (o['failed'] != null) {
+        o['failed']({'msg': e.message});
       }
       return;
     }

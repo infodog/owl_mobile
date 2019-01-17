@@ -11,6 +11,7 @@ import '../model/ScreenModel.dart';
 import '../utils/owl.dart';
 import '../utils/uitools.dart';
 import '../utils/wx.dart';
+import '../pageJump/page_jumpper.dart';
 
 class __pageName extends StatefulWidget {
   __pageName({this.params, this.appCss, this.url});
